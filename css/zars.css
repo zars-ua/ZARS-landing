@@ -333,6 +333,18 @@ section + section { border-top: 1px solid var(--line-2); }
   max-width: 80ch;
 }
 
+/* Перший екран не чекає на скрипт. Чиста CSS-анімація стартує з першим
+   кадром, тож між появою карти й появою слів немає паузи. Усе нижче
+   згину лишається на .plot зі спостерігачем прокрутки. */
+.rise { animation: rise 700ms var(--ease) both; }
+.rise--1 { animation-delay: 90ms; }
+.rise--2 { animation-delay: 180ms; }
+.rise--3 { animation-delay: 270ms; }
+@keyframes rise {
+  from { opacity: 0; transform: translateY(1.2rem); }
+  to   { opacity: 1; transform: none; }
+}
+
 /* ---------- Рух: усе на карті наноситься, а не проявляється ----------
 
    Ховаємо лише під html.js — клас ставить синхронний скрипт у <head>.
@@ -360,6 +372,7 @@ section + section { border-top: 1px solid var(--line-2); }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .js .plot { opacity: 1; transform: none; }
+  .rise { animation: none; }
   .draw path, .draw line, .draw circle, .draw polyline { stroke-dashoffset: 0; }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
