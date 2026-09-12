@@ -36,6 +36,12 @@
   if (calm) {
     plots.forEach((el) => el.classList.add('plot--in'));
   } else {
+    // Те, що вже у першому екрані, показуємо негайно: чекати на
+    // спостерігача означало б тримати героя порожнім зайві частки секунди.
+    const fold = innerHeight;
+    plots.forEach((el) => {
+      if (el.getBoundingClientRect().top < fold) el.classList.add('plot--in');
+    });
     const io = new IntersectionObserver(
       (entries) => entries.forEach((e) => {
         if (!e.isIntersecting) return;
@@ -44,7 +50,9 @@
       }),
       { rootMargin: '0px 0px -12% 0px', threshold: 0.08 }
     );
-    plots.forEach((el) => io.observe(el));
+    plots.forEach((el) => {
+      if (!el.classList.contains('plot--in')) io.observe(el);
+    });
   }
 
   /* ---------- Берег: лінія наноситься, орієнтир пульсує ---------- */

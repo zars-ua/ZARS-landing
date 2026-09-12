@@ -333,16 +333,20 @@ section + section { border-top: 1px solid var(--line-2); }
   max-width: 80ch;
 }
 
-/* ---------- Рух: усе на карті наноситься, а не проявляється ---------- */
+/* ---------- Рух: усе на карті наноситься, а не проявляється ----------
 
-.plot { opacity: 0; transform: translateY(1.4rem); }
-.plot--in {
+   Ховаємо лише під html.js — клас ставить синхронний скрипт у <head>.
+   Без JS, до його завантаження чи якщо він упаде, сторінка просто
+   показує весь текст. Перший екран не має залежати від скрипта. */
+
+.js .plot { opacity: 0; transform: translateY(1.4rem); }
+.js .plot--in {
   opacity: 1; transform: none;
   transition: opacity 700ms var(--ease), transform var(--slow) var(--ease);
 }
-.plot--d1 { transition-delay: 90ms; }
-.plot--d2 { transition-delay: 180ms; }
-.plot--d3 { transition-delay: 270ms; }
+.js .plot--d1 { transition-delay: 90ms; }
+.js .plot--d2 { transition-delay: 180ms; }
+.js .plot--d3 { transition-delay: 270ms; }
 
 .draw path, .draw line, .draw circle, .draw polyline {
   stroke-dasharray: var(--len, 1200);
@@ -355,7 +359,7 @@ section + section { border-top: 1px solid var(--line-2); }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .plot { opacity: 1; transform: none; }
+  .js .plot { opacity: 1; transform: none; }
   .draw path, .draw line, .draw circle, .draw polyline { stroke-dashoffset: 0; }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
