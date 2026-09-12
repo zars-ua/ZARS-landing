@@ -1,0 +1,9 @@
+.DS_Store
+*.log
+
+# Внутрішні робочі матеріали — не для публічного репозиторію.
+PRODUCT.md
+.impeccable/
+
+__pycache__/
+*.pyc

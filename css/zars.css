@@ -1,0 +1,361 @@
+/* =============================================================
+   ЗАРС — лоція узбережжя
+   Одна система, три фарби друку: холдинг, ФБ29, ФБ29Б.
+   ============================================================= */
+
+/* ---------- Шрифти ---------- */
+
+@font-face {
+  font-family: 'Anglecia';
+  src: url('../assets/fonts/anglecia.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'History';
+  src: url('../assets/fonts/historypro.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../assets/fonts/montserrat-300.woff2') format('woff2');
+  font-weight: 300; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../assets/fonts/montserrat-400.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../assets/fonts/montserrat-500.woff2') format('woff2');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+
+/* ---------- Фарби друку ---------- */
+
+:root {
+  /* спільне для всіх видань карти */
+  --paper:      #ECE6DB;
+  --paper-deep: #DED6C7;
+
+  /* сітка й ритм */
+  --gut:   clamp(1.25rem, 4vw, 3rem);
+  --bleed: clamp(1.25rem, 5vw, 5.5rem);
+  --col:   min(1360px, 100% - var(--bleed) * 2);
+  --read:  68ch;
+
+  /* типографічна шкала */
+  --t-xs:  0.75rem;
+  --t-sm:  0.9375rem;        /* 15px — нижня межа для тексту, який читають */
+  --t-base: 1.0625rem;          /* 17px — нижня межа для аудиторії 35–65 */
+  --t-md:  1.25rem;
+  --t-lg:  clamp(1.5rem,  1.1rem + 1.8vw, 2.25rem);
+  --t-xl:  clamp(1.95rem, 1.35rem + 2.6vw, 3.1rem);
+  --t-2xl: clamp(2.4rem,  1.6rem + 3.4vw, 4.25rem);
+
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --slow: 900ms;
+}
+
+/* Видання 1 — холдинг. Нічна карта, теракотове чорнило. */
+[data-chart='holding'] {
+  --ground:   #0E1620;
+  --ground-2: #141E2A;
+  --field:    #23374E;
+  --text:     #E8E2D6;
+  --text-dim: #9AA4B0;
+  --ink:      #D0703F;   /* теракота, освітлена до AA на темному (5.26:1) */
+  --ink-pure: #B05523;   /* фірмова теракота гайдлайну — для плашок і лого */
+  --line:     rgba(232, 226, 214, 0.16);
+  --line-2:   rgba(232, 226, 214, 0.08);
+  --on-ink:   #0E1620;
+}
+
+/* Видання 2 — Французький бульвар, 29. Денна карта, синє чорнило. */
+[data-chart='fb29'] {
+  --ground:   #F1EDE5;
+  --ground-2: #E7E1D5;
+  --field:    #DCD5C6;
+  --text:     #1C2433;
+  --text-dim: #5A6478;
+  --ink:      #294069;   /* фірмовий синій ФБ29 (8.85:1) */
+  --ink-pure: #294069;
+  --line:     rgba(28, 36, 51, 0.18);
+  --line-2:   rgba(28, 36, 51, 0.09);
+  --on-ink:   #F1EDE5;
+}
+
+/* Видання 3 — Французький бульвар, 29Б. Нічна карта, руде чорнило. */
+[data-chart='fb29b'] {
+  --ground:   #1A0F0A;
+  --ground-2: #241610;
+  --field:    #2C1C14;
+  --text:     #EDE3DA;
+  --text-dim: #A79589;
+  --ink:      #C4652E;   /* руда, освітлена до AA на темному (4.70:1) */
+  --ink-pure: #913814;   /* руда презентації ФБ29Б */
+  --line:     rgba(237, 227, 218, 0.16);
+  --line-2:   rgba(237, 227, 218, 0.08);
+  --on-ink:   #1A0F0A;
+}
+
+/* ---------- Основа ---------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+[data-chart='fb29'] html, html[data-chart='fb29'] { color-scheme: light; }
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--text);
+  font: 400 var(--t-base)/1.65 'Montserrat', system-ui, sans-serif;
+  font-variant-numeric: tabular-nums;
+  overflow-x: hidden;
+}
+
+/* Поверхні, які ми не малювали, теж належать карті. */
+::selection { background: var(--ink); color: var(--on-ink); }
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+html { scrollbar-color: var(--ink) var(--ground-2); scrollbar-width: thin; }
+::-webkit-scrollbar { width: 11px; height: 11px; }
+::-webkit-scrollbar-track { background: var(--ground-2); }
+::-webkit-scrollbar-thumb { background: var(--ink); border: 3px solid var(--ground-2); }
+
+img, svg, video { display: block; max-width: 100%; }
+a { color: inherit; }
+
+/* ---------- Типографіка ---------- */
+
+h1, h2, h3 {
+  font-family: 'Anglecia', Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+  margin: 0;
+}
+h1 { font-size: var(--t-2xl); line-height: 1.02; }
+h2 { font-size: var(--t-xl);  line-height: 1.08; }
+h3 { font-size: var(--t-lg);  line-height: 1.18; }
+
+p { margin: 0 0 1.1em; max-width: var(--read); }
+p:last-child { margin-bottom: 0; }
+
+.lead {
+  font-family: 'Anglecia', Georgia, serif;
+  font-size: var(--t-md);
+  line-height: 1.55;
+  color: var(--text);
+}
+.dim { color: var(--text-dim); }
+
+/* Підпис на карті: капітель History Pro з розрядкою. */
+.label {
+  font-family: 'History', Georgia, serif;
+  font-size: var(--t-xs);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin: 0;
+}
+
+/* Виміряне число — відмітка на мірній смузі: поділка, цифра, підпис. */
+.sounding {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding-top: 1.35rem;
+}
+.sounding::before {
+  content: '';
+  position: absolute; left: 0; top: 0;
+  width: 1px; height: 0.85rem;
+  background: var(--ink);
+}
+.sounding b {
+  font-family: 'Anglecia', Georgia, serif;
+  font-weight: 400;
+  font-size: var(--t-lg);
+  line-height: 1;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.sounding span { font-size: var(--t-sm); color: var(--text-dim); line-height: 1.4; }
+
+/* ---------- Сітка сторінки ---------- */
+
+.wrap { width: var(--col); margin-inline: auto; }
+
+section { padding-block: clamp(4rem, 8vw, 7.5rem); }
+section + section { border-top: 1px solid var(--line-2); }
+
+/* Вставка «на папері» серед нічної карти. */
+.inset {
+  background: var(--paper);
+  color: #1C2433;
+  --text: #1C2433;
+  --text-dim: #5A6478;
+  --line: rgba(28, 36, 51, 0.18);
+  --line-2: rgba(28, 36, 51, 0.09);
+}
+[data-chart='holding'] .inset { --ink: #9C4618; }
+[data-chart='fb29b']  .inset { --ink: #8A3512; }
+
+/* ---------- Картуш ---------- */
+
+.cartouche {
+  border: 1px solid var(--line);
+  border-top-width: 3px;
+  padding: clamp(1.1rem, 2.4vw, 1.8rem) clamp(1.2rem, 2.8vw, 2.2rem);
+  background: color-mix(in srgb, var(--ground) 72%, transparent);
+  backdrop-filter: blur(6px);
+}
+.cartouche .label { margin-bottom: 0.65rem; }
+.cartouche dl { margin: 0; display: grid; gap: 0.55rem 1.5rem; }
+.cartouche__line { margin: 0; font-size: var(--t-sm); color: var(--text-dim); white-space: nowrap; }
+.cartouche dt { font-size: var(--t-sm); color: var(--text-dim); }
+.cartouche dd { margin: 0; font-size: var(--t-sm); }
+
+/* ---------- Дії ---------- */
+
+.act {
+  --pad: 1.05rem 2rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: var(--pad);
+  font: 500 var(--t-sm)/1 'Montserrat', sans-serif;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: var(--on-ink);
+  cursor: pointer;
+  transition: background 420ms var(--ease), color 420ms var(--ease);
+}
+.act::after {
+  content: '';
+  width: 2.4rem; height: 1px;
+  background: currentColor;
+  transform: scaleX(0.625);
+  transform-origin: left;
+  transition: transform 420ms var(--ease);
+}
+.act:hover, .act:focus-visible { background: transparent; color: var(--ink); }
+.act:hover::after, .act:focus-visible::after { transform: scaleX(1); }
+
+.act--quiet { background: transparent; color: var(--ink); }
+.act--quiet:hover, .act--quiet:focus-visible { background: var(--ink); color: var(--on-ink); }
+
+/* Посилання в тексті — підкреслення як лінія пеленга. */
+.tie {
+  text-decoration: none;
+  background-image: linear-gradient(var(--ink), var(--ink));
+  background-size: 100% 1px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  padding-bottom: 2px;
+  transition: background-size 380ms var(--ease);
+}
+.tie:hover { background-size: 0% 1px; background-position: 100% 100%; }
+
+/* ---------- Шапка ---------- */
+
+.top {
+  position: fixed; inset: 0 0 auto 0; z-index: 60;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--gut);
+  padding: 1.1rem var(--bleed);
+  transition: background 500ms var(--ease), border-color 500ms var(--ease);
+  border-bottom: 1px solid transparent;
+}
+/* Над фото шапка інакше нечитабельна: постійна м'яка підкладка згори. */
+.top::before {
+  content: '';
+  position: absolute; inset: -1px 0 auto 0; height: 8rem; z-index: -1;
+  background: linear-gradient(to bottom,
+    color-mix(in srgb, var(--ground) 78%, transparent) 0%,
+    color-mix(in srgb, var(--ground) 42%, transparent) 55%,
+    transparent 100%);
+  transition: opacity 400ms var(--ease);
+}
+.top[data-stuck]::before { opacity: 0; }
+.top[data-stuck] {
+  background: color-mix(in srgb, var(--ground) 88%, transparent);
+  backdrop-filter: blur(14px);
+  border-bottom-color: var(--line-2);
+}
+.top__mark { display: flex; align-items: center; gap: 0.9rem; color: var(--ink); }
+.top__mark svg { width: 78px; height: auto; }
+.top nav { display: flex; align-items: center; gap: clamp(1rem, 2.6vw, 2.4rem); }
+.top nav a {
+  font-family: 'History', Georgia, serif;
+  font-size: var(--t-xs);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--text-dim);
+  transition: color 300ms var(--ease);
+}
+.top nav a:hover, .top nav a[aria-current] { color: var(--text); }
+.top nav a[aria-current] { color: var(--ink); }
+
+/* ---------- Підвал ---------- */
+
+.foot { padding-block: clamp(3rem, 6vw, 5rem); border-top: 1px solid var(--line); }
+.foot a { text-decoration: none; }
+.foot__grid {
+  display: grid;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+}
+.fineprint {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line-2);
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  color: var(--text-dim);
+  max-width: 80ch;
+}
+
+/* ---------- Рух: усе на карті наноситься, а не проявляється ---------- */
+
+.plot { opacity: 0; transform: translateY(1.4rem); }
+.plot--in {
+  opacity: 1; transform: none;
+  transition: opacity 700ms var(--ease), transform var(--slow) var(--ease);
+}
+.plot--d1 { transition-delay: 90ms; }
+.plot--d2 { transition-delay: 180ms; }
+.plot--d3 { transition-delay: 270ms; }
+
+.draw path, .draw line, .draw circle, .draw polyline {
+  stroke-dasharray: var(--len, 1200);
+  stroke-dashoffset: var(--len, 1200);
+}
+.draw--in path, .draw--in line, .draw--in circle, .draw--in polyline {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1600ms var(--ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .plot { opacity: 1; transform: none; }
+  .draw path, .draw line, .draw circle, .draw polyline { stroke-dashoffset: 0; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

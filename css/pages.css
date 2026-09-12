@@ -1,0 +1,613 @@
+/* =============================================================
+   ЗАРС — блоки сторінок
+   ============================================================= */
+
+.vh {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap; border: 0;
+}
+.skip {
+  position: absolute; left: 1rem; top: -4rem; z-index: 100;
+  padding: 0.8rem 1.2rem;
+  background: var(--ink); color: var(--on-ink);
+  font-size: var(--t-sm); text-decoration: none;
+  transition: top 250ms var(--ease);
+}
+.skip:focus { top: 1rem; }
+
+.top__tel {
+  font-family: 'Montserrat', sans-serif !important;
+  letter-spacing: 0.04em !important;
+  text-transform: none !important;
+  font-size: var(--t-sm) !important;
+  color: var(--ink) !important;
+}
+
+/* ---------- Берег ---------- */
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  isolation: isolate;
+  display: flex;
+  align-items: flex-end;
+  padding-block: 6.25rem 3.5rem;
+  overflow: hidden;
+  border-top: 0;
+}
+.hero__map { position: absolute; inset: 0; pointer-events: none; }
+.hero__map svg { width: 100%; height: 100%; }
+/* Ліва частина кадру глушиться, щоб текст лежав на спокійному полі. */
+.hero::after {
+  content: '';
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(
+    100deg,
+    color-mix(in srgb, var(--ground) 93%, transparent) 0%,
+    color-mix(in srgb, var(--ground) 74%, transparent) 36%,
+    color-mix(in srgb, var(--ground) 18%, transparent) 64%,
+    transparent 82%);
+}
+
+.coast__sea   { fill: var(--field); }
+.coast__line path {
+  stroke: var(--text); stroke-width: 2; fill: none; opacity: 0.68;
+  vector-effect: non-scaling-stroke;
+}
+.coast__street path {
+  stroke: var(--text-dim); stroke-width: 1.5; fill: none; opacity: 0.45;
+  vector-effect: non-scaling-stroke;
+}
+.coast__rings circle {
+  stroke: var(--ink); stroke-width: 1; fill: none;
+  stroke-dasharray: 3 9; opacity: 0.55;
+  vector-effect: non-scaling-stroke;
+}
+/* Міра на карті має бути названа. */
+.coast__ringlabels text {
+  fill: var(--ink);
+  font-family: 'History', Georgia, serif;
+  font-size: 21px;
+  letter-spacing: 2.4px;
+  paint-order: stroke;
+  stroke: var(--ground);
+  stroke-width: 7px;
+  stroke-linejoin: round;
+}
+/* На вузькому екрані текст лягає поверх карти, і підпис кільця
+   опиняється всередині речення — там він читається як помилка набору. */
+@media (max-width: 900px) {
+  .coast__ringlabels { display: none; }
+}
+/* Смуга мілководдя: берег читається як берег, а не як діагональ. */
+.coast__shoal path {
+  fill: none;
+  stroke: var(--field);
+  stroke-width: 26;
+  opacity: 0.85;
+}
+.mark__halo { fill: none; stroke: var(--ink); stroke-width: 1; opacity: 0.55; }
+.mark__dot  { fill: var(--ink); }
+.mark--live .mark__halo { animation: swell 3.6s var(--ease) infinite; }
+@keyframes swell {
+  0%   { r: 10; opacity: 0.9; }
+  70%  { r: 44; opacity: 0; }
+  100% { r: 44; opacity: 0; }
+}
+
+.hero__body {
+  position: relative; z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, auto);
+  align-items: end;
+  gap: clamp(2rem, 5vw, 5rem);
+}
+.hero__lede { max-width: 42rem; }
+.hero__lede h1 { margin-bottom: clamp(1.2rem, 2.5vw, 1.9rem); }
+.hero__lede .lead { margin-bottom: clamp(1.6rem, 3vw, 2.2rem); max-width: 34rem; font-size: var(--t-base); }
+
+.legend {
+  display: grid; gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  min-width: min(26rem, 100%);
+}
+.legend__head {
+  padding: 1.1rem 1.4rem 1rem;
+  background: color-mix(in srgb, var(--ground) 88%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+.legend__head .label { margin-bottom: 0.5rem; }
+.legend__scale { margin: 0; font-size: var(--t-sm); color: var(--text-dim); line-height: 1.45; }
+.legend__item {
+  display: grid;
+  grid-template-columns: 1.25rem 1fr;
+  gap: 0.25rem 0.9rem;
+  padding: 1.15rem 1.4rem;
+  text-decoration: none;
+  background: color-mix(in srgb, var(--ground) 82%, transparent);
+  backdrop-filter: blur(8px);
+  transition: background 380ms var(--ease);
+}
+.legend__item:hover, .legend__item:focus-visible { background: var(--ground-2); }
+.legend__dot {
+  width: 0.6rem; height: 0.6rem; border-radius: 50%;
+  background: var(--ink); margin-top: 0.42rem;
+}
+.legend__dot--hollow { background: none; box-shadow: inset 0 0 0 1px var(--ink); }
+.legend__name { font-family: 'Anglecia', Georgia, serif; font-size: var(--t-md); }
+.legend__meta {
+  grid-column: 2; font-size: var(--t-sm); color: var(--text-dim);
+  letter-spacing: 0.01em; line-height: 1.45;
+}
+
+/* ---------- Дві колонки ---------- */
+
+.two {
+  display: grid;
+  grid-template-columns: minmax(0, 20rem) minmax(0, 1fr);
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: start;
+}
+.two__side { position: sticky; top: 7rem; }
+.two__main > .lead { margin-bottom: 2rem; }
+
+/* ---------- Реєстр ---------- */
+
+.ledger { margin: clamp(2.5rem, 5vw, 4rem) 0 0; display: grid; gap: 0; }
+.ledger > div {
+  display: grid;
+  grid-template-columns: minmax(0, 18rem) minmax(0, 1fr);
+  gap: 0.5rem clamp(1.5rem, 4vw, 3rem);
+  padding: clamp(1.4rem, 2.6vw, 2rem) 0;
+  border-top: 1px solid var(--line);
+}
+.ledger > div:last-child { border-bottom: 1px solid var(--line); }
+.ledger dt { font-family: 'Anglecia', Georgia, serif; font-size: var(--t-md); }
+.ledger dd { margin: 0; color: var(--text-dim); max-width: var(--read); }
+.ledger--tight > div { grid-template-columns: minmax(0, 12rem) minmax(0, 1fr); }
+
+/* ---------- Правила ---------- */
+
+.rules h2 { margin-bottom: clamp(2rem, 4vw, 3.5rem); }
+.rule {
+  display: grid;
+  grid-template-columns: minmax(0, 22rem) minmax(0, 1fr);
+  gap: 0.75rem clamp(1.5rem, 4vw, 3.5rem);
+  padding: clamp(1.6rem, 3vw, 2.6rem) 0;
+  border-top: 1px solid var(--line);
+}
+.rule:last-child { border-bottom: 1px solid var(--line); }
+.rule h3 { font-size: var(--t-md); line-height: 1.3; }
+.rule p { color: var(--text-dim); }
+
+/* ---------- Глибини ---------- */
+
+.soundings { background: var(--ground-2); }
+.sounding--long b { font-size: var(--t-lg); }
+.soundings__row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: clamp(1.5rem, 3vw, 2.5rem) 0;
+  border-top: 1px solid var(--ink);
+}
+.soundings__row .sounding { padding-inline: 0 1.5rem; }
+
+/* ---------- Об'єкти ---------- */
+
+.objects > .wrap h2 { margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+.object {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  align-items: stretch;
+  text-decoration: none;
+  border-top: 1px solid var(--line);
+}
+.object:last-child { border-bottom: 1px solid var(--line); }
+.object__shot { overflow: hidden; background: var(--field); }
+.object__shot img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 1.4s var(--ease), filter 1.4s var(--ease);
+  filter: saturate(0.82);
+}
+.object:hover .object__shot img { transform: scale(1.035); filter: saturate(1); }
+.object__card {
+  padding: clamp(2rem, 4vw, 3.5rem);
+  display: flex; flex-direction: column; gap: 1.1rem;
+  align-items: flex-start;
+}
+.object__card h3 { font-size: var(--t-lg); }
+.object__status {
+  font-family: 'History', Georgia, serif;
+  font-size: var(--t-xs); letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--ink); margin: 0;
+}
+.object__card p:not(.object__status) { color: var(--text-dim); margin: 0; }
+.object__card .act { margin-top: auto; }
+.object--fb29  .object__card { background: color-mix(in srgb, #294069 16%, var(--ground)); }
+.object--fb29b .object__card { background: color-mix(in srgb, #913814 12%, var(--ground)); }
+
+/* ---------- Місто ---------- */
+
+.city {
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border-block: 1px solid var(--line);
+}
+.city__item { background: var(--ground); padding: clamp(1.6rem, 3vw, 2.4rem); }
+.city__item h3 { font-size: var(--t-md); margin-bottom: 0.7rem; }
+.city__item p { color: var(--text-dim); font-size: var(--t-sm); margin: 0; line-height: 1.6; }
+
+/* ---------- Визнання ---------- */
+
+.awards h2 { margin-bottom: clamp(2rem, 4vw, 3rem); }
+.awards__list { list-style: none; margin: 0; padding: 0; }
+.awards__list li {
+  display: grid;
+  grid-template-columns: minmax(0, 20rem) minmax(0, 1fr);
+  gap: 0.4rem clamp(1.5rem, 4vw, 3rem);
+  padding: 1.3rem 0;
+  border-top: 1px solid var(--line);
+}
+.awards__list li:last-child { border-bottom: 1px solid var(--line); }
+.awards__list b { font-family: 'Anglecia', Georgia, serif; font-weight: 400; font-size: var(--t-md); }
+.awards__list span { color: var(--text-dim); font-size: var(--t-sm); }
+
+/* ---------- Форма ---------- */
+
+.enquire { background: var(--ground-2); }
+.form { display: grid; gap: 1.4rem; max-width: 34rem; }
+.form button[type='submit'] { justify-self: start; }
+.field { display: grid; gap: 0.5rem; }
+.field > span {
+  font-family: 'History', Georgia, serif;
+  font-size: var(--t-xs); letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--text-dim);
+}
+.field input, .field select, .field textarea {
+  font: 400 var(--t-base)/1.5 'Montserrat', sans-serif;
+  color: var(--text);
+  background: transparent;
+  border: 0; border-bottom: 1px solid var(--line);
+  padding: 0.65rem 0;
+  border-radius: 0;
+  transition: border-color 300ms var(--ease);
+}
+.field input:hover, .field select:hover, .field textarea:hover { border-bottom-color: var(--text-dim); }
+.field input:focus, .field select:focus, .field textarea:focus {
+  outline: none; border-bottom-color: var(--ink); border-bottom-width: 2px;
+  padding-bottom: calc(0.65rem - 1px);
+}
+.field textarea { resize: vertical; min-height: 4.5rem; }
+.field select { appearance: none; cursor: pointer; }
+.field--select { position: relative; }
+.field--select::after {
+  content: ''; position: absolute; right: 0.2rem; bottom: 1.2rem;
+  width: 0.5rem; height: 0.5rem;
+  border-right: 1px solid var(--text-dim); border-bottom: 1px solid var(--text-dim);
+  transform: rotate(45deg); pointer-events: none;
+}
+.field option { background: var(--ground); color: var(--text); }
+
+.form__consent { font-size: 0.8125rem; color: var(--text-dim); line-height: 1.65; max-width: 34rem; }
+.form__note {
+  font-size: var(--t-sm); min-height: 1.5rem;
+  color: var(--ink);
+}
+.form__note[data-state='err'] { color: #E4673E; }
+.form button[disabled] { opacity: 0.5; cursor: progress; }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+/* ---------- Адаптація ---------- */
+
+@media (max-width: 1000px) {
+  .hero__body { grid-template-columns: 1fr; }
+  .legend { min-width: 0; }
+  .two, .rule, .ledger > div, .ledger--tight > div, .awards__list li { grid-template-columns: 1fr; }
+  .two__side { position: static; }
+  .object { grid-template-columns: 1fr; }
+  .object__shot { aspect-ratio: 16 / 9; }
+}
+@media (max-width: 720px) {
+  .top { padding-inline: var(--gut); }
+  .top nav { gap: 1.1rem; }
+  .top nav a { white-space: nowrap; letter-spacing: 0.14em; }
+  .nav-full { display: none; }          /* «Бульвар, 29» стає просто «29» */
+  .cartouche__line { white-space: normal; }
+  .top__tel { display: none; }
+  .top__mark svg { width: 62px; }
+  .hero { padding-block: 7rem 2.5rem; min-height: 92svh; }
+  .soundings__row { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ---------- Кадр на весь екран ---------- */
+
+.shot-hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: flex-end;
+  padding-block: 8rem 3.5rem;
+  overflow: hidden;
+}
+.shot-hero__bg {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+/* Світле видання: фото лишається на повну силу, а текст переїздить
+   у титульний блок на папері — так, як заголовок стоїть на самій карті. */
+[data-chart='fb29'] .shot-hero::after { opacity: 0.35; }
+/* Над світлим фото градієнта замало: навігація йде на суцільній паперовій смузі. */
+[data-chart='fb29'] .top::before {
+  height: 5.5rem;
+  background: linear-gradient(to bottom,
+    var(--ground) 0%, var(--ground) 62%,
+    color-mix(in srgb, var(--ground) 55%, transparent) 82%,
+    transparent 100%);
+}
+[data-chart='fb29'] .shot-hero__panel {
+  background: color-mix(in srgb, var(--paper) 94%, transparent);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--line);
+  border-top-width: 3px;
+  padding: clamp(1.8rem, 3.5vw, 2.8rem) clamp(1.6rem, 3vw, 2.6rem);
+  max-width: 40rem;
+}
+.shot-hero::after {
+  content: '';
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(
+    100deg,
+    color-mix(in srgb, var(--ground) 92%, transparent) 0%,
+    color-mix(in srgb, var(--ground) 70%, transparent) 38%,
+    color-mix(in srgb, var(--ground) 12%, transparent) 72%);
+}
+.shot-hero__body { position: relative; z-index: 2; }
+.shot-hero__panel { max-width: 44rem; }
+.shot-hero__body h1 { margin-bottom: 1.1rem; }
+.shot-hero__status {
+  font-family: 'History', Georgia, serif;
+  font-size: var(--t-xs); letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--ink); margin-bottom: 1.4rem;
+}
+.shot-hero__body .lead { margin-bottom: clamp(1.8rem, 3.5vw, 2.6rem); }
+
+/* Монограма «29» з фірмового логотипа будинку. */
+.mono {
+  font-family: 'Anglecia', Georgia, serif;
+  font-size: clamp(3.5rem, 8vw, 6rem);
+  line-height: 0.9;
+  color: var(--ink);
+  margin-bottom: 0.6rem;
+  letter-spacing: -0.02em;
+}
+
+/* ---------- Нагороди IPA ---------- */
+
+.ipa__list {
+  list-style: none; margin: clamp(2rem, 4vw, 3rem) 0 0; padding: 0;
+  display: grid; gap: 0;
+  max-width: 48rem;
+}
+.ipa__list li {
+  padding: 1.1rem 0 1.1rem 2.2rem;
+  border-top: 1px solid var(--line);
+  font-family: 'Anglecia', Georgia, serif;
+  font-size: var(--t-md);
+  position: relative;
+}
+.ipa__list li:last-child { border-bottom: 1px solid var(--line); }
+.ipa__list li::before {
+  content: ''; position: absolute; left: 0; top: 1.7rem;
+  width: 1.2rem; height: 1px; background: var(--ink);
+}
+
+/* ---------- Розріз стіни ---------- */
+
+.wall__chart { display: grid; gap: 1.1rem; margin-bottom: clamp(2rem, 4vw, 3rem); }
+.wall__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 5.5rem minmax(0, 12rem);
+  align-items: center;
+  gap: 1.25rem;
+}
+.wall__bar {
+  height: 2.6rem;
+  /* ширина пропорційна реальній товщині у міліметрах */
+  width: calc(var(--mm) / 640 * 100%);
+  background: var(--ink);
+  opacity: 0.9;
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 1100ms var(--ease);
+}
+.plot--in .wall__bar, .plot--in.wall__row .wall__bar { transform: scaleX(1); }
+.wall__row b {
+  font-family: 'Anglecia', Georgia, serif; font-weight: 400;
+  font-size: var(--t-md); color: var(--ink);
+}
+.wall__what { font-size: var(--t-sm); color: var(--text-dim); }
+
+/* ---------- Вибір поверху ---------- */
+
+.plate { margin-top: clamp(2rem, 4vw, 3rem); }
+.plate__ctrl {
+  display: flex; flex-wrap: wrap; gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-bottom: 1px;
+}
+.plate__ctrl + .plate__ctrl { margin-bottom: clamp(1.5rem, 3vw, 2.2rem); }
+.plate__ctrl button {
+  flex: 1 1 auto;
+  padding: 0.9rem 1.2rem;
+  border: 0;
+  background: var(--ground);
+  color: var(--text-dim);
+  font: 400 var(--t-sm)/1.2 'Montserrat', sans-serif;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background 300ms var(--ease), color 300ms var(--ease);
+  white-space: nowrap;
+}
+.plate__ctrl button:hover { color: var(--text); background: var(--ground-2); }
+.plate__ctrl button[aria-pressed='true'] { background: var(--ink); color: var(--on-ink); }
+
+.plate__view { margin: 0; background: var(--paper); border: 1px solid var(--line); }
+.plate__view img {
+  /* аркуш креслення білий; darken робить його папером світу, лінії лишає */
+  mix-blend-mode: darken;
+  width: 100%; height: auto;
+  aspect-ratio: 3 / 2;
+  /* креслення має вміщатися в екран цілком, а не вимагати прокрутки */
+  max-height: 74svh;
+  object-fit: contain;
+  object-position: center;
+  transition: opacity 320ms var(--ease);
+}
+.plate__view img[data-loading] { opacity: 0.45; }
+.plate__view img { cursor: zoom-in; }
+.plate__view figcaption {
+  display: flex; flex-wrap: wrap; gap: 0.6rem 1.5rem; justify-content: space-between;
+  margin-top: 0.9rem;
+  font-family: 'History', Georgia, serif;
+  font-size: var(--t-xs); letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--text-dim);
+}
+.plate__zoom { color: var(--ink); }
+.plate__note {
+  margin-top: 1.2rem; font-size: var(--t-sm); color: var(--text-dim);
+  max-width: 60ch;
+}
+
+/* ---------- Смуги готовності ---------- */
+
+.bars { margin-top: clamp(2rem, 4vw, 3rem); display: grid; gap: 0.85rem; }
+.bar {
+  display: grid;
+  grid-template-columns: minmax(0, 16rem) minmax(0, 1fr) 3.5rem;
+  align-items: center;
+  gap: 1.25rem;
+}
+.bar b { font-weight: 400; font-size: var(--t-sm); }
+.bar__track { height: 3px; background: var(--line); display: block; }
+.bar__fill {
+  display: block; height: 100%;
+  background: var(--ink);
+  width: calc(var(--p) * 1%);
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 1400ms var(--ease);
+}
+.plot--in .bar__fill { transform: scaleX(1); }
+.bar__num {
+  font-size: var(--t-sm); color: var(--text-dim); text-align: right;
+}
+.bar--total b, .bar--total .bar__num {
+  color: var(--ink);
+  font-family: 'Anglecia', Georgia, serif;
+  font-size: var(--t-md);
+}
+.bar--total .bar__track { height: 5px; }
+
+/* ---------- Великий блок із кадром ---------- */
+
+.feature {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 0;
+}
+.feature__shot img { width: 100%; height: 100%; object-fit: cover; }
+.feature__body {
+  padding: clamp(2.5rem, 6vw, 6rem) var(--bleed);
+  max-width: 46rem;
+}
+.feature__body .lead { margin-block: 1.5rem; }
+
+/* ---------- Галерея ---------- */
+
+.gallery > .wrap { margin-bottom: clamp(2rem, 4vw, 3rem); }
+.gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border-block: 1px solid var(--line);
+}
+.gallery__cell {
+  padding: 0; border: 0; margin: 0;
+  background: var(--field);
+  cursor: zoom-in;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+}
+.gallery__cell--wide { grid-column: span 2; aspect-ratio: 16 / 9; }
+.gallery__cell img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 1.2s var(--ease), filter 700ms var(--ease);
+  filter: saturate(0.88);
+}
+.gallery__cell:hover img { transform: scale(1.05); filter: saturate(1); }
+
+.lightbox[hidden] { display: none; }
+.lightbox {
+  position: fixed; inset: 0; z-index: 200;
+  display: grid; place-items: center;
+  padding: clamp(1rem, 4vw, 3rem);
+  background: color-mix(in srgb, var(--ground) 94%, transparent);
+  backdrop-filter: blur(10px);
+}
+.lightbox img { max-width: 100%; max-height: 88svh; object-fit: contain; }
+.lightbox__close {
+  position: absolute; top: 1.2rem; right: 1.2rem;
+  width: 3rem; height: 3rem;
+  border: 1px solid var(--line);
+  background: transparent; color: var(--text);
+  font-size: 1.1rem; cursor: pointer;
+  transition: background 300ms var(--ease);
+}
+.lightbox__close:hover { background: var(--ink); color: var(--on-ink); border-color: var(--ink); }
+
+/* ---------- Адаптація нових блоків ---------- */
+
+@media (max-width: 1000px) {
+  .feature { grid-template-columns: 1fr; }
+  .feature__shot { aspect-ratio: 16 / 9; }
+  .gallery__grid { grid-template-columns: repeat(2, 1fr); }
+  .gallery__cell--wide { grid-column: span 2; }
+  .bar { grid-template-columns: minmax(0, 1fr) 3.5rem; }
+  .bar__track { grid-column: 1 / -1; order: 3; }
+}
+@media (max-width: 900px) {
+  [data-chart='holding'] .shot-hero__panel,
+  [data-chart='fb29b'] .shot-hero__panel {
+    background: color-mix(in srgb, var(--ground) 82%, transparent);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--line);
+    border-top-width: 3px;
+    padding: clamp(1.5rem, 4vw, 2.2rem) clamp(1.4rem, 4vw, 2rem);
+  }
+}
+@media (max-width: 720px) {
+  .shot-hero { padding-block: 7rem 2.5rem; min-height: 92svh; }
+  .shot-hero::after {
+    background: linear-gradient(
+      to top,
+      color-mix(in srgb, var(--ground) 94%, transparent) 0%,
+      color-mix(in srgb, var(--ground) 74%, transparent) 55%,
+      color-mix(in srgb, var(--ground) 20%, transparent) 100%);
+  }
+  .wall__row { grid-template-columns: minmax(0, 1fr); gap: 0.3rem; }
+  .wall__bar { height: 1.6rem; }
+  .gallery__grid { grid-template-columns: 1fr; }
+  .gallery__cell, .gallery__cell--wide { grid-column: span 1; aspect-ratio: 16 / 10; }
+  .plate__ctrl button { flex: 1 1 45%; }
+}

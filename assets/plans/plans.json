@@ -1,0 +1,255 @@
+[
+ {
+  "id": "fb29b-f1",
+  "label": "1 поверх",
+  "section": null,
+  "widths": [
+   1200,
+   2400
+  ],
+  "ratio": 2.1536,
+  "bytes": 85380
+ },
+ {
+  "id": "fb29b-f2",
+  "label": "2 поверх",
+  "section": null,
+  "widths": [
+   1200,
+   2400
+  ],
+  "ratio": 1.9533,
+  "bytes": 162768
+ },
+ {
+  "id": "fb29b-f3",
+  "label": "3 поверх",
+  "section": null,
+  "widths": [
+   1200,
+   2400
+  ],
+  "ratio": 1.755,
+  "bytes": 170054
+ },
+ {
+  "id": "fb29b-f47",
+  "label": "4–7 поверхи",
+  "section": null,
+  "widths": [
+   1200,
+   2400
+  ],
+  "ratio": 1.8289,
+  "bytes": 170052
+ },
+ {
+  "id": "fb29b-f8",
+  "label": "8 поверх",
+  "section": null,
+  "widths": [
+   1200,
+   2400
+  ],
+  "ratio": 1.8382,
+  "bytes": 157968
+ },
+ {
+  "id": "fb29b-f9",
+  "label": "9 поверх",
+  "section": null,
+  "widths": [
+   1200,
+   2400
+  ],
+  "ratio": 1.9,
+  "bytes": 150114
+ },
+ {
+  "id": "fb29b-f10",
+  "label": "10 поверх",
+  "section": null,
+  "widths": [
+   1200,
+   2400
+  ],
+  "ratio": 1.8255,
+  "bytes": 155766
+ },
+ {
+  "id": "fb29b-ph",
+  "label": "Пентхаус",
+  "section": null,
+  "widths": [
+   1200,
+   2400
+  ],
+  "ratio": 1.783,
+  "bytes": 88396
+ },
+ {
+  "id": "fb29-s1-f1",
+  "label": "1 поверх",
+  "section": "I секція",
+  "widths": [
+   1200,
+   2400
+  ],
+  "ratio": 0.908,
+  "bytes": 844246
+ },
+ {
+  "id": "fb29-s1-f2",
+  "label": "2 поверх",
+  "section": "I секція",
+  "widths": [
+   1200,
+   2400
+  ],
+  "ratio": 0.8779,
+  "bytes": 742558
+ },
+ {
+  "id": "fb29-s1-ft",
+  "label": "Типовий поверх",
+  "section": "I секція",
+  "widths": [
+   1200,
+   2400
+  ],
+  "ratio": 0.8779,
+  "bytes": 636206
+ },
+ {
+  "id": "fb29-s1-p1",
+  "label": "Пентхаус, рівень 1",
+  "section": "I секція",
+  "widths": [
+   1200,
+   2400
+  ],
+  "ratio": 0.8733,
+  "bytes": 988834
+ },
+ {
+  "id": "fb29-s1-p2",
+  "label": "Пентхаус, рівень 2",
+  "section": "I секція",
+  "widths": [
+   1200,
+   2400
+  ],
+  "ratio": 0.8779,
+  "bytes": 573586
+ },
+ {
+  "id": "fb29-s2-f1",
+  "label": "1 поверх",
+  "section": "II секція",
+  "widths": [
+   1200,
+   2400
+  ],
+  "ratio": 1.151,
+  "bytes": 401116
+ },
+ {
+  "id": "fb29-s2-f2",
+  "label": "2 поверх",
+  "section": "II секція",
+  "widths": [
+   1200,
+   2400
+  ],
+  "ratio": 1.3177,
+  "bytes": 516660
+ },
+ {
+  "id": "fb29-s2-ft",
+  "label": "Типовий поверх",
+  "section": "II секція",
+  "widths": [
+   1200,
+   2400
+  ],
+  "ratio": 1.3801,
+  "bytes": 509762
+ },
+ {
+  "id": "fb29-s2-p1",
+  "label": "Пентхаус, рівень 1",
+  "section": "II секція",
+  "widths": [
+   1200,
+   2400
+  ],
+  "ratio": 1.3801,
+  "bytes": 354444
+ },
+ {
+  "id": "fb29-s2-p2",
+  "label": "Пентхаус, рівень 2",
+  "section": "II секція",
+  "widths": [
+   1200,
+   2400
+  ],
+  "ratio": 1.3786,
+  "bytes": 386772
+ },
+ {
+  "id": "fb29-s3-f1",
+  "label": "1 поверх",
+  "section": "III секція",
+  "widths": [
+   1200,
+   2400
+  ],
+  "ratio": 0.8992,
+  "bytes": 826272
+ },
+ {
+  "id": "fb29-s3-f2",
+  "label": "2 поверх",
+  "section": "III секція",
+  "widths": [
+   1200,
+   2400
+  ],
+  "ratio": 0.8653,
+  "bytes": 748784
+ },
+ {
+  "id": "fb29-s3-ft",
+  "label": "Типовий поверх",
+  "section": "III секція",
+  "widths": [
+   1200,
+   2400
+  ],
+  "ratio": 0.8529,
+  "bytes": 600850
+ },
+ {
+  "id": "fb29-s3-p1",
+  "label": "Пентхаус, рівень 1",
+  "section": "III секція",
+  "widths": [
+   1200,
+   2400
+  ],
+  "ratio": 0.8679,
+  "bytes": 934042
+ },
+ {
+  "id": "fb29-s3-p2",
+  "label": "Пентхаус, рівень 2",
+  "section": "III секція",
+  "widths": [
+   1200,
+   2400
+  ],
+  "ratio": 0.8653,
+  "bytes": 590908
+ }
+]

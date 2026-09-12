@@ -1,0 +1,32 @@
+<form class="form" data-lead-form novalidate>
+        <p class="hp" aria-hidden="true"><label>Не заповнюйте це поле<input type="text" name="company" tabindex="-1" autocomplete="off"></label></p>
+
+        <label class="field">
+          <span>Як до вас звертатися</span>
+          <input type="text" name="name" autocomplete="name" placeholder="Ім'я">
+        </label>
+
+        <label class="field">
+          <span>Телефон</span>
+          <input type="tel" name="phone" autocomplete="tel" required placeholder="+380 __ ___ __ __">
+        </label>
+
+        <label class="field field--select">
+          <span>Який будинок цікавить</span>
+          <select name="object">
+            <option value="Французький бульвар, 29">Французький бульвар, 29</option>
+            <option value="Французький бульвар, 29Б">Французький бульвар, 29Б</option>
+            <option value="Ще не вирішив">Ще не вирішив</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Що показати передусім</span>
+          <textarea name="comment" rows="2" placeholder="Площа, поверх, пентхаус, умови оплати…"></textarea>
+        </label>
+
+        <button class="act" type="submit">Надіслати</button>
+        <p class="form__note" data-note role="status" aria-live="polite"></p>
+        <p class="form__consent">Надсилаючи форму, ви погоджуєтеся на обробку наданих контактних
+          даних для зв'язку з вами. Ціни та наявність лотів консультант повідомляє особисто.</p>
+      </form>
