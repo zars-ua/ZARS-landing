@@ -299,7 +299,7 @@
   font-size: var(--t-sm); min-height: 1.5rem;
   color: var(--ink);
 }
-.form__note[data-state='err'] { color: #E4673E; }
+.form__note[data-state='err'] { color: var(--warn); }
 .form button[disabled] { opacity: 0.5; cursor: progress; }
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 
