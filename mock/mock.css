@@ -9,7 +9,7 @@
 /* ЗАРС — гайдлайн: теракота + сірі. Жодного синього. */
 [data-site='zars'] {
   --text-font: 'Montserrat', system-ui, sans-serif;
-  --label-font: 'History', 'Montserrat', sans-serif;
+  --label-font: 'History', var(--text-font);
   --ground: #F3F2EF; --ink: #3F4440; --ink-2: #565D5B; --muted: #585D5C; --stone: #DCDFE0; /* #6D7271 гайдлайну = 4,37 на ґрунті — для тексту затемнено */
   --brand: #B05523; --on-brand: #FFFFFF; --scrim: 20, 21, 20;
 }
@@ -23,7 +23,7 @@
 /* ФБ29Б — презентація: руда #913814, темно-коричневий #261610, Montserrat + History Pro */
 [data-site='fb29b'] {
   --text-font: 'Montserrat', system-ui, sans-serif;
-  --label-font: 'History', 'Montserrat', sans-serif;
+  --label-font: 'History', var(--text-font);
   --ground: #F4EFE9; --ink: #261610; --ink-2: #5A4338; --muted: #6E5A50; --stone: #E6DCD2;
   --brand: #913814; --on-brand: #FFFFFF; --scrim: 38, 22, 16;
 }
@@ -72,7 +72,7 @@ html.js .h-zars .bar:not([data-stuck]) .bar__logo { opacity: 0; transform: trans
     linear-gradient(0deg, rgba(var(--scrim), 0.82) 0%, rgba(var(--scrim), 0.5) 30%, rgba(var(--scrim), 0) 62%);
 }
 .hero__body { position: absolute; z-index: 2; left: clamp(1.25rem, 3.5vw, 3.5rem); right: clamp(1.25rem, 3.5vw, 3.5rem); bottom: clamp(2rem, 6vh, 4rem); }
-.hero__todo { position: absolute; z-index: 3; top: 6.5rem; right: clamp(1.25rem, 3.5vw, 3.5rem); padding: 0.4rem 0.7rem; background: rgba(0,0,0,0.55); font: 400 0.75rem/1.3 'Montserrat', sans-serif; letter-spacing: 0.04em; }
+.hero__todo { position: absolute; z-index: 3; top: 6.5rem; right: clamp(1.25rem, 3.5vw, 3.5rem); padding: 0.4rem 0.7rem; background: rgba(0,0,0,0.55); font: 400 0.75rem/1.3 var(--text-font); letter-spacing: 0.04em; }
 
 .act {
   display: inline-flex; align-items: center; gap: 1.1rem;
@@ -92,7 +92,7 @@ html.js .h-zars .bar:not([data-stuck]) .bar__logo { opacity: 0; transform: trans
 .h-zars__projects { display: grid; min-width: 22rem; border-top: 1px solid rgba(255,255,255,0.4); }
 .h-zars__projects a { display: flex; justify-content: space-between; align-items: baseline; gap: 2rem; padding: 0.95rem 0; border-bottom: 1px solid rgba(255,255,255,0.4); }
 .h-zars__projects b { font: 400 0.875rem/1.2 'History', sans-serif; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 400; }
-.h-zars__projects span { font: 300 0.8125rem/1 'Montserrat', sans-serif; opacity: 0.85; }
+.h-zars__projects span { font: 300 0.8125rem/1 var(--text-font); opacity: 0.85; }
 
 /* --- ФБ29 --- */
 .h-29 .hero::after {
@@ -110,9 +110,9 @@ html.js .h-zars .bar:not([data-stuck]) .bar__logo { opacity: 0; transform: trans
 /* --- ФБ29Б --- */
 .h-29b .hero__body { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 2rem; }
 .h-29b h1 { margin: 0; font: 400 clamp(2.1rem, 1.1rem + 3.4vw, 4.6rem)/1.02 'History', sans-serif; letter-spacing: 0.04em; text-transform: uppercase; }
-.h-29b__sub { margin: 1rem 0 2rem; font: 300 clamp(1rem, 0.85rem + 0.5vw, 1.25rem)/1.5 'Montserrat', sans-serif; letter-spacing: 0.02em; }
+.h-29b__sub { margin: 1rem 0 2rem; font: 300 clamp(1rem, 0.85rem + 0.5vw, 1.25rem)/1.5 var(--text-font); letter-spacing: 0.02em; }
 .h-29b__status { display: grid; gap: 0.45rem; margin: 0; text-align: right; font: 400 0.8125rem/1.2 'History', sans-serif; letter-spacing: 0.22em; text-transform: uppercase; }
-.h-29b__status span:last-child { font: 300 0.8125rem/1 'Montserrat', sans-serif; letter-spacing: 0.08em; text-transform: none; }
+.h-29b__status span:last-child { font: 300 0.8125rem/1 var(--text-font); letter-spacing: 0.08em; text-transform: none; }
 
 /* ---------- Другий екран (для перевірки шапки при прокрутці) ---------- */
 .next { padding: clamp(5rem, 10vw, 9rem) clamp(1.25rem, 3.5vw, 3.5rem); min-height: 90vh; }
@@ -171,7 +171,7 @@ html.js .h-zars .bar[data-on-veil]:not([data-stuck]) .bar__logo { opacity: 0; }
 .air--center { text-align: center; }
 .kicker-num { display: block; margin: 0 auto; font: 400 clamp(7rem, 4rem + 14vw, 17rem)/0.85 'History', sans-serif; letter-spacing: 0.02em; color: var(--brand); }
 .kicker-num + .kicker-unit { display: block; margin-top: 1rem; font: 400 clamp(0.9rem, 0.7rem + 0.6vw, 1.2rem)/1 'History', sans-serif; letter-spacing: 0.5em; text-transform: uppercase; color: var(--ink-2); }
-.words { max-width: 30ch; margin: clamp(3rem, 8vh, 5rem) auto 0; font: 300 clamp(1.5rem, 1rem + 1.8vw, 2.6rem)/1.35 'Montserrat', sans-serif; letter-spacing: -0.01em; color: var(--ink); text-wrap: balance; }
+.words { max-width: 30ch; margin: clamp(3rem, 8vh, 5rem) auto 0; font: 300 clamp(1.5rem, 1rem + 1.8vw, 2.6rem)/1.35 var(--text-font); letter-spacing: -0.01em; color: var(--ink); text-wrap: balance; }
 .words .w { display: inline-block; }
 
 .statement { margin: 0; font: 400 clamp(2.2rem, 1rem + 5vw, 6rem)/1.02 'History', sans-serif; letter-spacing: 0.02em; text-transform: uppercase; color: var(--ink); }
@@ -187,7 +187,7 @@ html.js .h-zars .bar[data-on-veil]:not([data-stuck]) .bar__logo { opacity: 0; }
 .pan::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(20,21,20,0.66) 0%, rgba(20,21,20,0.2) 32%, rgba(20,21,20,0) 55%); pointer-events: none; }
 .pan__cap { position: absolute; z-index: 2; left: clamp(1.25rem, 4vw, 4rem); bottom: clamp(1.6rem, 6vh, 4rem); max-width: 34rem; }
 .pan__title { margin: 0; font: 400 clamp(1.8rem, 1.1rem + 2.6vw, 3.6rem)/1 'History', sans-serif; letter-spacing: 0.08em; text-transform: uppercase; }
-.pan__text { margin: 0.9rem 0 0; font: 300 clamp(1rem, 0.9rem + 0.3vw, 1.15rem)/1.55 'Montserrat', sans-serif; }
+.pan__text { margin: 0.9rem 0 0; font: 300 clamp(1rem, 0.9rem + 0.3vw, 1.15rem)/1.55 var(--text-font); }
 .pans--split { grid-template-columns: 1.4fr 1fr; }
 .pans--split .pan:nth-child(2) { margin-top: clamp(4rem, 14vh, 10rem); }
 
@@ -233,7 +233,7 @@ html.js .h-zars .bar[data-on-veil]:not([data-stuck]) .bar__logo { opacity: 0; }
 .dist { list-style: none; margin: 0; padding: 0; border-top: 1px solid color-mix(in srgb, var(--ink) 16%, transparent); }
 .dist li { display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: 1rem; padding: 1.15rem 0; border-bottom: 1px solid color-mix(in srgb, var(--ink) 16%, transparent); }
 .dist__name { font: 400 clamp(1.05rem, 0.9rem + 0.5vw, 1.35rem)/1.2 var(--label-font); letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink); }
-.dist__val { font: 300 clamp(1.4rem, 1rem + 1.4vw, 2.3rem)/1 'Montserrat', sans-serif; font-variant-numeric: tabular-nums; color: var(--brand); white-space: nowrap; }
+.dist__val { font: 300 clamp(1.4rem, 1rem + 1.4vw, 2.3rem)/1 var(--text-font); font-variant-numeric: tabular-nums; color: var(--brand); white-space: nowrap; }
 [data-site='fb29'] .dist__val { font-family: 'Anglecia', serif; font-weight: 400; }
 .big-dist { display: flex; align-items: baseline; gap: 0.6rem; margin: 0; color: var(--brand); }
 .big-dist b { font: 400 clamp(6rem, 3rem + 12vw, 15rem)/0.8 'History', sans-serif; letter-spacing: -0.01em; font-weight: 400; }
@@ -261,7 +261,7 @@ html.js .h-zars .bar[data-on-veil]:not([data-stuck]) .bar__logo { opacity: 0; }
 .plans__stage img { display: block; width: 100%; height: auto; max-height: 72svh; object-fit: contain; transition: opacity 450ms ease; }
 .plans__stage[data-loading] img { opacity: 0.35; }
 .plans__meta { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-top: 1.2rem; color: var(--ink-2); }
-.plans__area { font: 400 clamp(1.6rem, 1rem + 1.8vw, 2.6rem)/1 'Montserrat', sans-serif; font-weight: 300; color: var(--ink); }
+.plans__area { font: 400 clamp(1.6rem, 1rem + 1.8vw, 2.6rem)/1 var(--text-font); font-weight: 300; color: var(--ink); }
 [data-site='fb29'] .plans__area { font-family: 'Anglecia', serif; font-weight: 400; }
 .zoom { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.8rem 1.1rem; border: 1px solid currentColor; background: none; color: var(--ink); font: 500 0.75rem/1 var(--text-font); letter-spacing: 0.14em; text-transform: uppercase; cursor: pointer; }
 .zoom svg { width: 14px; height: 14px; }
@@ -289,10 +289,10 @@ html.js .plans__stage img[hidden] { display: none; }
 @keyframes lb-in { from { opacity: 0; } to { opacity: 1; } }
 .lightbox img { max-width: 94vw; max-height: 86svh; object-fit: contain; background: transparent; }
 .lightbox--plan img { background: #fff; padding: 2vmin; }
-.lightbox__close { position: fixed; top: 1.2rem; right: 1.2rem; padding: 0.8rem 1rem; border: 1px solid rgba(255,255,255,0.5); background: none; color: #fff; font: 500 0.75rem/1 'Montserrat', sans-serif; letter-spacing: 0.14em; text-transform: uppercase; cursor: pointer; }
+.lightbox__close { position: fixed; top: 1.2rem; right: 1.2rem; padding: 0.8rem 1rem; border: 1px solid rgba(255,255,255,0.5); background: none; color: #fff; font: 500 0.75rem/1 var(--text-font); letter-spacing: 0.14em; text-transform: uppercase; cursor: pointer; }
 .lightbox__nav { position: fixed; bottom: 1.2rem; left: 50%; transform: translateX(-50%); display: flex; gap: 0.6rem; }
-.lightbox__nav button { padding: 0.8rem 1.2rem; border: 1px solid rgba(255,255,255,0.5); background: none; color: #fff; cursor: pointer; font: 500 0.75rem/1 'Montserrat', sans-serif; letter-spacing: 0.14em; }
-.lightbox__cap { position: fixed; left: 1.4rem; bottom: 1.6rem; font: 400 0.8125rem/1.3 'Montserrat', sans-serif; opacity: 0.8; }
+.lightbox__nav button { padding: 0.8rem 1.2rem; border: 1px solid rgba(255,255,255,0.5); background: none; color: #fff; cursor: pointer; font: 500 0.75rem/1 var(--text-font); letter-spacing: 0.14em; }
+.lightbox__cap { position: fixed; left: 1.4rem; bottom: 1.6rem; font: 400 0.8125rem/1.3 var(--text-font); opacity: 0.8; }
 
 /* Девелопер */
 .dev { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(2rem, 6vw, 8rem); align-items: center; }
@@ -305,7 +305,7 @@ html.js .plans__stage img[hidden] { display: none; }
 
 /* Приватна презентація */
 .enquiry { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 6vw, 8rem); padding: clamp(6rem, 14vh, 10rem) clamp(1.25rem, 3.5vw, 3.5rem); background: var(--stone); }
-.enquiry__phone { display: inline-block; margin-top: 2rem; font: 300 clamp(1.6rem, 1rem + 2vw, 2.8rem)/1 'Montserrat', sans-serif; color: var(--ink); border-bottom: 1px solid currentColor; }
+.enquiry__phone { display: inline-block; margin-top: 2rem; font: 300 clamp(1.6rem, 1rem + 2vw, 2.8rem)/1 var(--text-font); color: var(--ink); border-bottom: 1px solid currentColor; }
 [data-site='fb29'] .enquiry__phone { font-family: 'Anglecia', serif; font-weight: 400; }
 .form { display: grid; gap: 1.6rem; align-content: start; }
 .field { display: grid; gap: 0.5rem; }
