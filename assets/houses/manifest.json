@@ -1,0 +1,132 @@
+[
+ {
+  "slug": "f29",
+  "name": "Французький бульвар, 29",
+  "years": "2017–2020",
+  "widths": [
+   960,
+   1080
+  ],
+  "ratio": 2.5234,
+  "source": "https://zars.ua/objects/f29/ · f29.webp"
+ },
+ {
+  "slug": "f2",
+  "name": "Французький бульвар, 2",
+  "years": "2012–2016",
+  "widths": [
+   960,
+   1600,
+   2048
+  ],
+  "ratio": 1.7778,
+  "source": "https://zars.ua/objects/f2/ · f2.jpg"
+ },
+ {
+  "slug": "k9",
+  "name": "Провулок Каркашадзе, 9",
+  "years": "2008–2011",
+  "widths": [
+   960,
+   1600,
+   2048
+  ],
+  "ratio": 2.709,
+  "source": "https://zars.ua/objects/k9/ · k9.jpg"
+ },
+ {
+  "slug": "k7",
+  "name": "Провулок Каркашадзе, 7",
+  "years": "2003–2007",
+  "widths": [
+   960,
+   1600,
+   2048
+  ],
+  "ratio": 2.7054,
+  "source": "https://zars.ua/objects/k7/ · k7.jpg"
+ },
+ {
+  "slug": "d4a",
+  "name": "Вулиця Довженка, 4А",
+  "years": "2003–2007",
+  "widths": [
+   960,
+   1600,
+   2048
+  ],
+  "ratio": 2.7054,
+  "source": "https://zars.ua/objects/d4a/ · d4a.jpg"
+ },
+ {
+  "slug": "d4",
+  "name": "Вулиця Довженка, 4",
+  "years": "2003–2006",
+  "widths": [
+   960,
+   1600,
+   2048
+  ],
+  "ratio": 2.709,
+  "source": "https://zars.ua/objects/d4/ · d4.jpg"
+ },
+ {
+  "slug": "k3",
+  "name": "Провулок Каркашадзе, 3/1",
+  "years": "2003–2006",
+  "widths": [
+   960,
+   1600,
+   2048
+  ],
+  "ratio": 2.709,
+  "source": "https://zars.ua/objects/k3/ · k3.jpg"
+ },
+ {
+  "slug": "f35",
+  "name": "Французький бульвар, 35",
+  "years": "2001–2003",
+  "widths": [
+   960,
+   1079
+  ],
+  "ratio": 1.7983,
+  "source": "https://zars.ua/objects/f35/ · f35.jpg"
+ },
+ {
+  "slug": "d2",
+  "name": "Вулиця Довженка, 2",
+  "years": "1999–2002",
+  "widths": [
+   960,
+   1600,
+   2048
+  ],
+  "ratio": 2.709,
+  "source": "https://zars.ua/objects/d2/ · d2.jpg"
+ },
+ {
+  "slug": "d6a",
+  "name": "Вулиця Довженка, 6А",
+  "years": "1997–2000",
+  "widths": [
+   960,
+   1600,
+   2048
+  ],
+  "ratio": 2.709,
+  "source": "https://zars.ua/objects/d6a/ · d6a.jpg"
+ },
+ {
+  "slug": "d6",
+  "name": "Вулиця Довженка, 6",
+  "years": "1996–1999",
+  "widths": [
+   960,
+   1600,
+   2048
+  ],
+  "ratio": 2.709,
+  "source": "https://zars.ua/objects/d6/ · d6.jpg"
+ }
+]

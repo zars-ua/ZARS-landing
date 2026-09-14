@@ -118,3 +118,53 @@
     });
   });
 })();
+
+/* ---------- Карусель Будинків Каркашадзе ----------
+   Нативна прокрутка зі scroll-snap (свайп, трекпад, клавіатура), стрілки,
+   лічильник і лінія прогресу. Без JS — звичайна горизонтальна стрічка. */
+(() => {
+  document.querySelectorAll('[data-houses]').forEach((root) => {
+    const track = root.querySelector('.houses__track');
+    const slides = [...track.children];
+    const prev = root.querySelector('[data-prev]');
+    const next = root.querySelector('[data-next]');
+    const cur = root.querySelector('.houses__cur');
+    const bar = root.querySelector('.houses__bar i');
+    const pad = (n) => String(n).padStart(2, '0');
+    let idx = 0, raf = 0;
+
+    const nearest = () => {
+      const x = track.scrollLeft + track.clientWidth * 0.08;
+      let best = 0, d = Infinity;
+      slides.forEach((s, i) => { const dd = Math.abs(s.offsetLeft - track.offsetLeft - x); if (dd < d) { d = dd; best = i; } });
+      return best;
+    };
+    const paint = () => {
+      idx = nearest();
+      cur.textContent = pad(idx + 1);
+      bar.style.transform = `scaleX(${(idx + 1) / slides.length})`;
+      slides.forEach((s, i) => s.toggleAttribute('data-active', i === idx));
+      prev.disabled = idx === 0;
+      next.disabled = idx === slides.length - 1;
+    };
+    const go = (i) => {
+      const t = slides[Math.max(0, Math.min(slides.length - 1, i))];
+      track.scrollTo({ left: t.offsetLeft - track.offsetLeft, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    };
+    track.addEventListener('scroll', () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(paint); }, { passive: true });
+    prev.addEventListener('click', () => go(idx - 1));
+    next.addEventListener('click', () => go(idx + 1));
+    root.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); go(idx + 1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); go(idx - 1); }
+    });
+    // перетягування мишею на десктопі
+    let down = false, sx = 0, sl = 0, moved = false;
+    track.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse') return; down = true; moved = false; sx = e.clientX; sl = track.scrollLeft; track.classList.add('is-drag'); });
+    window.addEventListener('pointermove', (e) => { if (!down) return; const dx = e.clientX - sx; if (Math.abs(dx) > 4) moved = true; track.scrollLeft = sl - dx; });
+    window.addEventListener('pointerup', () => { if (!down) return; down = false; track.classList.remove('is-drag'); go(nearest()); });
+    track.addEventListener('click', (e) => { if (moved) { e.preventDefault(); e.stopPropagation(); } }, true);
+    root.classList.add('houses--ready');
+    paint();
+  });
+})();

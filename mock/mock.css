@@ -348,3 +348,72 @@ html.js .plans__stage img[hidden] { display: none; }
 @media (prefers-reduced-motion: reduce) { .hero--ken .hero__media img, .hero--ken .hero__media video { animation: none; } }
 .dev__photo.pan { height: auto; background: none; }
 .dev__photo.pan::after { display: none; }
+
+/* ФБ29: логотип ЗАРС — фірмова теракота завжди (шапка над фото, після прокрутки, підвал) */
+[data-site='fb29'] .bar__logo,
+[data-site='fb29'] .bar[data-stuck] .bar__logo,
+[data-site='fb29'] .foot__logo { color: #B05523; }
+
+/* Перший екран девелопера: рядок під гаслом */
+.lockup__claim { margin: clamp(1.4rem, 3vh, 2.2rem) 0 0; max-width: 34ch; font: 300 clamp(1.05rem, 0.85rem + 0.7vw, 1.5rem)/1.4 var(--text-font); letter-spacing: 0.01em; color: #fff; text-wrap: balance; }
+.h-zars .hero__body { grid-template-columns: 1fr; }
+
+/* =====================================================================
+   Сторінка девелопера (14.09.2026): коротко про ЗАРС, Будинки Каркашадзе, карусель
+   ===================================================================== */
+.about { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(2.5rem, 6vw, 8rem); align-items: start; }
+.about__photo { position: relative; margin: 0; aspect-ratio: 4 / 5; overflow: hidden; }
+.about__photo img { position: absolute; inset: -8% 0; width: 100%; height: 116%; object-fit: cover; }
+.about__text p { max-width: 54ch; margin: 0 0 1.2rem; color: var(--ink-2); }
+.about__text p.first { color: var(--ink); }
+.principle { max-width: 28ch; margin: 0 auto; text-align: center; font: 300 clamp(1.7rem, 1rem + 2.4vw, 3.2rem)/1.3 var(--text-font); letter-spacing: -0.01em; color: var(--ink); text-wrap: balance; }
+.principle-note { max-width: 52ch; margin: clamp(2rem, 5vh, 3rem) auto 0; text-align: center; color: var(--ink-2); }
+
+.karkashadze { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: clamp(2.5rem, 6vw, 8rem); align-items: end; }
+.karkashadze__title { margin: 0; font: 400 clamp(2.6rem, 1rem + 5.4vw, 7rem)/0.98 'History', sans-serif; letter-spacing: 0.02em; text-transform: uppercase; color: var(--ink); }
+.karkashadze__title .line { display: block; overflow: hidden; padding-bottom: 0.05em; }
+.karkashadze__title .line > span { display: block; }
+.karkashadze__title .line:nth-child(2) > span { color: var(--brand); }
+.karkashadze__story { max-width: 46ch; margin: 0; font: 300 clamp(1.1rem, 0.95rem + 0.5vw, 1.35rem)/1.65 var(--text-font); color: var(--ink-2); }
+
+/* Карусель: кадр на ~78% ширини, наступний визирає; підпис-картка поверх низу кадру */
+.houses { position: relative; padding-bottom: clamp(5rem, 12vh, 8rem); }
+.houses__head { display: flex; justify-content: space-between; align-items: end; gap: 2rem; padding: 0 clamp(1.25rem, 3.5vw, 3.5rem) clamp(2rem, 5vh, 3rem); }
+.houses__count { margin: 0; font: 400 clamp(1.1rem, 0.9rem + 0.6vw, 1.5rem)/1 'History', sans-serif; letter-spacing: 0.2em; color: var(--muted); }
+.houses__track { display: grid; grid-auto-flow: column; grid-auto-columns: min(78vw, 1180px); gap: clamp(1rem, 2vw, 2rem); overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: clamp(1.25rem, 3.5vw, 3.5rem); padding-inline: clamp(1.25rem, 3.5vw, 3.5rem); scrollbar-width: none; cursor: grab; outline: none; }
+.houses__track::-webkit-scrollbar { display: none; }
+.houses__track.is-drag { cursor: grabbing; scroll-snap-type: none; }
+.houses__track.is-drag img { pointer-events: none; }
+.house { position: relative; margin: 0; scroll-snap-align: start; }
+.house__frame { position: relative; aspect-ratio: 21 / 9; overflow: hidden; background: var(--stone); }
+.house__frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.08); filter: saturate(0.85); transition: transform 1600ms cubic-bezier(0.16,1,0.3,1), filter 1200ms; }
+.houses--ready .house[data-active] .house__frame img { transform: scale(1); filter: none; }
+.house__name { white-space: nowrap; }
+.house__cap { position: relative; z-index: 2; display: grid; gap: 0.5rem; width: fit-content; max-width: 86%; margin: clamp(-4.5rem, -8vh, -3rem) 0 0 clamp(1rem, 3vw, 3rem); padding: clamp(1.2rem, 2.4vw, 1.8rem) clamp(1.3rem, 2.6vw, 2rem); background: var(--ground); }
+.house__name { margin: 0; font: 400 clamp(1.1rem, 0.9rem + 0.7vw, 1.6rem)/1.15 'History', sans-serif; letter-spacing: 0.06em; text-transform: uppercase; color: var(--brand); }
+.house__years { margin: 0; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.house__link { position: absolute; inset: 0; z-index: 3; }
+.houses--ready .house:not([data-active]) .house__cap { opacity: 0.55; transition: opacity 600ms; }
+.houses__nav { display: flex; align-items: center; gap: clamp(1rem, 2vw, 1.6rem); padding: clamp(2rem, 5vh, 3rem) clamp(1.25rem, 3.5vw, 3.5rem) 0; }
+.houses__nav button { display: grid; place-items: center; width: 3.2rem; height: 3.2rem; border: 1px solid color-mix(in srgb, var(--ink) 30%, transparent); background: none; color: var(--ink); cursor: pointer; transition: background 400ms, color 400ms, border-color 400ms; }
+.houses__nav button:hover:not(:disabled) { background: var(--brand); border-color: var(--brand); color: #fff; }
+.houses__nav button:disabled { opacity: 0.3; cursor: default; }
+.houses__nav svg { width: 18px; height: 18px; }
+.houses__bar { flex: 1; height: 1px; background: color-mix(in srgb, var(--ink) 18%, transparent); overflow: hidden; }
+.houses__bar i { display: block; height: 100%; background: var(--brand); transform-origin: left; transform: scaleX(0.0909); transition: transform 700ms cubic-bezier(0.16,1,0.3,1); }
+.houses__num { font: 400 1rem/1 'History', sans-serif; letter-spacing: 0.16em; color: var(--ink-2); white-space: nowrap; }
+.houses__num b { color: var(--ink); font-weight: 400; }
+
+@media (max-width: 900px) {
+  .about, .karkashadze { grid-template-columns: 1fr; }
+  .houses__track { grid-auto-columns: 86vw; }
+  .house__frame { aspect-ratio: 4 / 3; }
+  .house__cap { width: 88%; margin-top: -2.5rem; }
+  .houses__head { flex-direction: column; align-items: start; }
+}
+.about__photo.pan { height: auto; background: none; }
+.about__photo.pan::after, .pan--plain::after { display: none; }
+@media (max-width: 900px) {
+  .house__name { white-space: normal; text-wrap: balance; letter-spacing: 0.03em; }
+  .house__cap { width: auto; max-width: 88%; }
+}
