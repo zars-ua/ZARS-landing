@@ -293,6 +293,21 @@
    ],
    "ratio": 0.71,
    "source": "https://zars.ua/objects/ · 800_8423_8-2.jpg"
+  },
+  "feel": {
+   "w": [
+    1280,
+    1920,
+    2000
+   ],
+   "source": "~/Desktop/WEBP/800_7763_00001.webp"
+  },
+  "feel-p": {
+   "w": [
+    720,
+    1080
+   ],
+   "source": "~/Desktop/WEBP/800_7763_00001.webp"
   }
  }
 }
