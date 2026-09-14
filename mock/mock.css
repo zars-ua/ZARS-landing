@@ -545,3 +545,33 @@ html.motion .dk__timeline { display: grid; grid-template-columns: auto 1fr auto;
 /* правки після огляду v3 */
 html.motion .dk__num { display: none; }
 .manifest::after { background: linear-gradient(20deg, rgba(20,21,20,0.78) 0%, rgba(20,21,20,0.45) 38%, rgba(20,21,20,0.08) 70%), rgba(20,21,20,0.12); }
+
+/* =====================================================================
+   taste-аудит (15.09.2026)
+   ===================================================================== */
+/* Будинки Каркашадзе: заголовок і розповідь стопкою, без розділеної шапки */
+.karkashadze { grid-template-columns: 1fr; align-items: start; row-gap: clamp(2rem, 5vh, 3.2rem); }
+.karkashadze__story { max-width: 52ch; }
+
+/* Матеріали: два ряди + пара кадрів різного формату */
+.material-duo { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: clamp(1.5rem, 4vw, 5rem); align-items: start; }
+.material-duo .material { display: block; }
+.material-duo .material__frame { aspect-ratio: 4 / 3; }
+.material-duo .material:last-child { margin-top: clamp(5rem, 16vh, 11rem); }
+.material-duo .material:last-child .material__frame { aspect-ratio: 4 / 5; }
+.material-duo .material__body { margin-top: 1.8rem; }
+
+/* Сервіси: ритм замість чотирьох однакових карток */
+.points__list { align-items: start; }
+.point:nth-child(even) { margin-top: clamp(3rem, 10vh, 6.5rem); }
+.point:nth-child(even) .point__frame { aspect-ratio: 4 / 5; }
+
+/* Відстані: одна лінія над групою, рядки розділяє повітря */
+.dist li { border-bottom: 0; padding: 0.7rem 0; }
+.dist li:first-child { padding-top: 1.5rem; }
+
+@media (max-width: 900px) {
+  .material-duo { grid-template-columns: 1fr; row-gap: clamp(4rem, 10vh, 6rem); }
+  .material-duo .material:last-child { margin-top: 0; }
+  .point:nth-child(even) { margin-top: 0; }
+}

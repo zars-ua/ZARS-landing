@@ -20,7 +20,7 @@ def pic(key, alt, sizes='100vw', eager=False, cls=''):
     return f'<img{c} src="{src}" srcset="{ss}" sizes="{sizes}" data-full="{full}" alt="{alt}" loading="{load}" decoding="async">'
 
 def pan(key, title, text, sizes='100vw'):
-    return f'''<figure class="pan">{pic(key, title + ' — ' + text[:60], sizes)}
+    return f'''<figure class="pan">{pic(key, title, sizes)}
     <figcaption class="pan__cap"><h3 class="pan__title">{title}</h3><p class="pan__text">{text}</p></figcaption></figure>'''
 
 def facts(items):
@@ -71,7 +71,7 @@ FOOT = '''<footer class="foot" id="contacts">
   <div><a class="foot__logo" href="index.html" aria-label="ЗАРС">{logo}</a></div>
   <div><h4>Проєкти</h4><ul><li><a href="fb29.html">Французький бульвар, 29</a></li><li><a href="fb29b.html">Французький бульвар, 29Б</a></li><li><a href="index.html">Девелопер</a></li></ul></div>
   <div><h4>Контакти</h4><ul><li><a href="tel:+380671608877">+380 (67) 160 88 77</a></li><li><a href="mailto:estate@zars.ua">estate@zars.ua</a></li><li>Одеса, Французький бульвар, 2</li></ul></div>
-  <p class="foot__copy">© 1996–2026 ЗАРС. Якість. Естетика. Традиції.</p>
+  <p class="foot__copy">© 1996-2026 ЗАРС. Якість. Естетика. Традиції.</p>
 </footer>'''
 
 SCRIPTS = '''<script src="../assets/vendor/gsap.min.js" defer></script>
@@ -143,7 +143,7 @@ fb29 = head + hero + f'''
 <section class="air" id="plans" aria-labelledby="s29-plans">
   <span class="label">Планування</span>
   <h2 class="title-lg" id="s29-plans" style="margin-bottom:clamp(2.5rem,6vh,4rem)">Трикімнатна квартира, 164,5 м²</h2>
-  {plans([('fb29/plan-164-a', 'Варіант А', '164,5 м²', '11 поверх · вид на море та місто'), ('fb29/plan-164-b', 'Варіант Б', '164,5 м²', '11 поверх · вид на море та місто')], 'Площа — проєктна. Детальні характеристики й наявність — під час приватної презентації.')}
+  {plans([('fb29/plan-164-a', 'Варіант А', '164,5 м²', '11 поверх · вид на море та місто'), ('fb29/plan-164-b', 'Варіант Б', '164,5 м²', '11 поверх · вид на море та місто')], 'Площа проєктна. Детальні характеристики й наявність покажемо під час приватної презентації.')}
 </section>
 
 <section class="air awards" aria-labelledby="s29-awards">
@@ -152,7 +152,7 @@ fb29 = head + hero + f'''
     <p class="lead">У 2021 році в Лондоні Будинок Каркашадзе Французький бульвар, 29 був відзначений міжнародною премією International Property Awards у 4 номінаціях.</p>
   </div>
   <div class="awards__ribbons">''' + ''.join(
-    f'<figure><img src="../assets/awards/ipa-{s}-960.webp" srcset="../assets/awards/ipa-{s}-480.webp 1x, ../assets/awards/ipa-{s}-960.webp 2x" width="113" height="480" alt="European Property Awards 2021–2022: {t}" loading="lazy"><figcaption>{t}</figcaption></figure>'
+    f'<figure><img src="../assets/awards/ipa-{s}-960.webp" srcset="../assets/awards/ipa-{s}-480.webp 1x, ../assets/awards/ipa-{s}-960.webp 2x" width="113" height="480" alt="European Property Awards 2021-2022: {t}" loading="lazy"><figcaption>{t}</figcaption></figure>'
     for s, t in [('high-rise-development', 'Residential High Rise Development'), ('high-rise-architecture', 'Residential High Rise Architecture'), ('architecture-multiple-residence', 'Architecture Multiple Residence'), ('residential-development', 'Residential Development')]) + f'''</div>
 </section>
 
@@ -182,7 +182,7 @@ fb29b = head + hero + f'''
   </p>
   <div class="two" style="margin-top:clamp(3rem,8vh,6rem)">
     <p class="words" data-reveal-words style="margin:0;text-align:left">У ньому поєднуються естетика, натхненна архітектурою одеської класики, традиційна якість Будинків Каркашадзе, прекрасне місце розташування й паркова прибудинкова територія.</p>
-    <p class="lead">Щоб зробити Ваше проживання ще більш комфортним і спокійним, ми передбачили всього 48 квартир у будинку. Скління квартир більше за рахунок панорамних вікон з алюмінієвих вітражів. Хол просторий, його дизайн архітектори продумали до дрібниць. Технічне оснащення — обладнання останнього покоління від кращих європейських виробників.</p>
+    <p class="lead">Щоб зробити Ваше проживання ще більш комфортним і спокійним, ми передбачили всього 48 квартир у будинку. Скління квартир більше за рахунок панорамних вікон з алюмінієвих вітражів. Хол просторий, його дизайн архітектори продумали до дрібниць. Технічне оснащення: обладнання останнього покоління від кращих європейських виробників.</p>
   </div>
 </section>
 
@@ -204,9 +204,9 @@ fb29b = head + hero + f'''
   <h2 class="title-lg" id="s29b-adv">Переваги</h2>
 </section>
 <section class="pans" aria-label="Переваги">
-  {pan('fb29b/terrace', 'Тераси або балкони', 'В кожній квартирі. Ми будуємо дім в одному з найзеленіших і мальовничих районів міста — щоб Ви завжди могли насолоджуватися краєвидами і свіжим повітрям.')}
+  {pan('fb29b/terrace', 'Тераси або балкони', 'В кожній квартирі. Ми будуємо дім в одному з найзеленіших і мальовничих районів міста, щоб Ви завжди могли насолоджуватися краєвидами і свіжим повітрям.')}
   <div class="pans pans--split" style="padding-inline:0">
-    {pan('fb29b/yard', 'Прибудинкова територія', 'Паркова прибудинкова територія з місцями відпочинку.', '(max-width: 900px) 100vw, 60vw')}
+    {pan('fb29b/yard', 'Прибудинкова територія', 'Паркова територія, що цілодобово охороняється.', '(max-width: 900px) 100vw, 60vw')}
     {pan('fb29b/parking', 'Підземний паркінг', 'Місця для автомобілів мешканців під будинком.', '(max-width: 900px) 100vw, 40vw')}
   </div>
 </section>
@@ -217,13 +217,13 @@ fb29b = head + hero + f'''
 <section class="air" id="plans" aria-labelledby="s29b-plans">
   <span class="label">Планування квартир</span>
   <h2 class="title-lg" id="s29b-plans" style="margin-bottom:clamp(2.5rem,6vh,4rem)">Оберіть квартиру</h2>
-  {plans([('fb29b/plan-1k-54', '1-кімнатна квартира', '54,31 м²', '8 поверх'), ('fb29b/plan-3k-131', '3-кімнатна квартира', '131,32 м²', '8 поверх'), ('fb29b/plan-3k-119', '3-кімнатна квартира', '119,38 м²', '9 поверх'), ('fb29b/plan-ph-208', 'Пентхаус', '208 м²', 'верхній рівень')], 'Площі — проєктні. За дозвільною документацією квартири є житловими приміщеннями, пентхаус — технічним приміщенням.')}
+  {plans([('fb29b/plan-1k-54', '1-кімнатна квартира', '54,31 м²', '8 поверх'), ('fb29b/plan-3k-131', '3-кімнатна квартира', '131,32 м²', '8 поверх'), ('fb29b/plan-3k-119', '3-кімнатна квартира', '119,38 м²', '9 поверх'), ('fb29b/plan-ph-208', 'Пентхаус', '208 м²', 'верхній рівень')], 'Площі проєктні. За дозвільною документацією квартири є житловими приміщеннями, а пентхаус є технічним приміщенням.')}
 </section>
 
 <section class="air" aria-labelledby="s29b-build">
-  <div class="two" style="margin-bottom:clamp(2.5rem,6vh,4rem)">
+  <div style="margin-bottom:clamp(2.5rem,6vh,4rem)">
     <h2 class="title-lg" id="s29b-build">Актуальна стадія будівництва</h2>
-    <p class="lead">Будується. Плановий строк здачі — IV квартал 2026.</p>
+    <p class="lead">Будується. Плановий строк здачі: IV квартал 2026.</p>
   </div>
   {gallery([('fb29b/build-1', 'Фасад будинку на стадії будівництва', 'e-4'), ('fb29b/build-2', 'Будинок і будівельний кран', 'e-8'), ('fb29b/build-3', 'Балкони фасаду', 'e-5 e-low'), ('fb29b/build-4', 'Тераса на стадії будівництва', 'e-7')])}
 </section>
@@ -234,7 +234,7 @@ fb29b = head + hero + f'''
 </section>
 
 {enquiry('Французький бульвар, 29Б')}
-<p class="legal">«Французький бульвар, 29Б» — адреса, що використовується в рекламних цілях. Будівельна адреса: пров. Спортивний, 4 та бульвар Французький, 29-Б, м. Одеса. Квартири за дозвільною документацією є житловими приміщеннями, пентхаус — технічним приміщенням. Візуалізації та площі — проєктні.</p>
+<p class="legal">«Французький бульвар, 29Б» є адресою, що використовується в рекламних цілях. Будівельна адреса: пров. Спортивний, 4 та бульвар Французький, 29-Б, м. Одеса. Квартири за дозвільною документацією є житловими приміщеннями, пентхаус є технічним приміщенням. Візуалізації та площі проєктні.</p>
 {FOOT.format(logo=LOGO)}
 {sym}
 {SCRIPTS}
