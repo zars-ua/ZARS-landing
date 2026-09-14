@@ -168,3 +168,24 @@
     paint();
   });
 })();
+
+
+/* ---------- Розділи про будинки: активний розділ міняє кадр ---------- */
+(() => {
+  document.querySelectorAll('[data-chapters]').forEach((root) => {
+    const figs = [...root.querySelectorAll('.chapters__media figure')];
+    const arts = [...root.querySelectorAll('.chapter')];
+    let cur = -1;
+    const show = (i) => {
+      if (i === cur) return;
+      figs.forEach((f, k) => { f.toggleAttribute('data-was', k === cur); f.toggleAttribute('data-active', k === i); });
+      arts.forEach((a, k) => a.toggleAttribute('data-active', k === i));
+      cur = i;
+    };
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) show(arts.indexOf(e.target)); });
+    }, { rootMargin: '-45% 0px -45% 0px' });
+    arts.forEach((a) => io.observe(a));
+    show(0);
+  });
+})();

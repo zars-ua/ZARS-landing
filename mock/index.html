@@ -18,7 +18,10 @@
 
 <section class="intro" data-intro aria-label="ЗАРС">
   <div class="hero__media">
-    <video muted playsinline loop autoplay preload="none" poster="../assets/hero/holding-wide-1920.webp"></video>
+    <video muted playsinline loop autoplay preload="auto" poster="../assets/video/zars-intro-poster.webp">
+      <source src="../assets/video/zars-intro-854.mp4" type="video/mp4" media="(max-width: 800px)">
+      <source src="../assets/video/zars-intro-1600.mp4" type="video/mp4">
+    </video>
   </div>
   <svg class="intro__veil" aria-hidden="true" preserveAspectRatio="none">
     <defs><mask id="intro-mask" maskUnits="userSpaceOnUse">
@@ -28,35 +31,35 @@
     <rect x="-50%" y="-50%" width="200%" height="200%" fill="#F3F2EF" mask="url(#intro-mask)"/>
   </svg>
   <p class="intro__hint">Гортайте</p>
-  <p class="hero__todo">Тут буде інтро-відео — зараз стоїть фото-заставка</p>
   <div class="hero__body">
     <div class="lockup">
       <h1 class="lockup__mark" aria-label="ЗАРС" data-stick-after><svg viewBox="32.0 32.0 5120.0 756.0" aria-hidden="true"><use href="#zars"/></svg></h1>
       <svg class="lockup__motto" viewBox="0 0 1000 40" role="img" aria-label="Якість. Естетика. Традиції."><text x="0" y="33" textLength="1000" lengthAdjust="spacing" fill="currentColor">ЯКІСТЬ. ЕСТЕТИКА. ТРАДИЦІЇ.</text></svg>
-      <p class="lockup__claim">30 років створюємо унікальні проєкти поза часом</p>
     </div>
   </div>
 </section>
 
-<section class="air" aria-labelledby="about-title">
-  <div class="about">
-    <figure class="about__photo pan"><img src="../assets/wix/zars/office-1600.webp" srcset="../assets/wix/zars/office-960.webp 960w, ../assets/wix/zars/office-1600.webp 1600w, ../assets/wix/zars/office-2400.webp 2400w" sizes="(max-width: 900px) 100vw, 48vw" alt="Вхід до офісу холдингу ЗАРС" loading="lazy" decoding="async"></figure>
-    <div class="about__text">
-      <span class="label" id="about-title">Холдинг ЗАРС</span>
-      <p class="first lead" style="margin-top:0">Холдинг ЗАРС здійснює повний інвестиційно-будівельний цикл власних проєктів, від девелопменту та будівництва до введення в експлуатацію та управління.</p>
-      <p>Компанія ЗАРС заснована 14 жовтня 1996 року Гіві Сіловановичем Каркашадзе (1930–2006).</p>
-      <p>ЗАРС — це злагоджена команда професіоналів зі спільними цінностями та баченням. Розуміючи потреби наших клієнтів та враховуючи сучасні тенденції, наша компанія створює найкращі проєкти.</p>
-    </div>
+<section class="claim" aria-label="30 років">
+  <p class="claim__text" data-reveal-lines><span class="line"><span><em>30 років</em> створюємо</span></span><span class="line"><span>унікальні проєкти</span></span><span class="line"><span>поза часом</span></span></p>
+</section>
+
+<section class="holding" aria-labelledby="holding-title">
+  <div class="holding__head"><h2 class="title-lg" id="holding-title">Холдинг ЗАРС</h2></div>
+  <figure class="holding__photo"><picture><source media="(max-width: 700px)" srcset="../assets/zars/office-m-720.webp 720w, ../assets/zars/office-m-1080.webp 1080w" sizes="100vw"><img src="../assets/zars/office-1600.webp" srcset="../assets/zars/office-960.webp 960w, ../assets/zars/office-1600.webp 1600w, ../assets/zars/office-2400.webp 2400w" sizes="(max-width: 900px) 100vw, 64vw" alt="Фасад офісу холдингу ЗАРС на Французькому бульварі" loading="lazy" decoding="async"></picture></figure>
+  <div class="holding__text">
+    <p>Компанія ЗАРС заснована 14 жовтня 1996 року Гіві Сіловановичем Каркашадзе (1930–2006).</p>
+    <p>Холдинг ЗАРС здійснює повний інвестиційно-будівельний цикл власних проєктів, від девелопменту та будівництва до введення в експлуатацію та управління.</p>
+    <p>ЗАРС — це злагоджена команда професіоналів зі спільними цінностями та баченням. Розуміючи потреби наших клієнтів та враховуючи сучасні тенденції, наша компанія створює найкращі проєкти.</p>
   </div>
+  <figure class="founder">
+    <div class="founder__frame"><img src="../assets/zars/founder-1206.webp" srcset="../assets/zars/founder-600.webp 600w, ../assets/zars/founder-1206.webp 1206w" sizes="(max-width: 900px) 72vw, 22vw" alt="Гіві Сілованович Каркашадзе, засновник ЗАРС" loading="lazy" decoding="async"></div>
+    <figcaption><b>Гіві Сілованович Каркашадзе</b><span>Засновник ЗАРС · 1930–2006</span></figcaption>
+  </figure>
 </section>
 
-<section class="air" aria-label="Принципи ЗАРС">
-  <p class="principle" data-reveal-words>Відмовившись від масового будівництва, ЗАРС створює унікальні проєкти поза часом, в яких естетика, якість і комфорт є основними принципами.</p>
-  <p class="principle-note">Приділяючи особливу увагу концептуальним та архітектурним рішенням у кожному проєкті, ЗАРС робить свій внесок у збереження та розвиток сучасного середовища.</p>
-</section>
-
-<section class="pans" aria-label="Будинок ЗАРС">
-  <figure class="pan pan--plain"><img src="../assets/wix/zars/house-arches-1600.webp" srcset="../assets/wix/zars/house-arches-960.webp 960w, ../assets/wix/zars/house-arches-1600.webp 1600w, ../assets/wix/zars/house-arches-2400.webp 2400w" sizes="100vw" alt="Будинок Каркашадзе з арковими вікнами першого поверху" loading="lazy" decoding="async"></figure>
+<section class="manifest" aria-label="Принципи ЗАРС">
+  <picture><source media="(max-width: 700px)" srcset="../assets/zars/manifest-p-720.webp 720w, ../assets/zars/manifest-p-1080.webp 1080w" sizes="100vw"><img src="../assets/zars/manifest-1600.webp" srcset="../assets/zars/manifest-1280.webp 1280w, ../assets/zars/manifest-1920.webp 1920w, ../assets/zars/manifest-2560.webp 2560w" sizes="100vw" alt="Хвилясті балкони Будинку Каркашадзе на тлі неба" loading="lazy" decoding="async"></picture>
+  <p class="manifest__text" data-reveal-words>Відмовившись від масового будівництва, ЗАРС створює унікальні проєкти поза часом, в яких естетика, якість і комфорт є основними принципами.</p>
 </section>
 
 <section class="air" aria-labelledby="karkashadze-title">
@@ -66,63 +69,84 @@
   </div>
 </section>
 
-<section class="houses" data-houses aria-roledescription="карусель" aria-labelledby="houses-title">
-  <div class="houses__head">
-    <h3 class="label" id="houses-title" style="margin:0">Здані Будинки Каркашадзе</h3>
-    <p class="houses__count">11 будинків · 1996–2020</p>
+<section class="dk" data-dk aria-roledescription="галерея" aria-label="Будинки Каркашадзе, 1996–2020">
+  <div class="dk__stage">
+    <figure class="dk__slide" data-years="1996–1999">
+      <picture><source media="(max-width: 700px)" srcset="../assets/dk/d6-p-720.webp 720w, ../assets/dk/d6-p-1080.webp 1080w" sizes="100vw"><img src="../assets/dk/d6-1920.webp" srcset="../assets/dk/d6-1280.webp 1280w, ../assets/dk/d6-1920.webp 1920w, ../assets/dk/d6-2560.webp 2560w" sizes="100vw" alt="Вулиця Довженка, 6" loading="eager" decoding="async"></picture>
+      <figcaption class="dk__cap"><span class="dk__num">01 / 11</span><h3 class="dk__name">Вулиця Довженка, 6</h3><p class="dk__years">1996–1999</p></figcaption>
+    </figure>
+    <figure class="dk__slide" data-years="1997–2000">
+      <picture><source media="(max-width: 700px)" srcset="../assets/dk/d6a-p-720.webp 720w, ../assets/dk/d6a-p-1080.webp 1080w" sizes="100vw"><img src="../assets/dk/d6a-1920.webp" srcset="../assets/dk/d6a-1280.webp 1280w, ../assets/dk/d6a-1920.webp 1920w, ../assets/dk/d6a-2560.webp 2560w" sizes="100vw" alt="Вулиця Довженка, 6А" loading="lazy" decoding="async"></picture>
+      <figcaption class="dk__cap"><span class="dk__num">02 / 11</span><h3 class="dk__name">Вулиця Довженка, 6А</h3><p class="dk__years">1997–2000</p></figcaption>
+    </figure>
+    <figure class="dk__slide" data-years="1999–2002">
+      <picture><source media="(max-width: 700px)" srcset="../assets/dk/d2-p-720.webp 720w, ../assets/dk/d2-p-1080.webp 1080w" sizes="100vw"><img src="../assets/dk/d2-1920.webp" srcset="../assets/dk/d2-1280.webp 1280w, ../assets/dk/d2-1920.webp 1920w, ../assets/dk/d2-2560.webp 2560w" sizes="100vw" alt="Вулиця Довженка, 2" loading="lazy" decoding="async"></picture>
+      <figcaption class="dk__cap"><span class="dk__num">03 / 11</span><h3 class="dk__name">Вулиця Довженка, 2</h3><p class="dk__years">1999–2002</p></figcaption>
+    </figure>
+    <figure class="dk__slide" data-years="2001–2003">
+      <picture><source media="(max-width: 700px)" srcset="../assets/dk/f35-p-720.webp 720w, ../assets/dk/f35-p-1080.webp 1080w" sizes="100vw"><img src="../assets/dk/f35-1920.webp" srcset="../assets/dk/f35-1280.webp 1280w, ../assets/dk/f35-1920.webp 1920w, ../assets/dk/f35-2560.webp 2560w" sizes="100vw" alt="Французький бульвар, 35" loading="lazy" decoding="async"></picture>
+      <figcaption class="dk__cap"><span class="dk__num">04 / 11</span><h3 class="dk__name">Французький бульвар, 35</h3><p class="dk__years">2001–2003</p></figcaption>
+    </figure>
+    <figure class="dk__slide" data-years="2003–2006">
+      <picture><source media="(max-width: 700px)" srcset="../assets/dk/k3-p-720.webp 720w, ../assets/dk/k3-p-1080.webp 1080w" sizes="100vw"><img src="../assets/dk/k3-1920.webp" srcset="../assets/dk/k3-1280.webp 1280w, ../assets/dk/k3-1920.webp 1920w, ../assets/dk/k3-2560.webp 2560w" sizes="100vw" alt="Провулок Каркашадзе, 3/1" loading="lazy" decoding="async"></picture>
+      <figcaption class="dk__cap"><span class="dk__num">05 / 11</span><h3 class="dk__name">Провулок Каркашадзе, 3/1</h3><p class="dk__years">2003–2006</p></figcaption>
+    </figure>
+    <figure class="dk__slide" data-years="2003–2006">
+      <picture><source media="(max-width: 700px)" srcset="../assets/dk/d4-p-720.webp 720w, ../assets/dk/d4-p-1080.webp 1080w" sizes="100vw"><img src="../assets/dk/d4-1920.webp" srcset="../assets/dk/d4-1280.webp 1280w, ../assets/dk/d4-1920.webp 1920w, ../assets/dk/d4-2560.webp 2560w" sizes="100vw" alt="Вулиця Довженка, 4" loading="lazy" decoding="async"></picture>
+      <figcaption class="dk__cap"><span class="dk__num">06 / 11</span><h3 class="dk__name">Вулиця Довженка, 4</h3><p class="dk__years">2003–2006</p></figcaption>
+    </figure>
+    <figure class="dk__slide" data-years="2003–2007">
+      <picture><source media="(max-width: 700px)" srcset="../assets/dk/d4a-p-720.webp 720w, ../assets/dk/d4a-p-1080.webp 1080w" sizes="100vw"><img src="../assets/dk/d4a-1920.webp" srcset="../assets/dk/d4a-1280.webp 1280w, ../assets/dk/d4a-1920.webp 1920w, ../assets/dk/d4a-2560.webp 2560w" sizes="100vw" alt="Вулиця Довженка, 4А" loading="lazy" decoding="async"></picture>
+      <figcaption class="dk__cap"><span class="dk__num">07 / 11</span><h3 class="dk__name">Вулиця Довженка, 4А</h3><p class="dk__years">2003–2007</p></figcaption>
+    </figure>
+    <figure class="dk__slide" data-years="2003–2007">
+      <picture><source media="(max-width: 700px)" srcset="../assets/dk/k7-p-720.webp 720w, ../assets/dk/k7-p-1080.webp 1080w" sizes="100vw"><img src="../assets/dk/k7-1920.webp" srcset="../assets/dk/k7-1280.webp 1280w, ../assets/dk/k7-1920.webp 1920w, ../assets/dk/k7-2560.webp 2560w" sizes="100vw" alt="Провулок Каркашадзе, 7" loading="lazy" decoding="async"></picture>
+      <figcaption class="dk__cap"><span class="dk__num">08 / 11</span><h3 class="dk__name">Провулок Каркашадзе, 7</h3><p class="dk__years">2003–2007</p></figcaption>
+    </figure>
+    <figure class="dk__slide" data-years="2008–2011">
+      <picture><source media="(max-width: 700px)" srcset="../assets/dk/k9-p-720.webp 720w, ../assets/dk/k9-p-1080.webp 1080w" sizes="100vw"><img src="../assets/dk/k9-1920.webp" srcset="../assets/dk/k9-1280.webp 1280w, ../assets/dk/k9-1920.webp 1920w, ../assets/dk/k9-2560.webp 2560w" sizes="100vw" alt="Провулок Каркашадзе, 9" loading="lazy" decoding="async"></picture>
+      <figcaption class="dk__cap"><span class="dk__num">09 / 11</span><h3 class="dk__name">Провулок Каркашадзе, 9</h3><p class="dk__years">2008–2011</p></figcaption>
+    </figure>
+    <figure class="dk__slide" data-years="2012–2016">
+      <picture><source media="(max-width: 700px)" srcset="../assets/dk/f2-p-720.webp 720w, ../assets/dk/f2-p-1080.webp 1080w" sizes="100vw"><img src="../assets/dk/f2-1920.webp" srcset="../assets/dk/f2-1280.webp 1280w, ../assets/dk/f2-1920.webp 1920w, ../assets/dk/f2-2560.webp 2560w" sizes="100vw" alt="Французький бульвар, 2" loading="lazy" decoding="async"></picture>
+      <figcaption class="dk__cap"><span class="dk__num">10 / 11</span><h3 class="dk__name">Французький бульвар, 2</h3><p class="dk__years">2012–2016</p></figcaption>
+    </figure>
+    <figure class="dk__slide" data-years="2017–2020">
+      <picture><source media="(max-width: 700px)" srcset="../assets/dk/f29-p-720.webp 720w, ../assets/dk/f29-p-1080.webp 1080w" sizes="100vw"><img src="../assets/dk/f29-1920.webp" srcset="../assets/dk/f29-1280.webp 1280w, ../assets/dk/f29-1920.webp 1920w, ../assets/dk/f29-2560.webp 2560w" sizes="100vw" alt="Французький бульвар, 29" loading="lazy" decoding="async"></picture>
+      <figcaption class="dk__cap"><span class="dk__num">11 / 11</span><h3 class="dk__name">Французький бульвар, 29</h3><p class="dk__years">2017–2020</p></figcaption>
+    </figure>
+    <div class="dk__timeline" aria-hidden="false">
+      <span class="dk__count"><b class="dk__cur">01</b> / 11</span>
+      <div class="dk__track"><span class="dk__line"></span><span class="dk__fill"></span><ol class="dk__ticks"><li><button class="dk__tick" type="button" aria-label="Вулиця Довженка, 6, 1996–1999"><span>1996</span></button></li><li><button class="dk__tick" type="button" aria-label="Вулиця Довженка, 6А, 1997–2000"><span>1997</span></button></li><li><button class="dk__tick" type="button" aria-label="Вулиця Довженка, 2, 1999–2002"><span>1999</span></button></li><li><button class="dk__tick" type="button" aria-label="Французький бульвар, 35, 2001–2003"><span>2001</span></button></li><li><button class="dk__tick" type="button" aria-label="Провулок Каркашадзе, 3/1, 2003–2006"><span>2003</span></button></li><li><button class="dk__tick" type="button" aria-label="Вулиця Довженка, 4, 2003–2006"><span>2003</span></button></li><li><button class="dk__tick" type="button" aria-label="Вулиця Довженка, 4А, 2003–2007"><span>2003</span></button></li><li><button class="dk__tick" type="button" aria-label="Провулок Каркашадзе, 7, 2003–2007"><span>2003</span></button></li><li><button class="dk__tick" type="button" aria-label="Провулок Каркашадзе, 9, 2008–2011"><span>2008</span></button></li><li><button class="dk__tick" type="button" aria-label="Французький бульвар, 2, 2012–2016"><span>2012</span></button></li><li><button class="dk__tick" type="button" aria-label="Французький бульвар, 29, 2017–2020"><span>2017</span></button></li></ol></div>
+      <span class="dk__span">1996–1999</span>
+    </div>
   </div>
-  <div class="houses__track" tabindex="0" aria-label="Будинки, гортайте вбік">
-    <figure class="house" aria-roledescription="слайд" aria-label="Французький бульвар, 29, 2017–2020">
-      <div class="house__frame"><img src="../assets/houses/f29-1080.webp" srcset="../assets/houses/f29-960.webp 960w, ../assets/houses/f29-1080.webp 1080w" sizes="(max-width: 900px) 86vw, 78vw" alt="Французький бульвар, 29" loading="lazy" decoding="async" draggable="false"></div>
-      <figcaption class="house__cap"><p class="house__name">Французький бульвар, 29</p><p class="house__years">2017–2020 рр.</p></figcaption><a class="house__link" href="fb29.html" aria-label="Французький бульвар, 29 — сторінка проєкту"></a>
-    </figure>
-    <figure class="house" aria-roledescription="слайд" aria-label="Французький бульвар, 2, 2012–2016">
-      <div class="house__frame"><img src="../assets/houses/f2-1600.webp" srcset="../assets/houses/f2-960.webp 960w, ../assets/houses/f2-1600.webp 1600w, ../assets/houses/f2-2048.webp 2048w" sizes="(max-width: 900px) 86vw, 78vw" alt="Французький бульвар, 2" loading="lazy" decoding="async" draggable="false"></div>
-      <figcaption class="house__cap"><p class="house__name">Французький бульвар, 2</p><p class="house__years">2012–2016 рр.</p></figcaption>
-    </figure>
-    <figure class="house" aria-roledescription="слайд" aria-label="Провулок Каркашадзе, 9, 2008–2011">
-      <div class="house__frame"><img src="../assets/houses/k9-1600.webp" srcset="../assets/houses/k9-960.webp 960w, ../assets/houses/k9-1600.webp 1600w, ../assets/houses/k9-2048.webp 2048w" sizes="(max-width: 900px) 86vw, 78vw" alt="Провулок Каркашадзе, 9" loading="lazy" decoding="async" draggable="false"></div>
-      <figcaption class="house__cap"><p class="house__name">Провулок Каркашадзе, 9</p><p class="house__years">2008–2011 рр.</p></figcaption>
-    </figure>
-    <figure class="house" aria-roledescription="слайд" aria-label="Провулок Каркашадзе, 7, 2003–2007">
-      <div class="house__frame"><img src="../assets/houses/k7-1600.webp" srcset="../assets/houses/k7-960.webp 960w, ../assets/houses/k7-1600.webp 1600w, ../assets/houses/k7-2048.webp 2048w" sizes="(max-width: 900px) 86vw, 78vw" alt="Провулок Каркашадзе, 7" loading="lazy" decoding="async" draggable="false"></div>
-      <figcaption class="house__cap"><p class="house__name">Провулок Каркашадзе, 7</p><p class="house__years">2003–2007 рр.</p></figcaption>
-    </figure>
-    <figure class="house" aria-roledescription="слайд" aria-label="Вулиця Довженка, 4А, 2003–2007">
-      <div class="house__frame"><img src="../assets/houses/d4a-1600.webp" srcset="../assets/houses/d4a-960.webp 960w, ../assets/houses/d4a-1600.webp 1600w, ../assets/houses/d4a-2048.webp 2048w" sizes="(max-width: 900px) 86vw, 78vw" alt="Вулиця Довженка, 4А" loading="lazy" decoding="async" draggable="false"></div>
-      <figcaption class="house__cap"><p class="house__name">Вулиця Довженка, 4А</p><p class="house__years">2003–2007 рр.</p></figcaption>
-    </figure>
-    <figure class="house" aria-roledescription="слайд" aria-label="Вулиця Довженка, 4, 2003–2006">
-      <div class="house__frame"><img src="../assets/houses/d4-1600.webp" srcset="../assets/houses/d4-960.webp 960w, ../assets/houses/d4-1600.webp 1600w, ../assets/houses/d4-2048.webp 2048w" sizes="(max-width: 900px) 86vw, 78vw" alt="Вулиця Довженка, 4" loading="lazy" decoding="async" draggable="false"></div>
-      <figcaption class="house__cap"><p class="house__name">Вулиця Довженка, 4</p><p class="house__years">2003–2006 рр.</p></figcaption>
-    </figure>
-    <figure class="house" aria-roledescription="слайд" aria-label="Провулок Каркашадзе, 3/1, 2003–2006">
-      <div class="house__frame"><img src="../assets/houses/k3-1600.webp" srcset="../assets/houses/k3-960.webp 960w, ../assets/houses/k3-1600.webp 1600w, ../assets/houses/k3-2048.webp 2048w" sizes="(max-width: 900px) 86vw, 78vw" alt="Провулок Каркашадзе, 3/1" loading="lazy" decoding="async" draggable="false"></div>
-      <figcaption class="house__cap"><p class="house__name">Провулок Каркашадзе, 3/1</p><p class="house__years">2003–2006 рр.</p></figcaption>
-    </figure>
-    <figure class="house" aria-roledescription="слайд" aria-label="Французький бульвар, 35, 2001–2003">
-      <div class="house__frame"><img src="../assets/houses/f35-1079.webp" srcset="../assets/houses/f35-960.webp 960w, ../assets/houses/f35-1079.webp 1079w" sizes="(max-width: 900px) 86vw, 78vw" alt="Французький бульвар, 35" loading="lazy" decoding="async" draggable="false"></div>
-      <figcaption class="house__cap"><p class="house__name">Французький бульвар, 35</p><p class="house__years">2001–2003 рр.</p></figcaption>
-    </figure>
-    <figure class="house" aria-roledescription="слайд" aria-label="Вулиця Довженка, 2, 1999–2002">
-      <div class="house__frame"><img src="../assets/houses/d2-1600.webp" srcset="../assets/houses/d2-960.webp 960w, ../assets/houses/d2-1600.webp 1600w, ../assets/houses/d2-2048.webp 2048w" sizes="(max-width: 900px) 86vw, 78vw" alt="Вулиця Довженка, 2" loading="lazy" decoding="async" draggable="false"></div>
-      <figcaption class="house__cap"><p class="house__name">Вулиця Довженка, 2</p><p class="house__years">1999–2002 рр.</p></figcaption>
-    </figure>
-    <figure class="house" aria-roledescription="слайд" aria-label="Вулиця Довженка, 6А, 1997–2000">
-      <div class="house__frame"><img src="../assets/houses/d6a-1600.webp" srcset="../assets/houses/d6a-960.webp 960w, ../assets/houses/d6a-1600.webp 1600w, ../assets/houses/d6a-2048.webp 2048w" sizes="(max-width: 900px) 86vw, 78vw" alt="Вулиця Довженка, 6А" loading="lazy" decoding="async" draggable="false"></div>
-      <figcaption class="house__cap"><p class="house__name">Вулиця Довженка, 6А</p><p class="house__years">1997–2000 рр.</p></figcaption>
-    </figure>
-    <figure class="house" aria-roledescription="слайд" aria-label="Вулиця Довженка, 6, 1996–1999">
-      <div class="house__frame"><img src="../assets/houses/d6-1600.webp" srcset="../assets/houses/d6-960.webp 960w, ../assets/houses/d6-1600.webp 1600w, ../assets/houses/d6-2048.webp 2048w" sizes="(max-width: 900px) 86vw, 78vw" alt="Вулиця Довженка, 6" loading="lazy" decoding="async" draggable="false"></div>
-      <figcaption class="house__cap"><p class="house__name">Вулиця Довженка, 6</p><p class="house__years">1996–1999 рр.</p></figcaption>
-    </figure>
+</section>
+
+<section class="chapters" data-chapters aria-label="Про Будинки Каркашадзе">
+  <div class="chapters__media" aria-hidden="true"><figure><img src="../assets/zars/arch-1600.webp" srcset="../assets/zars/arch-960.webp 960w, ../assets/zars/arch-1600.webp 1600w" sizes="(max-width: 900px) 100vw, 55vw" alt="Архітектурний фрагмент Будинку Каркашадзе" loading="lazy" decoding="async"></figure><figure><img src="../assets/zars/landscape-1476.webp" srcset="../assets/zars/landscape-960.webp 960w, ../assets/zars/landscape-1476.webp 1476w" sizes="(max-width: 900px) 100vw, 55vw" alt="Прибудинкова територія з ландшафтним дизайном" loading="lazy" decoding="async"></figure><figure><img src="../assets/zars/interiors-1466.webp" srcset="../assets/zars/interiors-960.webp 960w, ../assets/zars/interiors-1466.webp 1466w" sizes="(max-width: 900px) 100vw, 55vw" alt="Хол Будинку Каркашадзе із зеленою стіною" loading="lazy" decoding="async"></figure><figure><img src="../assets/zars/ergonomics-1476.webp" srcset="../assets/zars/ergonomics-960.webp 960w, ../assets/zars/ergonomics-1476.webp 1476w" sizes="(max-width: 900px) 100vw, 55vw" alt="Тераса квартири з видом на море" loading="lazy" decoding="async"></figure></div>
+  <div class="chapters__list">
+      <article class="chapter"><div class="chapter__img"><img src="../assets/zars/arch-1600.webp" srcset="../assets/zars/arch-960.webp 960w, ../assets/zars/arch-1600.webp 1600w" sizes="100vw" alt="Архітектурний фрагмент Будинку Каркашадзе" loading="lazy" decoding="async"></div><span class="chapter__num">01</span><h3>Архітектура</h3><p>Будинки Каркашадзе завжди мають унікальні для свого місця архітектурні рішення, що зберігають цінність і розвивають потенціал території, на якій вони побудовані.</p><p>Кожен наш новий будинок прагне доповнювати та підкреслювати унікальний архітектурний літопис Одеси.</p></article>
+      <article class="chapter"><div class="chapter__img"><img src="../assets/zars/landscape-1476.webp" srcset="../assets/zars/landscape-960.webp 960w, ../assets/zars/landscape-1476.webp 1476w" sizes="100vw" alt="Прибудинкова територія з ландшафтним дизайном" loading="lazy" decoding="async"></div><span class="chapter__num">02</span><h3>Благоустрій</h3><p>Як сам будинок, так і територія навколо нього — це гармонія вишуканості й функційності.</p><p>Індивідуальний, спеціально розроблений ландшафтний дизайн чудово доповнює загальну концепцію кожного Будинку Каркашадзе. А цілодобова охорона й відеоспостереження гарантує безпеку та дозволить відчути себе захищено й комфортно.</p></article>
+      <article class="chapter"><div class="chapter__img"><img src="../assets/zars/interiors-1466.webp" srcset="../assets/zars/interiors-960.webp 960w, ../assets/zars/interiors-1466.webp 1466w" sizes="100vw" alt="Хол Будинку Каркашадзе із зеленою стіною" loading="lazy" decoding="async"></div><span class="chapter__num">03</span><h3>Інтер’єри</h3><p>Ми хочемо, щоб відчуття дому виникало, коли відчиняються двері в хол Будинку Каркашадзе, та не залишало Вас до самої квартири.</p><p>Атмосфера м’якої розкоші — цього відчуття ми завжди прагнемо досягти, проєктуючи інтер’єри. Її атрибути — італійські меблі в м’якому світлі люстр і бра довершують цей ефект.</p></article>
+      <article class="chapter"><div class="chapter__img"><img src="../assets/zars/ergonomics-1476.webp" srcset="../assets/zars/ergonomics-960.webp 960w, ../assets/zars/ergonomics-1476.webp 1476w" sizes="100vw" alt="Тераса квартири з видом на море" loading="lazy" decoding="async"></div><span class="chapter__num">04</span><h3>Ергономіка</h3><p>Передбачаючи Ваші побажання до формування комфортного житлового простору, наші експерти з ергономіки створюють продумані планування.</p><p>При цьому ми завжди залишаємо можливість індивідуально підійти до кожного проєкту для того, щоб втілити в реальність ваші уявлення про ідеальний будинок.</p></article>
   </div>
-  <div class="houses__nav">
-    <button type="button" data-prev aria-label="Попередній будинок"><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M11.5 3 5.5 9l6 6" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></button>
-    <span class="houses__num"><b class="houses__cur">01</b> / 11</span>
-    <span class="houses__bar" aria-hidden="true"><i></i></span>
-    <button type="button" data-next aria-label="Наступний будинок"><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M6.5 3l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></button>
-  </div>
+</section>
+
+<section class="feel" aria-labelledby="feel-title">
+  <h2 id="feel-title">Відчуття дому</h2>
+  <p data-reveal-words>Найцінніше, що створюють Будинки Каркашадзе для своїх мешканців, — це неповторне відчуття дому. Ось чому Будинки Каркашадзе — це найкращий вибір для тих, хто хоче знайти справжній дім для своєї родини.</p>
+</section>
+
+<section class="materials" aria-label="Матеріали">
+  <article class="material"><figure class="material__frame"><img src="../assets/zars/parking-1496.webp" srcset="../assets/zars/parking-960.webp 960w, ../assets/zars/parking-1496.webp 1496w" sizes="(max-width: 900px) 100vw, 58vw" alt="Підземний паркінг Будинку Каркашадзе" loading="lazy" decoding="async"></figure><div class="material__body"><h3>Паркінг</h3><p>Обов’язковий елемент комфорту Будинків Каркашадзе. Підземний паркінг з окремою системою вентиляції і димовидалення, спроєктований з урахуванням експлуатації автомобілів S Class.</p></div></article>
+  <article class="material"><figure class="material__frame"><img src="../assets/zars/brick-1338.webp" srcset="../assets/zars/brick-960.webp 960w, ../assets/zars/brick-1338.webp 1338w" sizes="(max-width: 900px) 100vw, 58vw" alt="Червона керамічна цегла" loading="lazy" decoding="async"></figure><div class="material__body"><h3>Цегла</h3><p>Скільки б з часом не з’являлося матеріалів для будівництва, цегла залишатиметься найкращим з них. Міцна. Зносостійка. Вологостійка. Морозостійка. Практично вічна. Ми подбали, щоб наш головний будівельний матеріал був якнайкращим.</p><p>Цегла підходить для висотного будівництва за характеристиками міцності, а за шумо- і теплоізоляційними властивостями — для будівництва житла найвищого класу.</p></div></article>
+  <article class="material"><figure class="material__frame"><img src="../assets/zars/marble-1600.webp" srcset="../assets/zars/marble-960.webp 960w, ../assets/zars/marble-1600.webp 1600w" sizes="(max-width: 900px) 100vw, 58vw" alt="Мармурові сходи в холі" loading="lazy" decoding="async"></figure><div class="material__body"><h3>Мармур</h3><p>Тисячі років мармурові підлоги шляхетно приглушують звуки кроків власників хороших будинків. Тому коли справа стосується вибору матеріалів для холів і коридорів у Будинках Каркашадзе, ми завжди віддаємо перевагу класиці — мармуру високої якості.</p></div></article>
+  <article class="material"><figure class="material__frame"><img src="../assets/zars/windows-1476.webp" srcset="../assets/zars/windows-960.webp 960w, ../assets/zars/windows-1476.webp 1476w" sizes="(max-width: 900px) 100vw, 58vw" alt="Панорамне вікно з видом на море" loading="lazy" decoding="async"></figure><div class="material__body"><h3>Вікна</h3><p>Делікатність натурального дерева й технологічність алюмінію. Для оснащення вікон Будинків Каркашадзе ми використовуємо принцип з’єднання найкращих традиційних матеріалів і сучасних технічних вирішень.</p></div></article>
+</section>
+
+<section class="points" aria-label="Життя в Будинках Каркашадзе">
+  <ul class="points__list"><li class="point"><figure class="point__frame"><img src="../assets/zars/kids-792.webp" srcset="../assets/zars/kids-792.webp 792w" sizes="(max-width: 900px) 78vw, 24vw" alt="Дитячий майданчик у дворі" loading="lazy" decoding="async"></figure><h3>Дитячі простори</h3><p>Кожен дитячий простір у дворі Будинків Каркашадзе являє собою унікальний, ретельно продуманий проєкт.</p></li><li class="point"><figure class="point__frame"><img src="../assets/zars/security-770.webp" srcset="../assets/zars/security-770.webp 770w" sizes="(max-width: 900px) 78vw, 24vw" alt="Двір під відеоспостереженням" loading="lazy" decoding="async"></figure><h3>Безпека</h3><p>Захищеність — у цьому початкова суть будинку. Тому в усіх Будинках Каркашадзе встановлено продуману й надійну систему безпеки.</p></li><li class="point"><figure class="point__frame"><img src="../assets/zars/service-792.webp" srcset="../assets/zars/service-792.webp 792w" sizes="(max-width: 900px) 78vw, 24vw" alt="Сервіс ZARS management" loading="lazy" decoding="async"></figure><h3>Сервіс</h3><p>ZARS management — це додаткові привілеї для власників квартир в Будинках Каркашадзе. В основу філософії ZARS management закладені принципи якості, довіри, естетики та інновацій.</p></li><li class="point"><figure class="point__frame"><img src="../assets/zars/art-616.webp" srcset="../assets/zars/art-616.webp 616w" sizes="(max-width: 900px) 78vw, 24vw" alt="Витвір мистецтва в холі" loading="lazy" decoding="async"></figure><h3>Арт</h3><p>Наповнюючи Будинки Каркашадзе витворами мистецтва, ми підкреслюємо унікальний характер Будинків, демонструємо їх суть.</p></li></ul>
 </section>
 
 <footer class="foot" id="contacts">

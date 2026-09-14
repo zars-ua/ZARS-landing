@@ -19,6 +19,7 @@
   // Плавна прокрутка
   if (window.Lenis) {
     const lenis = new Lenis({ lerp: 0.085, wheelMultiplier: 0.9 });
+    window.__lenis = lenis;
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add((t) => lenis.raf(t * 1000));
     gsap.ticker.lagSmoothing(0);
@@ -103,6 +104,66 @@
       .fromTo(cap, { autoAlpha: 0, y: 60 }, { autoAlpha: 1, y: 0, ease: 'power2.out', duration: 0.35 })
       .to(cap, { autoAlpha: 1, y: -10, duration: 0.4, ease: 'none' })
       .to(cap, { autoAlpha: 0, y: -40, duration: 0.25, ease: 'power1.in' });
+  });
+
+
+  /* 6. Будинки Каркашадзе: кадри змінюються вбік за прокруткою (Rolex, горизонтально) */
+  document.querySelectorAll('[data-dk]').forEach((dk) => {
+    const slides = [...dk.querySelectorAll('.dk__slide')];
+    const n = slides.length;
+    if (n < 2) return;
+    const ticks = [...dk.querySelectorAll('.dk__tick')];
+    const cur = dk.querySelector('.dk__cur');
+    const span = dk.querySelector('.dk__span');
+    const fill = dk.querySelector('.dk__fill');
+    const imgs = slides.map((s) => s.querySelector('img'));
+    const caps = slides.map((s) => s.querySelector('.dk__cap'));
+    let active = -1;
+    const setActive = (i) => {
+      if (i === active) return;
+      active = i;
+      cur.textContent = String(i + 1).padStart(2, '0');
+      span.textContent = slides[i].dataset.years;
+      ticks.forEach((t, k) => t.setAttribute('aria-current', String(k === i)));
+    };
+    gsap.set(slides, { zIndex: (k) => k + 1 });
+    gsap.set(slides.slice(1), { clipPath: 'inset(0% 0% 0% 100%)' });
+    gsap.set(imgs.slice(1), { xPercent: 18 });
+    gsap.set(caps.slice(1), { autoAlpha: 0, x: 80 });
+    const tl = gsap.timeline({
+      defaults: { ease: 'none' },
+      scrollTrigger: {
+        trigger: dk, start: 'top top', end: () => '+=' + innerHeight * (n - 1) * 0.85,
+        pin: true, scrub: 0.7, invalidateOnRefresh: true, anticipatePin: 1,
+        snap: { snapTo: 1 / (n - 1), duration: { min: 0.3, max: 0.8 }, delay: 0.08, ease: 'power2.inOut' },
+        onUpdate: (st) => { fill.style.transform = `scaleX(${st.progress})`; setActive(Math.round(st.progress * (n - 1))); },
+      },
+    });
+    for (let i = 1; i < n; i++) {
+      const t = i - 1;
+      tl.to(slides[i], { clipPath: 'inset(0% 0% 0% 0%)', duration: 1, ease: 'power1.inOut' }, t)
+        .to(imgs[i], { xPercent: 0, duration: 1, ease: 'power1.out' }, t)
+        .to(imgs[i - 1], { xPercent: -12, duration: 1, ease: 'power1.in' }, t)
+        .to(caps[i - 1], { autoAlpha: 0, x: -60, duration: 0.35 }, t)
+        .to(caps[i], { autoAlpha: 1, x: 0, duration: 0.45, ease: 'power2.out' }, t + 0.55);
+    }
+    setActive(0);
+    ticks.forEach((tk, i) => tk.addEventListener('click', () => {
+      const st = tl.scrollTrigger;
+      const y = st.start + (st.end - st.start) * (i / (n - 1));
+      window.__lenis ? window.__lenis.scrollTo(y, { duration: 1.4 }) : window.scrollTo({ top: y, behavior: 'smooth' });
+    }));
+  });
+
+  /* 7. Фото маніфесту і матеріалів течуть усередині рамки */
+  document.querySelectorAll('.manifest, .holding__photo, .material__frame').forEach((frame) => {
+    const img = frame.querySelector('img');
+    img && gsap.fromTo(img, { yPercent: -5 }, { yPercent: 5, ease: 'none',
+      scrollTrigger: { trigger: frame, start: 'top bottom', end: 'bottom top', scrub: true } });
+  });
+  document.querySelectorAll('.holding__photo, .founder__frame').forEach((frame) => {
+    gsap.fromTo(frame, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.6, ease: 'expo.inOut',
+      scrollTrigger: { trigger: frame, start: 'top 82%', once: true } });
   });
 
   /* 5. Проєкти розкриваються з арки (силует куполів ФБ29) у повний кадр */

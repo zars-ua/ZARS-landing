@@ -417,3 +417,131 @@ html.js .plans__stage img[hidden] { display: none; }
   .house__name { white-space: normal; text-wrap: balance; letter-spacing: 0.03em; }
   .house__cap { width: auto; max-width: 88%; }
 }
+
+/* =====================================================================
+   Сторінка девелопера v3 (15.09.2026)
+   ===================================================================== */
+.intro .hero__media video { background: #1a1a1a; }
+
+/* Головна фраза під інтро */
+.claim { padding: clamp(7rem, 18vh, 13rem) clamp(1.25rem, 3.5vw, 3.5rem); }
+.claim__text { margin: 0; max-width: 16ch; font: 400 clamp(2.5rem, 0.9rem + 6.2vw, 7.6rem)/1.02 'History', sans-serif; letter-spacing: 0.02em; text-transform: uppercase; color: var(--ink); }
+.claim__text .line { display: block; overflow: hidden; padding-bottom: 0.04em; }
+.claim__text .line > span { display: block; }
+.claim__text em { font-style: normal; color: var(--brand); }
+
+/* Холдинг: широкий кадр офісу + колонка тексту + засновник */
+.holding { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(1rem, 2vw, 2rem); row-gap: clamp(2.5rem, 6vh, 4rem); padding: clamp(5rem, 12vh, 9rem) clamp(1.25rem, 3.5vw, 3.5rem); }
+.holding__head { grid-column: 1 / 8; }
+.holding__photo { grid-column: 1 / 9; grid-row: 2 / 4; position: relative; margin: 0; aspect-ratio: 16 / 10; overflow: hidden; background: var(--stone); }
+.holding__photo img { position: absolute; inset: -6% 0; width: 100%; height: 112%; object-fit: cover; }
+.holding__text { grid-column: 9 / 13; grid-row: 2; align-self: start; }
+.holding__text p { margin: 0 0 1.25rem; color: var(--ink-2); }
+.holding__text p:first-child { font: 300 clamp(1.15rem, 1rem + 0.45vw, 1.4rem)/1.5 var(--text-font); color: var(--ink); }
+.founder { grid-column: 10 / 13; grid-row: 3; align-self: end; margin: 0; }
+.founder__frame { position: relative; aspect-ratio: 1206 / 1387; overflow: hidden; background: #ddd; }
+.founder__frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.02); }
+.founder figcaption { margin-top: 0.9rem; display: grid; gap: 0.25rem; }
+.founder figcaption b { font: 400 0.9375rem/1.3 'History', sans-serif; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 400; color: var(--ink); }
+.founder figcaption span { font-size: 0.875rem; color: var(--muted); }
+
+/* Маніфест поверх фото */
+.manifest { position: relative; height: 100svh; min-height: 560px; overflow: hidden; color: #fff; background: #2a2a2a; }
+.manifest img { position: absolute; inset: -8% 0; width: 100%; height: 116%; object-fit: cover; }
+.manifest::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,21,20,0.15) 0%, rgba(20,21,20,0.55) 100%), rgba(20,21,20,0.18); }
+.manifest__text { position: absolute; z-index: 2; left: clamp(1.25rem, 6vw, 7rem); right: clamp(1.25rem, 6vw, 7rem); bottom: clamp(3rem, 12vh, 8rem); max-width: 24ch; margin: 0; font: 300 clamp(1.8rem, 0.9rem + 3vw, 4.2rem)/1.2 var(--text-font); letter-spacing: -0.01em; text-wrap: balance; }
+.manifest__text .w { display: inline-block; }
+
+/* Будинки Каркашадзе — горизонтальне перелистування (Rolex, лише вбік) */
+.dk { position: relative; background: var(--ground); }
+.dk__stage { display: grid; gap: clamp(0.75rem, 1.4vw, 1.5rem); padding: 0 clamp(1.25rem, 3.5vw, 3.5rem); }
+.dk__slide { position: relative; margin: 0; height: 88svh; overflow: hidden; background: #2a2a2a; color: #fff; }
+.dk__slide img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; will-change: transform; }
+.dk__slide::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(18,18,18,0.72) 0%, rgba(18,18,18,0.25) 30%, rgba(18,18,18,0) 52%), linear-gradient(180deg, rgba(18,18,18,0.3) 0%, rgba(18,18,18,0) 18%); pointer-events: none; }
+.dk__cap { position: absolute; z-index: 2; left: clamp(1.4rem, 4vw, 4rem); bottom: clamp(5.4rem, 14vh, 8rem); right: clamp(1.4rem, 4vw, 4rem); }
+.dk__num { display: block; margin-bottom: 1rem; font: 400 0.8125rem/1 'History', sans-serif; letter-spacing: 0.3em; opacity: 0.85; }
+.dk__name { margin: 0; font: 400 clamp(2rem, 0.8rem + 4.4vw, 5.6rem)/1 'History', sans-serif; letter-spacing: 0.03em; text-transform: uppercase; text-wrap: balance; }
+.dk__years { margin: 0.9rem 0 0; font: 300 clamp(1.05rem, 0.9rem + 0.6vw, 1.5rem)/1 var(--text-font); letter-spacing: 0.12em; font-variant-numeric: tabular-nums; }
+.dk__timeline { display: none; }
+
+html.motion .dk__stage { position: relative; display: block; height: 100svh; padding: clamp(0.75rem, 1.4vw, 1.25rem); }
+html.motion .dk__slide { position: absolute; inset: clamp(0.75rem, 1.4vw, 1.25rem); height: auto; }
+html.motion .dk__timeline { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: clamp(1rem, 2.5vw, 2.5rem); position: absolute; z-index: 5; left: clamp(2.2rem, 5vw, 5rem); right: clamp(2.2rem, 5vw, 5rem); bottom: clamp(2rem, 5.5vh, 3.4rem); color: #fff; }
+.dk__count { font: 400 0.875rem/1 'History', sans-serif; letter-spacing: 0.2em; white-space: nowrap; }
+.dk__count b { font-weight: 400; }
+.dk__track { position: relative; height: 2.6rem; }
+.dk__line { position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: rgba(255,255,255,0.35); }
+.dk__fill { position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: #fff; transform-origin: left; transform: scaleX(0); }
+.dk__ticks { position: absolute; inset: 0; display: flex; justify-content: space-between; list-style: none; margin: 0; padding: 0; }
+.dk__tick { position: relative; width: 2.6rem; height: 100%; margin: 0 -1.3rem; border: 0; background: none; color: #fff; cursor: pointer; }
+.dk__tick:first-child { margin-left: -1.3rem; }
+.dk__tick::before { content: ''; position: absolute; left: 50%; top: 50%; width: 7px; height: 7px; margin: -3.5px 0 0 -3.5px; border-radius: 50%; background: rgba(255,255,255,0.55); transition: transform 500ms cubic-bezier(0.16,1,0.3,1), background 500ms; }
+.dk__tick[aria-current='true']::before { background: #fff; transform: scale(1.7); }
+.dk__tick span { position: absolute; left: 50%; bottom: calc(100% - 0.2rem); transform: translateX(-50%); font: 400 0.75rem/1 var(--text-font); letter-spacing: 0.06em; opacity: 0; transition: opacity 400ms; white-space: nowrap; }
+.dk__tick:hover span, .dk__tick[aria-current='true'] span { opacity: 1; }
+.dk__span { font: 400 0.875rem/1 'History', sans-serif; letter-spacing: 0.2em; white-space: nowrap; }
+
+/* Про будинки: розділи зі змінним кадром */
+.chapters { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: clamp(2rem, 6vw, 7rem); padding: clamp(5rem, 12vh, 9rem) clamp(1.25rem, 3.5vw, 3.5rem); }
+.chapters__media { position: sticky; top: 6rem; height: calc(100svh - 8rem); margin: 0; }
+.chapters__media figure { position: absolute; inset: 0; margin: 0; overflow: hidden; clip-path: inset(100% 0 0 0); transition: clip-path 1100ms cubic-bezier(0.65,0,0.35,1); background: var(--stone); }
+.chapters__media figure[data-active] { clip-path: inset(0 0 0 0); z-index: 2; }
+.chapters__media figure[data-was] { clip-path: inset(0 0 0 0); z-index: 1; }
+.chapters__media img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.08); transition: transform 1600ms cubic-bezier(0.16,1,0.3,1); }
+.chapters__media figure[data-active] img { transform: scale(1); }
+.chapter { min-height: 72svh; display: flex; flex-direction: column; justify-content: center; padding-block: 3rem; opacity: 0.35; transition: opacity 700ms; }
+.chapter[data-active] { opacity: 1; }
+.chapter__num { font: 400 0.8125rem/1 'History', sans-serif; letter-spacing: 0.3em; color: var(--brand); }
+.chapter h3 { margin: 1.1rem 0 1.4rem; font: 400 clamp(2rem, 1rem + 3vw, 4rem)/1 'History', sans-serif; letter-spacing: 0.03em; text-transform: uppercase; color: var(--ink); }
+.chapter p { max-width: 44ch; margin: 0 0 1rem; color: var(--ink-2); }
+.chapter__img { display: none; }
+
+/* Відчуття дому */
+.feel { padding: clamp(7rem, 18vh, 12rem) clamp(1.25rem, 3.5vw, 3.5rem); text-align: center; background: var(--stone); }
+.feel h2 { margin: 0 0 clamp(2rem, 5vh, 3rem); font: 400 clamp(2.2rem, 1rem + 4vw, 5.4rem)/1 'History', sans-serif; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink); }
+.feel p { max-width: 34ch; margin: 0 auto; font: 300 clamp(1.4rem, 0.9rem + 1.6vw, 2.4rem)/1.35 var(--text-font); color: var(--ink); text-wrap: balance; }
+
+/* Матеріали: чергування кадру й тексту */
+.materials { display: grid; gap: clamp(5rem, 14vh, 9rem); padding: clamp(6rem, 14vh, 10rem) clamp(1.25rem, 3.5vw, 3.5rem); }
+.material { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(1rem, 2vw, 2rem); align-items: center; }
+.material__frame { grid-column: 1 / 8; position: relative; margin: 0; aspect-ratio: 3 / 2; overflow: hidden; background: var(--stone); }
+.material__frame img { position: absolute; inset: -8% 0; width: 100%; height: 116%; object-fit: cover; }
+.material__body { grid-column: 9 / 13; }
+.material:nth-child(even) .material__frame { grid-column: 6 / 13; grid-row: 1; }
+.material:nth-child(even) .material__body { grid-column: 1 / 5; grid-row: 1; }
+.material h3 { margin: 0 0 1.4rem; font: 400 clamp(1.8rem, 1rem + 2.4vw, 3.4rem)/1 'History', sans-serif; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink); }
+.material p { margin: 0 0 1rem; max-width: 42ch; color: var(--ink-2); }
+
+/* Сервіси: чотири колонки */
+.points { padding: 0 clamp(1.25rem, 3.5vw, 3.5rem) clamp(6rem, 14vh, 10rem); }
+.points__list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(1rem, 2vw, 2rem); list-style: none; margin: 0; padding: 0; }
+.point__frame { position: relative; margin: 0 0 1.6rem; aspect-ratio: 3 / 4; overflow: hidden; background: var(--stone); }
+.point__frame img { width: 100%; height: 100%; object-fit: cover; transition: transform 1400ms cubic-bezier(0.16,1,0.3,1); }
+.point:hover .point__frame img { transform: scale(1.04); }
+.point h3 { margin: 0 0 0.9rem; font: 400 clamp(1.3rem, 1rem + 0.8vw, 1.8rem)/1.1 'History', sans-serif; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); }
+.point p { margin: 0; font-size: 0.9375rem; color: var(--ink-2); }
+
+@media (max-width: 900px) {
+  .holding { grid-template-columns: 1fr; }
+  .holding__head, .holding__photo, .holding__text, .founder { grid-column: 1; grid-row: auto; }
+  .holding__photo { aspect-ratio: 4 / 5; margin-inline: calc(-1 * clamp(1.25rem, 3.5vw, 3.5rem)); }
+  .founder { width: 72%; }
+  html.motion .dk__timeline { grid-template-columns: 1fr auto; }
+  html.motion .dk__track { grid-column: 1 / -1; grid-row: 2; height: 1.4rem; }
+  .dk__tick span { display: none; }
+  .dk__tick { width: 1.4rem; margin: 0 -0.7rem; }
+  .dk__cap { bottom: 7.4rem; }
+  .chapters { grid-template-columns: 1fr; }
+  .chapters__media { display: none; }
+  .chapter { min-height: 0; opacity: 1; padding-block: 0 3rem; }
+  .chapter__img { display: block; margin: 0 0 1.6rem; aspect-ratio: 4 / 3; overflow: hidden; }
+  .chapter__img img { width: 100%; height: 100%; object-fit: cover; }
+  .material, .material:nth-child(even) { grid-template-columns: 1fr; row-gap: 1.8rem; }
+  .material__frame, .material__body, .material:nth-child(even) .material__frame, .material:nth-child(even) .material__body { grid-column: 1; grid-row: auto; }
+  .points__list { grid-auto-flow: column; grid-template-columns: none; grid-auto-columns: 78%; overflow-x: auto; scroll-snap-type: x mandatory; margin-inline: calc(-1 * clamp(1.25rem, 3.5vw, 3.5rem)); padding-inline: clamp(1.25rem, 3.5vw, 3.5rem); scrollbar-width: none; }
+  .point { scroll-snap-align: start; }
+}
+
+/* правки після огляду v3 */
+html.motion .dk__num { display: none; }
+.manifest::after { background: linear-gradient(20deg, rgba(20,21,20,0.78) 0%, rgba(20,21,20,0.45) 38%, rgba(20,21,20,0.08) 70%), rgba(20,21,20,0.12); }

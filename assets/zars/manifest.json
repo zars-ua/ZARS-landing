@@ -1,0 +1,298 @@
+{
+ "houses": [
+  {
+   "slug": "d6",
+   "name": "Вулиця Довженка, 6",
+   "years": "1996–1999",
+   "wide": [
+    1280,
+    1920,
+    2560
+   ],
+   "tall": [
+    720,
+    1080
+   ],
+   "source": "~/Desktop/Обработанные фото ДК/Довженко, 6.jpg"
+  },
+  {
+   "slug": "d6a",
+   "name": "Вулиця Довженка, 6А",
+   "years": "1997–2000",
+   "wide": [
+    1280,
+    1920,
+    2560
+   ],
+   "tall": [
+    720,
+    1080
+   ],
+   "source": "~/Desktop/Обработанные фото ДК/Довженко, 6А.jpg"
+  },
+  {
+   "slug": "d2",
+   "name": "Вулиця Довженка, 2",
+   "years": "1999–2002",
+   "wide": [
+    1280,
+    1920,
+    2560
+   ],
+   "tall": [
+    720,
+    1080
+   ],
+   "source": "~/Desktop/Обработанные фото ДК/Довженко, 2.jpg"
+  },
+  {
+   "slug": "f35",
+   "name": "Французький бульвар, 35",
+   "years": "2001–2003",
+   "wide": [
+    1280,
+    1920,
+    2560
+   ],
+   "tall": [
+    720,
+    1080
+   ],
+   "source": "~/Desktop/Обработанные фото ДК/Французкий бульвар, 35.jpg"
+  },
+  {
+   "slug": "k3",
+   "name": "Провулок Каркашадзе, 3/1",
+   "years": "2003–2006",
+   "wide": [
+    1280,
+    1920,
+    2560
+   ],
+   "tall": [
+    720,
+    1080
+   ],
+   "source": "~/Desktop/Обработанные фото ДК/Каркашадзе 3_1.jpg"
+  },
+  {
+   "slug": "d4",
+   "name": "Вулиця Довженка, 4",
+   "years": "2003–2006",
+   "wide": [
+    1280,
+    1920,
+    2560
+   ],
+   "tall": [
+    720,
+    1080
+   ],
+   "source": "~/Desktop/Обработанные фото ДК/Довженко, 4.jpg"
+  },
+  {
+   "slug": "d4a",
+   "name": "Вулиця Довженка, 4А",
+   "years": "2003–2007",
+   "wide": [
+    1280,
+    1920,
+    2560
+   ],
+   "tall": [
+    720,
+    1080
+   ],
+   "source": "~/Desktop/Обработанные фото ДК/Довженко, 4А.jpg"
+  },
+  {
+   "slug": "k7",
+   "name": "Провулок Каркашадзе, 7",
+   "years": "2003–2007",
+   "wide": [
+    1280,
+    1920,
+    2560
+   ],
+   "tall": [
+    720,
+    1080
+   ],
+   "source": "~/Desktop/Обработанные фото ДК/Каркашадзе 7.jpg"
+  },
+  {
+   "slug": "k9",
+   "name": "Провулок Каркашадзе, 9",
+   "years": "2008–2011",
+   "wide": [
+    1280,
+    1920,
+    2560
+   ],
+   "tall": [
+    720,
+    1080
+   ],
+   "source": "~/Desktop/Обработанные фото ДК/Каркашадзе 9.jpg"
+  },
+  {
+   "slug": "f2",
+   "name": "Французький бульвар, 2",
+   "years": "2012–2016",
+   "wide": [
+    1280,
+    1920,
+    2560
+   ],
+   "tall": [
+    720,
+    1080
+   ],
+   "source": "~/Desktop/Обработанные фото ДК/Французкий бульвар, 2.jpg"
+  },
+  {
+   "slug": "f29",
+   "name": "Французький бульвар, 29",
+   "years": "2017–2020",
+   "wide": [
+    1280,
+    1920,
+    2560
+   ],
+   "tall": [
+    720,
+    1080
+   ],
+   "source": "~/Desktop/Обработанные фото ДК/Французкий бульвар, 29.jpg"
+  }
+ ],
+ "zars": {
+  "office": {
+   "w": [
+    960,
+    1600,
+    2400
+   ],
+   "ratio": "16/10"
+  },
+  "office-m": {
+   "w": [
+    720,
+    1080
+   ],
+   "ratio": "4/5"
+  },
+  "founder": {
+   "w": [
+    600,
+    1206
+   ],
+   "ratio": "1206/1387"
+  },
+  "manifest": {
+   "w": [
+    1280,
+    1920,
+    2560
+   ]
+  },
+  "manifest-p": {
+   "w": [
+    720,
+    1080
+   ]
+  },
+  "arch": {
+   "w": [
+    960,
+    1600
+   ],
+   "ratio": 1.355,
+   "source": "https://zars.ua/objects/ · architect.jpg"
+  },
+  "landscape": {
+   "w": [
+    960,
+    1476
+   ],
+   "ratio": 1.636,
+   "source": "https://zars.ua/objects/ · blagoustiry.jpg"
+  },
+  "interiors": {
+   "w": [
+    960,
+    1466
+   ],
+   "ratio": 1.606,
+   "source": "https://zars.ua/objects/ · 800_8423_16.jpg"
+  },
+  "ergonomics": {
+   "w": [
+    960,
+    1476
+   ],
+   "ratio": 1.636,
+   "source": "https://zars.ua/objects/ · ergonomika-1.jpg"
+  },
+  "parking": {
+   "w": [
+    960,
+    1496
+   ],
+   "ratio": 1.345,
+   "source": "https://zars.ua/objects/ · parking.jpg"
+  },
+  "brick": {
+   "w": [
+    960,
+    1338
+   ],
+   "ratio": 1.454,
+   "source": "https://zars.ua/objects/ · kirpich.jpg"
+  },
+  "marble": {
+   "w": [
+    960,
+    1600
+   ],
+   "ratio": 1.5,
+   "source": "https://zars.ua/objects/ · mramur-16.jpg"
+  },
+  "windows": {
+   "w": [
+    960,
+    1476
+   ],
+   "ratio": 1.636,
+   "source": "https://zars.ua/objects/ · okna.png"
+  },
+  "kids": {
+   "w": [
+    792
+   ],
+   "ratio": 0.865,
+   "source": "https://zars.ua/objects/ · playgrounds_fb29-1.png"
+  },
+  "security": {
+   "w": [
+    770
+   ],
+   "ratio": 0.819,
+   "source": "https://zars.ua/objects/ · bezpeka.jpg"
+  },
+  "service": {
+   "w": [
+    792
+   ],
+   "ratio": 0.865,
+   "source": "https://zars.ua/objects/ · service_sl3.png"
+  },
+  "art": {
+   "w": [
+    616
+   ],
+   "ratio": 0.71,
+   "source": "https://zars.ua/objects/ · 800_8423_8-2.jpg"
+  }
+ }
+}
