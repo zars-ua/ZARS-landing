@@ -46,7 +46,8 @@ PHOTOS = [
     ('fb29',  'parking',    '18e4f2_150669bcdd7540dba57bbe9f09b593eb~mv2.jpg', W2),
     ('fb29',  'sea',        '18e4f2_e729173819aa4793b12ed2c13bc70be4~mv2.jpg', W2),
     ('fb29',  'dusk',       '18e4f2_6c2c967b17f7420f855fa493102e6ba3~mv2.jpg', W2),
-    ('fb29',  'entrance',   '18e4f2_d34a599db8934127850436d781a9e595~mv2.jpg', W2),
+    # інший будинок ЗАРС (не ФБ29) — лише для сторінки девелопера
+    ('zars',  'house-arches','18e4f2_d34a599db8934127850436d781a9e595~mv2.jpg', W2),
 ]
 PLANS = [
     ('fb29b', 'plan-3k-131', 'dbdfe3_79416a3ed6d44647a01027e02590d9fb~mv2.png', W1),

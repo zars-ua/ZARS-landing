@@ -47,20 +47,6 @@ def gallery(items):
     return '<div class="editorial" data-gallery>' + ''.join(
         f'<figure class="{cls}">{pic(k, alt, "(max-width: 900px) 100vw, 60vw")}</figure>' for k, alt, cls in items) + '</div>'
 
-DEV = '''<section class="air" aria-labelledby="dev-title">
-  <div class="dev">
-    <figure class="dev__photo pan" style="height:auto">{photo}</figure>
-    <div>
-      <span class="label" id="dev-title">Девелопер</span>
-      <div class="dev__logo" style="color:#B05523">{logo}</div>
-      <p class="words" data-reveal-words style="margin:0;text-align:left;max-width:26ch">Якість. Естетика. Традиції.</p>
-      <p class="lead">Компанія ЗАРС заснована 14 жовтня 1996 року Гіві Сіловановичем Каркашадзе (1930–2006).</p>
-      <p class="lead">Холдинг ЗАРС здійснює повний інвестиційно-будівельний цикл власних проєктів, від девелопменту та будівництва до введення в експлуатацію та управління.</p>
-      <p style="margin-top:2.4rem"><a class="act act--quiet" href="index.html">Про девелопера</a></p>
-    </div>
-  </div>
-</section>'''
-
 def enquiry(project):
     opts = ''.join(f'<option{" selected" if p == project else ""}>{p}</option>' for p in ['Французький бульвар, 29', 'Французький бульвар, 29Б'])
     return f'''<section class="enquiry" id="presentation" aria-labelledby="enq-title">
@@ -172,10 +158,9 @@ fb29 = head + hero + f'''
 
 <section class="air" aria-labelledby="s29-photo">
   <h2 class="title-lg" id="s29-photo" style="margin-bottom:clamp(2.5rem,6vh,4rem)">Фото</h2>
-  {gallery([('fb29/tower-green', 'Будинок над зеленню парку', 'e-7'), ('fb29/entrance', 'Вхід із цегляним цоколем', 'e-5'), ('fb29/autumn', 'Будинок на тлі осіннього парку', 'e-12'), ('fb29/dusk', 'Будинок у парку з моря', 'e-6'), ('fb29/garden', 'Прибудинкова територія', 'e-6')])}
+  {gallery([('fb29/tower-green', 'Будинок над зеленню парку', 'e-7'), ('fb29/canopy', 'Біонічні навіси і фасад будинку', 'e-5'), ('fb29/autumn', 'Будинок на тлі осіннього парку', 'e-12'), ('fb29/dusk', 'Будинок у парку з моря', 'e-6'), ('fb29/garden', 'Прибудинкова територія', 'e-6')])}
 </section>
 
-{DEV.format(photo=pic('fb29/entrance', 'Вхід до будинку ЗАРС', '(max-width: 900px) 100vw, 45vw'), logo=LOGO)}
 {enquiry('Французький бульвар, 29')}
 {FOOT.format(logo=LOGO)}
 {sym}
@@ -248,7 +233,6 @@ fb29b = head + hero + f'''
   {gallery([('fb29b/tower-park', 'Будинок серед парку', 'e-12'), ('fb29b/lane', 'Провулок біля будинку', 'e-7'), ('fb29b/courtyard', 'Двір і дитячий майданчик', 'e-5'), ('fb29b/street', 'Фасад з боку вулиці', 'e-12')])}
 </section>
 
-{DEV.format(photo=pic('zars/office', 'Офіс ЗАРС на Французькому бульварі', '(max-width: 900px) 100vw, 45vw'), logo=LOGO)}
 {enquiry('Французький бульвар, 29Б')}
 <p class="legal">«Французький бульвар, 29Б» — адреса, що використовується в рекламних цілях. Будівельна адреса: пров. Спортивний, 4 та бульвар Французький, 29-Б, м. Одеса. Квартири за дозвільною документацією є житловими приміщеннями, пентхаус — технічним приміщенням. Візуалізації та площі — проєктні.</p>
 {FOOT.format(logo=LOGO)}

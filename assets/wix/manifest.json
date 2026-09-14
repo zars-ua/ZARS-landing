@@ -200,15 +200,6 @@
   "ratio": 1.459,
   "source": "https://marketing89613.wixsite.com/penthouse_fb29 · static.wixstatic.com/media/18e4f2_6c2c967b17f7420f855fa493102e6ba3~mv2.jpg"
  },
- "fb29/entrance": {
-  "widths": [
-   960,
-   1600,
-   2400
-  ],
-  "ratio": 0.6667,
-  "source": "https://marketing89613.wixsite.com/penthouse_fb29 · static.wixstatic.com/media/18e4f2_d34a599db8934127850436d781a9e595~mv2.jpg"
- },
  "fb29b/plan-3k-131": {
   "widths": [
    1077
@@ -253,5 +244,14 @@
   ],
   "ratio": 0.6128,
   "source": "https://marketing89613.wixsite.com/penthouse_fb29 · static.wixstatic.com/media/dbdfe3_4fee9a30105240f48905dd43b17b5eaa~mv2.jpg"
+ },
+ "zars/house-arches": {
+  "widths": [
+   960,
+   1600,
+   2400
+  ],
+  "ratio": 0.6667,
+  "source": "https://marketing89613.wixsite.com/penthouse_fb29 · static.wixstatic.com/media/18e4f2_d34a599db8934127850436d781a9e595~mv2.jpg"
  }
 }
