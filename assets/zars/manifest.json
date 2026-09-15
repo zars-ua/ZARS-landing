@@ -213,10 +213,11 @@
   "landscape": {
    "w": [
     960,
-    1476
+    1600,
+    2000
    ],
-   "ratio": 1.636,
-   "source": "https://zars.ua/objects/ · blagoustiry.jpg"
+   "ratio": 1.498,
+   "source": "~/Desktop/WEBP/Благоустройство.webp"
   },
   "interiors": {
    "w": [

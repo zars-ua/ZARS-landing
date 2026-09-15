@@ -76,7 +76,8 @@ def main():
     mf = ImageOps.exif_transpose(Image.open(find(PH, '_8008546.jpg'))).convert('RGB')
     man['zars']['manifest'] = {'w': out(crop(mf, 16 / 9, 0.5, 0.45), f'{ROOT}/assets/zars/manifest', [1280, 1920, 2560])}
     man['zars']['manifest-p'] = {'w': out(crop(mf, 3 / 4, 0.62), f'{ROOT}/assets/zars/manifest-p', [720, 1080])}
-    blocks = {'arch': 'architect.jpg', 'landscape': 'blagoustiry.jpg', 'interiors': '800_8423_16.jpg', 'ergonomics': 'ergonomika-1.jpg',
+    blocks = {'arch': 'architect.jpg', # благоустрій — нове фото клієнта (~/Desktop/WEBP/Благоустройство.webp), не з zars.ua
+               'interiors': '800_8423_16.jpg', 'ergonomics': 'ergonomika-1.jpg',
               'parking': 'parking.jpg', 'brick': 'kirpich.jpg', 'marble': 'mramur-16.jpg', 'windows': 'okna.png',
               'kids': 'playgrounds_fb29-1.png', 'security': 'bezpeka.jpg', 'service': 'service_sl3.png', 'art': '800_8423_8-2.jpg'}
     for name, fn in blocks.items():

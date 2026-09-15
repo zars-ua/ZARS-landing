@@ -9,7 +9,7 @@ Z = M['zars']
 head = cur[:cur.index('<body')]
 head = re.sub(r'<link rel="stylesheet" href="mock\.css">', '<link rel="stylesheet" href="mock.css">\n<link rel="stylesheet" href="dev.css">', head) if 'dev.css' not in head else head
 header = re.search(r'<header class="bar">.*?</header>', cur, re.S).group(0)
-header = header.replace('href="#presentation"', 'href="fb29b.html#presentation"')
+header = re.sub(r'\s*<a class="bar__cta"[^>]*>.*?</a>', '', header, flags=re.S)  # на сторінці девелопера форми немає
 sym = re.search(r'<svg width="0" height="0".*?</svg>', cur, re.S).group(0)
 VB = re.search(r'<symbol id="zars" viewBox="([^"]+)"', sym).group(1)
 motto = re.search(r'<svg class="lockup__motto".*?</svg>', cur, re.S).group(0)
@@ -34,10 +34,12 @@ houses = [dict(h, years=h['years'].replace('–', '-')) for h in reversed(M['hou
 slides = []
 for i, h in enumerate(houses):
     b = f'../assets/dk/{h["slug"]}'
-    slides.append(f'''    <figure class="d-gal__slide" data-name="{h["name"]}" data-years="{h["years"]}">
-      <picture><source media="(max-width: 700px)" srcset="{ss(b + '-p', h['tall'])}" sizes="100vw"><img src="{b}-1920.webp" srcset="{ss(b, h['wide'])}" sizes="100vw" alt="{h["name"]}" loading="{'eager' if i < 2 else 'lazy'}" decoding="async"></picture>
-      <figcaption><b>{h["name"]}</b>{h["years"]}</figcaption>
-    </figure>''')
+    slides.append(f"""    <li class="d-gal__slide">
+      <figure class="d-gal__figure">
+        <picture><source media="(max-width: 700px)" srcset="{ss(b + '-p', h['tall'])}" sizes="86vw"><img src="{b}-1920.webp" srcset="{ss(b, h['wide'])}" sizes="(max-width: 900px) 86vw, 74vw" alt="{h["name"]}" loading="{'eager' if i < 2 else 'lazy'}" decoding="async" draggable="false"></picture>
+        <figcaption class="d-gal__cap"><h3 class="d-gal__name">{h["name"]}</h3><p class="d-gal__years">{h["years"]}</p></figcaption>
+      </figure>
+    </li>""")
 ticks = ''.join(f'<li><button class="d-gal__tick" type="button" aria-current="{str(i == 0).lower()}" aria-label="{h["name"]}, {h["years"]}"><span>{h["years"][:4]}</span></button></li>' for i, h in enumerate(houses))
 
 ADV = [
@@ -82,8 +84,10 @@ page = head + f'''<body class="h-zars">
 </section>
 
 <section class="d-claim gut" aria-label="30 років">
-  <p class="d-claim__years"><span class="d-claim__num">30</span><span class="d-claim__unit">років</span></p>
-  <p class="d-claim__text">створюємо унікальні проєкти поза часом</p>
+  <div class="d-claim__inner">
+    <p class="d-claim__years"><span class="d-claim__num">30</span><span class="d-claim__unit">років</span></p>
+    <p class="d-claim__text"><span>створюємо унікальні проєкти</span><span>поза часом</span></p>
+  </div>
 </section>
 
 <section class="d-holding gut" aria-labelledby="holding-title">
@@ -114,16 +118,18 @@ page = head + f'''<body class="h-zars">
   <p class="d-kk__story" data-rise>Історія Будинків Каркашадзе почалася з мрії її засновника побудувати ідеальний будинок для життя. Ось уже 30 років компанія ЗАРС робить її реальністю і зберігає головні принципи, завдяки яким Будинки Каркашадзе стають мрією для інших людей. Мрією, яку вони зможуть передати вже як свою спадщину.</p>
 </section>
 
-<section class="d-gal gut" data-gal aria-roledescription="галерея" aria-label="Будинки Каркашадзе, від новіших до перших">
-  <div class="d-gal__stage">
+<section class="d-gal gut" data-gal aria-roledescription="карусель" aria-label="Будинки Каркашадзе, від новіших до перших">
+  <div class="d-gal__viewport" tabindex="0" aria-label="Будинки Каркашадзе, гортайте вбік">
+    <ul class="d-gal__track">
 {chr(10).join(slides)}
-    <div class="d-gal__overlay">
-      <div class="d-gal__cap" aria-live="polite"><h3 class="d-gal__name">{houses[0]["name"]}</h3><p class="d-gal__years">{houses[0]["years"]}</p></div>
-      <div class="d-gal__bar">
-        <span class="d-gal__count"><b class="d-gal__cur" style="font-weight:400">01</b> / {len(houses):02d}</span>
-        <div class="d-gal__track"><span class="d-gal__line"></span><span class="d-gal__fill"></span><ol class="d-gal__ticks">{ticks}</ol></div>
-        <button class="d-gal__skip" type="button">Пропустити</button>
-      </div>
+    </ul>
+  </div>
+  <div class="d-gal__bar">
+    <span class="d-gal__count"><b class="d-gal__cur">01</b> / {len(houses):02d}</span>
+    <ol class="d-gal__ticks">{ticks}</ol>
+    <div class="d-gal__arrows">
+      <button type="button" data-prev aria-label="Попередній будинок"><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M11.5 3 5.5 9l6 6" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></button>
+      <button type="button" data-next aria-label="Наступний будинок"><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M6.5 3l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></button>
     </div>
   </div>
 </section>

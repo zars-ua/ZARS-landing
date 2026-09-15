@@ -1,7 +1,8 @@
-/* Сторінка девелопера: рух (16.09.2026).
-   Сценарні блоки (інтро, галерея, переваги, логотип у підвалі) працюють на всіх системах:
+/* Сторінка девелопера: рух (17.09.2026).
+   Сценарні блоки (інтро, переваги, логотип у підвалі) працюють на всіх системах:
    ними керує прокрутка самого відвідувача. Якщо в системі вимкнено анімації
    (prefers-reduced-motion), вимикаються лише плавна прокрутка й безкінечний цикл підказки.
+   Галерея будинків — звичайна горизонтальна стрічка: сторінка гортається повз неї вільно.
    Без GSAP сторінка показує все стовпчиком. */
 (() => {
   const html = document.documentElement;
@@ -99,7 +100,7 @@
     gsap.timeline({ scrollTrigger: { trigger: claim, start: 'top 82%', once: true } })
       .fromTo(claim.querySelector('.d-claim__num'), { autoAlpha: 0, y: 60 }, { autoAlpha: 1, y: 0, duration: 1.3, ease: 'expo.out' })
       .fromTo(claim.querySelector('.d-claim__unit'), { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 1, ease: 'expo.out' }, 0.15)
-      .fromTo(claim.querySelector('.d-claim__text'), { autoAlpha: 0, x: 40 }, { autoAlpha: 1, x: 0, duration: 1.2, ease: 'expo.out' }, 0.25);
+      .fromTo(claim.querySelectorAll('.d-claim__text span'), { autoAlpha: 0, y: 34 }, { autoAlpha: 1, y: 0, duration: 1.1, stagger: 0.12, ease: 'expo.out' }, 0.2);
   }
 
   /* Паралакс фото: холдинг, маніфест, Відчуття дому */
@@ -119,55 +120,58 @@
       .fromTo(founder.querySelector('figcaption'), { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.9, ease: 'expo.out' }, 0.8);
   }
 
-  /* 8. Галерея будинків: кадри вбік за прокруткою, короткий шлях і кнопка «Пропустити» */
+  /* Галерея будинків: горизонтальна стрічка зі стрілками, точками й перетягуванням.
+     Вертикальну прокрутку сторінки не перехоплює. */
   const gal = document.querySelector('[data-gal]');
   if (gal) {
+    const vp = gal.querySelector('.d-gal__viewport');
+    const track = gal.querySelector('.d-gal__track');
     const slides = [...gal.querySelectorAll('.d-gal__slide')];
-    const n = slides.length;
-    const imgs = slides.map((s) => s.querySelector('img'));
     const ticks = [...gal.querySelectorAll('.d-gal__tick')];
-    const nameEl = gal.querySelector('.d-gal__name');
-    const yearsEl = gal.querySelector('.d-gal__years');
-    const countEl = gal.querySelector('.d-gal__cur');
-    const fill = gal.querySelector('.d-gal__fill');
-    html.classList.add('gal-on');
-    gsap.set(slides, { zIndex: (k) => k + 1 });
-    gsap.set(slides.slice(1), { clipPath: 'inset(0% 0% 0% 100%)' });
-    gsap.set(imgs.slice(1), { xPercent: 14 });
-    let active = 0, swap = null;
-    const setActive = (i) => {
-      if (i === active) return;
-      active = i;
-      countEl.textContent = String(i + 1).padStart(2, '0');
-      ticks.forEach((t, k) => t.setAttribute('aria-current', String(k === i)));
-      swap && swap.kill();
-      swap = gsap.timeline()
-        .to([nameEl, yearsEl], { autoAlpha: 0, y: -18, duration: 0.22, ease: 'power2.in' })
-        .add(() => { nameEl.textContent = slides[i].dataset.name; yearsEl.textContent = slides[i].dataset.years; })
-        .fromTo([nameEl, yearsEl], { autoAlpha: 0, y: 26 }, { autoAlpha: 1, y: 0, duration: 0.6, ease: 'expo.out', stagger: 0.06 });
+    const cur = gal.querySelector('.d-gal__cur');
+    const prev = gal.querySelector('[data-prev]');
+    const next = gal.querySelector('[data-next]');
+    const n = slides.length;
+    let idx = 0, raf = 0;
+    const left = (i) => slides[i].offsetLeft - track.offsetLeft;
+    const nearest = () => {
+      const x = vp.scrollLeft;
+      let best = 0, d = Infinity;
+      slides.forEach((s, i) => { const dd = Math.abs(left(i) - x); if (dd < d) { d = dd; best = i; } });
+      return best;
     };
-    const tl = gsap.timeline({
-      defaults: { ease: 'none' },
-      scrollTrigger: {
-        trigger: gal, start: 'top top', pin: true, invalidateOnRefresh: true, anticipatePin: 1,
-        end: () => '+=' + innerHeight * (isMobile() ? 0.42 : 0.5) * (n - 1),
-        scrub: isMobile() ? true : 0.4,
-        onUpdate: (st) => { fill.style.transform = `scaleX(${st.progress})`; setActive(Math.round(st.progress * (n - 1))); },
-      },
+    const paint = () => {
+      idx = nearest();
+      cur.textContent = String(idx + 1).padStart(2, '0');
+      ticks.forEach((t, k) => t.setAttribute('aria-current', String(k === idx)));
+      prev.disabled = vp.scrollLeft <= 2;
+      next.disabled = vp.scrollLeft >= vp.scrollWidth - vp.clientWidth - 2;
+      const mid = vp.scrollLeft + vp.clientWidth / 2;
+      slides.forEach((s, i) => {
+        const c = left(i) + s.offsetWidth / 2;
+        gsap.set(s.querySelector('img'), { xPercent: gsap.utils.clamp(-5, 5, ((c - mid) / vp.clientWidth) * -5) });
+      });
+    };
+    const go = (i) => vp.scrollTo({ left: left(gsap.utils.clamp(0, n - 1, i)), behavior: reduce ? 'auto' : 'smooth' });
+    vp.addEventListener('scroll', () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(paint); }, { passive: true });
+    prev.addEventListener('click', () => go(idx - 1));
+    next.addEventListener('click', () => go(idx + 1));
+    ticks.forEach((t, i) => t.addEventListener('click', () => go(i)));
+    vp.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); go(idx + 1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); go(idx - 1); }
     });
-    for (let i = 1; i < n; i++) {
-      tl.to(slides[i], { clipPath: 'inset(0% 0% 0% 0%)', duration: 1, ease: 'power1.inOut' }, i - 1)
-        .to(imgs[i], { xPercent: 0, duration: 1, ease: 'power1.out' }, i - 1)
-        .to(imgs[i - 1], { xPercent: -10, duration: 1, ease: 'power1.in' }, i - 1);
-    }
-    ticks.forEach((tk, i) => tk.addEventListener('click', () => {
-      const st = tl.scrollTrigger;
-      scrollToY(st.start + (st.end - st.start) * (i / (n - 1)) + 1);
-    }));
-    gal.querySelector('.d-gal__skip').addEventListener('click', () => scrollToY(tl.scrollTrigger.end + 2));
+    let down = false, sx = 0, sl = 0, moved = false;
+    vp.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse') return; down = true; moved = false; sx = e.clientX; sl = vp.scrollLeft; vp.classList.add('is-drag'); });
+    addEventListener('pointermove', (e) => { if (!down) return; const dx = e.clientX - sx; if (Math.abs(dx) > 4) moved = true; vp.scrollLeft = sl - dx; });
+    addEventListener('pointerup', () => { if (!down) return; down = false; vp.classList.remove('is-drag'); go(nearest()); });
+    vp.addEventListener('click', (e) => { if (moved) { e.preventDefault(); e.stopPropagation(); } }, true);
+    gsap.fromTo(gal.querySelector('.d-gal__bar'), { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 1, ease: 'expo.out', scrollTrigger: { trigger: gal, start: 'top 75%', once: true } });
+    paint();
+    addEventListener('resize', paint);
   }
 
-  /* 11. Переваги: одна картка, кадри й тексти змінюються за прокруткою */
+  /* Переваги: одна картка, кадри й тексти змінюються за прокруткою */
   const adv = document.querySelector('[data-adv]');
   if (adv) {
     const figs = [...adv.querySelectorAll('.d-adv__media figure')];
@@ -184,10 +188,7 @@
       cur = i;
       navs.forEach((b, k) => b.setAttribute('aria-current', String(k === i)));
       gsap.set(figs[i], { zIndex: ++z });
-      if (prev < 0) {
-        gsap.set(texts[i], { autoAlpha: 1 });
-        return;
-      }
+      if (prev < 0) { gsap.set(texts[i], { autoAlpha: 1 }); return; }
       const down = i > prev;
       gsap.fromTo(figs[i], { clipPath: down ? 'inset(100% 0% 0% 0%)' : 'inset(0% 0% 100% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.1, ease: 'expo.inOut', overwrite: 'auto' });
       gsap.fromTo(figs[i].querySelector('img'), { scale: 1.22 }, { scale: 1.02, duration: 1.6, ease: 'expo.out', overwrite: 'auto' });
@@ -210,7 +211,7 @@
     navs.forEach((b, i) => b.addEventListener('click', () => scrollToY(st.start + (st.end - st.start) * ((i + 0.5) / n))));
   }
 
-  /* 12. Логотип у підвалі виїжджає знизу, коли сторінку докручено */
+  /* Логотип у підвалі виїжджає знизу, коли сторінку докручено */
   const footMark = document.querySelector('.d-foot__mark');
   if (footMark) {
     gsap.fromTo(footMark.querySelector('svg'), { yPercent: 100 }, { yPercent: 0, ease: 'none', scrollTrigger: { trigger: footMark, start: 'top bottom', end: 'bottom bottom', scrub: true } });

@@ -1,8 +1,14 @@
-/* Сторінка девелопера (16.09.2026). Підключається після mock.css лише на index.html.
-   Класи з префіксом d- — лише цієї сторінки. Без JS усе показується стовпчиком. */
-[data-site='zars'] { --ground: #FFFFFF; --stone: #F2F2F0; }
+/* Сторінка девелопера (17.09.2026). Підключається після mock.css лише на index.html.
+   Класи з префіксом d- — лише цієї сторінки. Без JS усе показується стовпчиком.
+   Єдиний вертикальний ритм: --sp між блоками, --sp-tight навколо повноекранних кадрів. */
+[data-site='zars'] {
+  --ground: #FFFFFF; --stone: #F2F2F0;
+  --sp: clamp(5rem, 12vh, 9rem);
+  --sp-tight: clamp(3rem, 7vh, 5rem);
+  --gut: clamp(1.25rem, 3.5vw, 3.5rem);
+}
 body.h-zars { background: #FFFFFF; }
-.gut { padding-inline: clamp(1.25rem, 3.5vw, 3.5rem); }
+.gut { padding-inline: var(--gut); }
 
 /* ---------- Інтро: літери ЗАРС як вікно ---------- */
 .d-intro { position: relative; height: 100svh; min-height: 560px; overflow: hidden; background: var(--ground); color: #fff; }
@@ -24,17 +30,18 @@ body.h-zars { background: #FFFFFF; }
 }
 .reduce .d-intro__cue::after { animation: none; }
 .d-intro__cue.is-gone { opacity: 0; }
-.d-intro__body { position: absolute; z-index: 2; left: clamp(1.25rem, 3.5vw, 3.5rem); right: clamp(1.25rem, 3.5vw, 3.5rem); bottom: clamp(2rem, 6vh, 4rem); }
+.d-intro__body { position: absolute; z-index: 2; left: var(--gut); right: var(--gut); bottom: clamp(2rem, 6vh, 4rem); }
 
-/* ---------- 30 років ---------- */
-.d-claim { display: flex; align-items: center; gap: clamp(1.25rem, 4vw, 4.5rem); padding-block: clamp(3.5rem, 9vh, 6.5rem); }
-.d-claim__years { display: grid; justify-items: center; flex: none; }
-.d-claim__num { font: 400 clamp(5.2rem, 2rem + 9vw, 10.5rem)/0.84 'History', sans-serif; letter-spacing: -0.01em; color: var(--brand); }
-.d-claim__unit { margin-top: 0.7rem; margin-right: -0.42em; font: 400 clamp(0.9rem, 0.7rem + 0.6vw, 1.4rem)/1 'History', sans-serif; letter-spacing: 0.42em; text-transform: uppercase; color: var(--ink); }
-.d-claim__text { margin: 0; max-width: 18ch; font: 400 clamp(1.3rem, 0.8rem + 2.1vw, 3.2rem)/1.14 'History', sans-serif; letter-spacing: 0.03em; text-transform: uppercase; color: var(--ink); }
+/* ---------- 30 років: по центру сторінки ---------- */
+.d-claim { display: flex; justify-content: center; padding-block: var(--sp); }
+.d-claim__inner { display: flex; align-items: center; gap: clamp(1.75rem, 5vw, 5.5rem); }
+.d-claim__years { display: grid; justify-items: center; margin: 0; flex: none; }
+.d-claim__num { font: 400 clamp(5.6rem, 2rem + 9.5vw, 11.5rem)/0.8 'History', sans-serif; letter-spacing: -0.01em; color: var(--brand); }
+.d-claim__unit { margin-top: clamp(1.1rem, 2.6vh, 2rem); margin-right: -0.42em; font: 400 clamp(1rem, 0.75rem + 0.7vw, 1.6rem)/1 'History', sans-serif; letter-spacing: 0.42em; text-transform: uppercase; color: var(--ink); }
+.d-claim__text { display: grid; gap: 0.12em; margin: 0; font: 400 clamp(1.55rem, 0.9rem + 2.7vw, 4.1rem)/1.06 'History', sans-serif; letter-spacing: 0.03em; text-transform: uppercase; color: var(--ink); }
 
 /* ---------- Холдинг ЗАРС ---------- */
-.d-holding { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(2.5rem, 6vw, 7rem); align-items: center; padding-block: clamp(4rem, 10vh, 7rem) clamp(7rem, 16vh, 11rem); }
+.d-holding { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(2.5rem, 6vw, 7rem); align-items: center; padding-block: var(--sp); }
 .d-holding__media { position: relative; }
 .d-holding__photo { position: relative; margin: 0; aspect-ratio: 16 / 10; overflow: hidden; background: var(--stone); }
 .d-holding__photo img { position: absolute; left: 0; top: -12%; width: 100%; height: 124%; object-fit: cover; will-change: transform; }
@@ -42,129 +49,139 @@ body.h-zars { background: #FFFFFF; }
 .d-founder__frame { position: relative; aspect-ratio: 1206 / 1387; overflow: hidden; background: #DDDDDB; }
 .d-founder__frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .d-founder figcaption { display: grid; gap: 0.25rem; margin-top: 0.7rem; }
-.d-founder b { font: 400 0.8125rem/1.3 'History', sans-serif; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); }
-.d-founder span { font-size: 0.8125rem; line-height: 1.35; color: var(--muted); }
-.d-holding__title { margin: 0 0 1.6rem; font: 400 clamp(2rem, 1rem + 2.6vw, 3.6rem)/1.05 'History', sans-serif; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink); }
-.d-holding__text p { max-width: 46ch; margin: 0 0 1.1rem; font: 400 1.0625rem/1.7 var(--text-font); color: var(--ink-2); }
+.d-founder b { font: 400 0.8125rem/1.35 'History', sans-serif; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); }
+.d-founder span { font-size: 0.8125rem; line-height: 1.45; color: var(--muted); }
+.d-holding__title { margin: 0 0 1.6rem; font: 400 clamp(2rem, 1rem + 2.6vw, 3.6rem)/1.06 'History', sans-serif; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink); }
+.d-holding__text p { max-width: 46ch; margin: 0 0 1.1rem; font: 400 1.0625rem/1.65 var(--text-font); color: var(--ink-2); }
+.d-holding__text p:last-child { margin-bottom: 0; }
 
 /* ---------- Фото з текстом (маніфест, Відчуття дому) ---------- */
-.d-photo { padding-block: clamp(1.5rem, 4vh, 3rem); }
-.d-photo__frame { position: relative; height: clamp(520px, 86svh, 940px); overflow: hidden; background: #2A2A2A; color: #fff; }
+.d-photo { padding-block: var(--sp-tight); }
+.d-photo__frame { position: relative; height: clamp(520px, 84svh, 920px); overflow: hidden; background: #2A2A2A; color: #fff; }
 .d-photo__frame img { position: absolute; left: 0; top: -20%; width: 100%; height: 140%; object-fit: cover; will-change: transform; }
 .d-photo__frame::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(20deg, rgba(20,21,20,0.78) 0%, rgba(20,21,20,0.42) 40%, rgba(20,21,20,0.06) 72%), rgba(20,21,20,0.1); }
-.d-photo__body { position: absolute; z-index: 2; left: clamp(1.5rem, 5vw, 5rem); right: clamp(1.5rem, 5vw, 5rem); bottom: clamp(2rem, 9vh, 6rem); max-width: 36rem; }
-.d-photo__title { margin: 0 0 1.2rem; font: 400 clamp(1.8rem, 1rem + 2.4vw, 3.4rem)/1.05 'History', sans-serif; letter-spacing: 0.05em; text-transform: uppercase; }
-.d-photo__text { margin: 0; font: 300 clamp(1.2rem, 0.95rem + 0.9vw, 1.9rem)/1.38 var(--text-font); text-wrap: balance; }
+.d-photo__body { position: absolute; z-index: 2; left: clamp(1.5rem, 5vw, 5rem); right: clamp(1.5rem, 5vw, 5rem); bottom: clamp(2rem, 8vh, 5rem); max-width: 36rem; }
+.d-photo__title { margin: 0 0 1.2rem; font: 400 clamp(1.8rem, 1rem + 2.4vw, 3.4rem)/1.06 'History', sans-serif; letter-spacing: 0.04em; text-transform: uppercase; }
+.d-photo__text { margin: 0; font: 300 clamp(1.2rem, 0.95rem + 0.9vw, 1.9rem)/1.4 var(--text-font); text-wrap: balance; }
 .d-photo__text .w { display: inline-block; }
 
-/* ---------- Будинки Каркашадзе ---------- */
-.d-kk { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(2rem, 6vw, 8rem); align-items: end; padding-block: clamp(6rem, 14vh, 10rem) clamp(3rem, 7vh, 5rem); }
-.d-kk__title { margin: 0; font: 400 clamp(2rem, 1.1rem + 2.4vw, 3.6rem)/1.22 'History', sans-serif; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); }
+/* ---------- Будинки Каркашадзе: колонки однакової висоти ---------- */
+.d-kk { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(2rem, 6vw, 8rem); align-items: stretch; padding-block: var(--sp) var(--sp-tight); }
+.d-kk__title { display: flex; flex-direction: column; justify-content: space-between; margin: 0; font: 400 clamp(2rem, 1.1rem + 2.4vw, 3.6rem)/1.15 'History', sans-serif; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); }
 .d-kk__title .line { display: block; overflow: hidden; }
 .d-kk__title .line > span { display: block; }
-.d-kk__story { margin: 0; max-width: 52ch; font: 300 clamp(1.05rem, 0.95rem + 0.35vw, 1.3rem)/1.7 var(--text-font); color: var(--ink-2); }
+.d-kk__story { margin: 0; max-width: 52ch; font: 300 clamp(1.05rem, 0.95rem + 0.35vw, 1.3rem)/1.65 var(--text-font); color: var(--ink-2); }
 
-/* ---------- Галерея будинків: вбік за прокруткою ---------- */
-.d-gal__stage { display: grid; gap: 1rem; }
-.d-gal__slide { position: relative; margin: 0; height: 80svh; overflow: hidden; background: #2A2A2A; color: #fff; }
-.d-gal__slide img { position: absolute; top: 0; left: -8%; width: 116%; height: 100%; object-fit: cover; will-change: transform; }
-.d-gal__slide::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(0deg, rgba(18,18,18,0.75) 0%, rgba(18,18,18,0.25) 34%, rgba(18,18,18,0) 58%); }
-.d-gal__slide figcaption { position: absolute; z-index: 2; left: 1.5rem; right: 1.5rem; bottom: 1.5rem; }
-.d-gal__slide figcaption b { display: block; font: 400 clamp(1.6rem, 1rem + 2vw, 3rem)/1.05 'History', sans-serif; letter-spacing: 0.03em; text-transform: uppercase; font-weight: 400; }
-.d-gal__overlay { display: none; }
-.gal-on .d-gal__stage { display: block; position: relative; height: 100svh; }
-.gal-on .d-gal__slide { position: absolute; inset: 5.25rem 0 1.25rem; height: auto; }
-.gal-on .d-gal__slide figcaption { display: none; }
-.gal-on .d-gal__overlay { display: grid; position: absolute; z-index: 40; left: clamp(1.4rem, 4vw, 4rem); right: clamp(1.4rem, 4vw, 4rem); bottom: calc(1.25rem + clamp(1.4rem, 4vh, 2.6rem)); gap: clamp(1.4rem, 3.5vh, 2.4rem); color: #fff; pointer-events: none; }
-.d-gal__name { margin: 0; font: 400 clamp(1.9rem, 0.8rem + 4vw, 5.2rem)/1.02 'History', sans-serif; letter-spacing: 0.03em; text-transform: uppercase; text-wrap: balance; }
-.d-gal__years { margin: 0.8rem 0 0; font: 300 clamp(1rem, 0.9rem + 0.5vw, 1.45rem)/1 var(--text-font); letter-spacing: 0.12em; font-variant-numeric: tabular-nums; }
-.d-gal__bar { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: clamp(1rem, 2.5vw, 2.5rem); pointer-events: auto; }
-.d-gal__count { font: 400 0.875rem/1 'History', sans-serif; letter-spacing: 0.2em; white-space: nowrap; }
-.d-gal__track { position: relative; height: 2.4rem; }
-.d-gal__line, .d-gal__fill { position: absolute; left: 0; right: 0; top: 50%; height: 1px; }
-.d-gal__line { background: rgba(255,255,255,0.35); }
-.d-gal__fill { background: #fff; transform-origin: left; transform: scaleX(0); }
-.d-gal__ticks { position: absolute; inset: 0; display: flex; justify-content: space-between; margin: 0; padding: 0; list-style: none; }
-.d-gal__tick { position: relative; width: 2.4rem; height: 100%; margin: 0 -1.2rem; border: 0; background: none; color: #fff; cursor: pointer; }
-.d-gal__tick::before { content: ''; position: absolute; left: 50%; top: 50%; width: 7px; height: 7px; margin: -3.5px 0 0 -3.5px; border-radius: 50%; background: rgba(255,255,255,0.55); transition: transform 500ms cubic-bezier(0.16,1,0.3,1), background 500ms; }
-.d-gal__tick[aria-current='true']::before { background: #fff; transform: scale(1.7); }
-.d-gal__tick span { position: absolute; left: 50%; bottom: calc(100% - 0.2rem); transform: translateX(-50%); font: 400 0.75rem/1 var(--text-font); letter-spacing: 0.06em; white-space: nowrap; opacity: 0; transition: opacity 400ms; }
+/* ---------- Галерея будинків: горизонтальна стрічка ---------- */
+.d-gal { padding-block: var(--sp-tight) var(--sp); }
+.d-gal__viewport { overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gut); margin-inline: calc(-1 * var(--gut)); padding-inline: var(--gut); scrollbar-width: none; cursor: grab; }
+.d-gal__viewport::-webkit-scrollbar { display: none; }
+.d-gal__viewport.is-drag { cursor: grabbing; scroll-snap-type: none; }
+.d-gal__viewport.is-drag img { pointer-events: none; }
+.d-gal__track { display: grid; grid-auto-flow: column; grid-auto-columns: min(74vw, 1160px); gap: clamp(0.75rem, 1.4vw, 1.25rem); margin: 0; padding: 0; list-style: none; }
+.d-gal__slide { scroll-snap-align: start; margin: 0; }
+.d-gal__figure { position: relative; margin: 0; aspect-ratio: 16 / 9; overflow: hidden; background: #2A2A2A; color: #fff; }
+.d-gal__figure img { position: absolute; top: 0; left: -6%; width: 112%; height: 100%; object-fit: cover; will-change: transform; }
+.d-gal__figure::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(0deg, rgba(18,18,18,0.72) 0%, rgba(18,18,18,0.2) 32%, rgba(18,18,18,0) 56%); }
+.d-gal__cap { position: absolute; z-index: 2; left: clamp(1.25rem, 3vw, 2.6rem); right: clamp(1.25rem, 3vw, 2.6rem); bottom: clamp(1.25rem, 3vh, 2.4rem); }
+.d-gal__name { margin: 0; font: 400 clamp(1.5rem, 0.9rem + 2.2vw, 3.4rem)/1.05 'History', sans-serif; letter-spacing: 0.03em; text-transform: uppercase; }
+.d-gal__years { margin: 0.7rem 0 0; font: 300 clamp(0.9375rem, 0.85rem + 0.4vw, 1.25rem)/1 var(--text-font); letter-spacing: 0.12em; font-variant-numeric: tabular-nums; }
+.d-gal__bar { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: clamp(1rem, 2.5vw, 2.5rem); margin-top: clamp(1.25rem, 3vh, 2rem); }
+.d-gal__count { font: 400 0.875rem/1 'History', sans-serif; letter-spacing: 0.2em; color: var(--ink-2); white-space: nowrap; }
+.d-gal__count b { font-weight: 400; color: var(--ink); }
+.d-gal__ticks { position: relative; display: flex; justify-content: space-between; align-items: center; height: 2.2rem; margin: 0; padding: 0; list-style: none; }
+.d-gal__ticks::before { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: color-mix(in srgb, var(--ink) 14%, transparent); }
+.d-gal__tick { position: relative; width: 2.2rem; height: 100%; margin: 0 -1.1rem; border: 0; background: none; color: var(--ink); cursor: pointer; }
+.d-gal__tick::before { content: ''; position: absolute; left: 50%; top: 50%; width: 6px; height: 6px; margin: -3px 0 0 -3px; border-radius: 50%; background: color-mix(in srgb, var(--ink) 28%, transparent); transition: transform 500ms cubic-bezier(0.16,1,0.3,1), background 400ms; }
+.d-gal__tick:hover::before { background: var(--ink); }
+.d-gal__tick[aria-current='true']::before { background: var(--brand); transform: scale(1.8); }
+.d-gal__tick span { position: absolute; left: 50%; bottom: calc(100% - 0.1rem); transform: translateX(-50%); font: 400 0.75rem/1 var(--text-font); letter-spacing: 0.06em; color: var(--muted); white-space: nowrap; opacity: 0; transition: opacity 350ms; }
 .d-gal__tick:hover span, .d-gal__tick[aria-current='true'] span { opacity: 1; }
-.d-gal__skip { padding: 0.75rem 1.05rem; border: 1px solid rgba(255,255,255,0.7); background: transparent; color: #fff; font: 500 0.75rem/1 var(--text-font); letter-spacing: 0.12em; text-transform: uppercase; white-space: nowrap; cursor: pointer; transition: background 400ms, color 400ms; }
-.d-gal__skip:hover, .d-gal__skip:focus-visible { background: #fff; color: var(--ink); }
+.d-gal__arrows { display: flex; gap: 0.5rem; }
+.d-gal__arrows button { display: grid; place-items: center; width: 2.9rem; height: 2.9rem; border: 1px solid color-mix(in srgb, var(--ink) 22%, transparent); background: none; color: var(--ink); cursor: pointer; transition: background 350ms, color 350ms, border-color 350ms; }
+.d-gal__arrows button:hover:not(:disabled) { background: var(--brand); border-color: var(--brand); color: #fff; }
+.d-gal__arrows button:disabled { opacity: 0.32; cursor: default; }
+.d-gal__arrows svg { width: 17px; height: 17px; }
 
 /* ---------- Переваги: одна картка, вміст гортається ---------- */
-.d-adv__card { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); background: var(--stone); }
+.d-adv__card { display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); background: var(--stone); }
 .d-adv__media { position: relative; overflow: hidden; background: #2A2A2A; }
-.d-adv__media figure { position: relative; margin: 0; aspect-ratio: 4 / 3; overflow: hidden; }
+.d-adv__media figure { position: relative; margin: 0; aspect-ratio: 16 / 10; overflow: hidden; }
 .d-adv__media figure + figure { display: none; }
 .d-adv__media img { display: block; width: 100%; height: 100%; object-fit: cover; }
-.d-adv__body { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; gap: 2rem; padding: clamp(1.6rem, 3.5vw, 3.5rem); }
+.d-adv__body { display: flex; flex-direction: column; padding: clamp(1.6rem, 3vw, 3rem); }
 .d-adv__nav { display: flex; flex-wrap: wrap; gap: 0.5rem 1.3rem; margin: 0; padding: 0; list-style: none; }
-.d-adv__nav button { padding: 0.35rem 0; border: 0; border-bottom: 1px solid transparent; background: none; color: var(--muted); font: 400 0.8125rem/1.2 'History', sans-serif; letter-spacing: 0.14em; text-transform: uppercase; cursor: pointer; transition: color 400ms, border-color 400ms; }
+.d-adv__nav button { padding: 0.35rem 0; border: 0; border-bottom: 1px solid transparent; background: none; color: var(--muted); font: 400 0.8125rem/1.2 'History', sans-serif; letter-spacing: 0.14em; text-transform: uppercase; cursor: pointer; transition: color 350ms, border-color 350ms; }
 .d-adv__nav button:hover { color: var(--ink); }
 .d-adv__nav button[aria-current='true'] { color: var(--ink); border-bottom-color: var(--brand); }
-.d-adv__texts { display: grid; gap: 2.4rem; align-content: end; }
-.d-adv__title { margin: 0 0 1.2rem; font: 400 clamp(2rem, 1rem + 2.8vw, 4rem)/1.02 'History', sans-serif; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink); }
-.d-adv__text p { max-width: 44ch; margin: 0 0 0.9rem; font: 400 1rem/1.65 var(--text-font); color: var(--ink-2); }
+.d-adv__texts { margin-top: clamp(1.6rem, 3.4vh, 2.6rem); }
+.d-adv__title { margin: 0 0 1rem; font: 400 clamp(1.9rem, 1rem + 2.4vw, 3.4rem)/1.06 'History', sans-serif; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink); }
+.d-adv__text p { max-width: 44ch; margin: 0 0 0.85rem; font: 400 1rem/1.65 var(--text-font); color: var(--ink-2); }
+.d-adv__text p:last-child { margin-bottom: 0; }
 .d-adv__progress { display: none; }
 .adv-on .d-adv { height: 100svh; padding-top: 5.25rem; padding-bottom: 1.25rem; }
 .adv-on .d-adv__card { height: 100%; }
 .adv-on .d-adv__media figure { position: absolute; inset: 0; display: block; aspect-ratio: auto; }
 .adv-on .d-adv__media img { position: absolute; left: 0; top: -10%; height: 120%; will-change: transform; }
-.adv-on .d-adv__texts { position: relative; display: block; }
-.adv-on .d-adv__text { position: absolute; left: 0; right: 0; bottom: 0; }
-.adv-on .d-adv__progress { display: block; position: relative; height: 1px; background: color-mix(in srgb, var(--ink) 18%, transparent); }
+.adv-on .d-adv__texts { position: relative; flex: 1 1 auto; }
+.adv-on .d-adv__text { position: absolute; inset: 0 0 auto 0; }
+.adv-on .d-adv__progress { display: block; position: relative; height: 1px; margin-top: 1.5rem; background: color-mix(in srgb, var(--ink) 18%, transparent); }
 .d-adv__progress i { position: absolute; inset: 0; background: var(--brand); transform-origin: left; transform: scaleX(0); }
 
 /* ---------- Підвал ---------- */
-.d-foot { overflow: hidden; background: #B05523; color: #FFFFFF; padding: clamp(4rem, 10vh, 6rem) clamp(1.25rem, 3.5vw, 3.5rem) 0; }
+.d-foot { overflow: hidden; background: #B05523; color: #FFFFFF; padding: var(--sp) var(--gut) 0; }
 .d-foot__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; align-items: start; }
 .d-foot h2 { margin: 0 0 1.1rem; font: 400 0.8125rem/1 'History', sans-serif; letter-spacing: 0.24em; text-transform: uppercase; }
 .d-foot ul { display: grid; gap: 0.65rem; margin: 0; padding: 0; list-style: none; }
+.d-foot li { line-height: 1.5; }
 .d-foot a { color: #FFFFFF; text-decoration: underline; text-decoration-color: rgba(255,255,255,0.45); text-underline-offset: 5px; transition: text-decoration-color 300ms; }
 .d-foot a:hover { text-decoration-color: #FFFFFF; }
 .d-foot a:focus-visible { outline: 2px solid #FFFFFF; outline-offset: 3px; }
 .d-foot__copy { justify-self: end; margin: 0; font-size: 0.875rem; }
-.d-foot__mark { margin-top: clamp(3rem, 9vh, 6rem); padding-bottom: clamp(1rem, 2.4vw, 2.2rem); overflow: hidden; }
+.d-foot__mark { margin-top: var(--sp); overflow: hidden; font-size: 0; }
 .d-foot__mark svg { display: block; width: 100%; height: auto; color: #FFFFFF; will-change: transform; }
 
 /* ---------- Мобільна ---------- */
 @media (max-width: 900px) {
+  [data-site='zars'] { --sp: clamp(3.5rem, 9vh, 5rem); --sp-tight: clamp(2.5rem, 6vh, 3.5rem); }
   .d-intro { height: min(125vw, 100svh); min-height: 0; }
   .motion .d-intro__cue { bottom: 1rem; height: 3rem; }
-  .d-claim__text { max-width: 14ch; }
+  .d-claim__inner { flex-direction: column; align-items: center; gap: clamp(1.4rem, 5vw, 2.2rem); text-align: center; }
+  .d-claim__num { font-size: clamp(5rem, 22vw, 7.5rem); }
+  .d-claim__unit { margin-top: 0.8rem; }
+  .d-claim__text { justify-items: center; font-size: clamp(1.4rem, 6.4vw, 2rem); }
   .d-holding { grid-template-columns: 1fr; gap: 0; }
-  .d-holding__photo { aspect-ratio: 4 / 5; margin-inline: calc(-1 * clamp(1.25rem, 3.5vw, 3.5rem)); }
+  .d-holding__photo { aspect-ratio: 4 / 5; margin-inline: calc(-1 * var(--gut)); }
   .d-founder { left: auto; right: 0; bottom: -9%; width: 46%; }
-  .d-holding__text { margin-top: clamp(4.5rem, 14vw, 6rem); }
-  .d-photo__frame { height: 72svh; min-height: 440px; }
-  .d-kk { grid-template-columns: 1fr; align-items: start; }
-  .gal-on .d-gal__stage { height: calc((100vw - 2.5rem) * 1.25 + 5.5rem); }
-  .gal-on .d-gal__slide { inset: 4.5rem 0 1rem; }
-  .gal-on .d-gal__overlay { left: 1.1rem; right: 1.1rem; bottom: 2rem; gap: 1.1rem; }
-  .d-gal__name { font-size: clamp(1.45rem, 6.6vw, 2rem); }
-  .d-gal__bar { grid-template-columns: auto 1fr; row-gap: 0.4rem; }
-  .d-gal__track { grid-column: 1 / -1; grid-row: 2; height: 1.4rem; }
-  .d-gal__skip { justify-self: end; padding: 0.6rem 0.8rem; }
+  .d-holding__text { margin-top: clamp(3.5rem, 12vw, 5rem); }
+  .d-photo__frame { height: 70svh; min-height: 420px; }
+  .d-kk { grid-template-columns: 1fr; gap: clamp(1.5rem, 5vw, 2.5rem); }
+  .d-kk__title { display: block; }
+  .d-gal__track { grid-auto-columns: 86vw; }
+  .d-gal__figure { aspect-ratio: 4 / 5; }
+  .d-gal__bar { grid-template-columns: auto 1fr; row-gap: 0.9rem; }
+  .d-gal__ticks { grid-column: 1 / -1; grid-row: 2; height: 1.4rem; }
   .d-gal__tick { width: 1.4rem; margin: 0 -0.7rem; }
   .d-gal__tick span { display: none; }
+  .d-gal__arrows button { width: 2.6rem; height: 2.6rem; }
   .d-adv__card { grid-template-columns: 1fr; }
   .adv-on .d-adv { padding-top: 4.4rem; padding-bottom: 0.75rem; }
-  .adv-on .d-adv__card { grid-template-rows: 33svh minmax(0, 1fr); }
+  .adv-on .d-adv__card { grid-template-rows: 46svh minmax(0, 1fr); }
   .d-adv__nav { display: none; }
-  .d-adv__body { grid-template-rows: minmax(0, 1fr) auto; gap: 1rem; padding: 1.4rem 1.25rem 1.2rem; }
-  .d-adv__title { margin-bottom: 0.8rem; font-size: clamp(1.6rem, 7vw, 2.2rem); }
-  .d-adv__text p { margin-bottom: 0.6rem; font-size: 0.9375rem; line-height: 1.55; }
+  .d-adv__body { padding: 1.3rem 1.25rem 1.1rem; }
+  .d-adv__texts { margin-top: 0; }
+  .d-adv__title { margin-bottom: 0.7rem; font-size: clamp(1.55rem, 6.6vw, 2.1rem); }
+  .d-adv__text p { margin-bottom: 0.55rem; font-size: 0.9375rem; line-height: 1.55; }
+  .adv-on .d-adv__progress { margin-top: 1rem; }
   .d-foot__grid { grid-template-columns: 1fr; }
   .d-foot__copy { justify-self: start; }
 }
 
-/* Низькі телефони (iPhone SE та подібні): переваги поміщаються в картку */
+/* Низькі телефони (iPhone SE та подібні) */
 @media (max-width: 900px) and (max-height: 740px) {
   .adv-on .d-adv { padding-top: 4rem; }
-  .adv-on .d-adv__card { grid-template-rows: 24svh minmax(0, 1fr); }
-  .d-adv__body { padding: 1rem 1.1rem 0.9rem; gap: 0.7rem; }
+  .adv-on .d-adv__card { grid-template-rows: 34svh minmax(0, 1fr); }
+  .d-adv__body { padding: 1rem 1.1rem 0.9rem; }
   .d-adv__title { margin-bottom: 0.5rem; font-size: 1.45rem; }
   .d-adv__text p { margin-bottom: 0.45rem; font-size: 0.875rem; line-height: 1.5; }
 }
