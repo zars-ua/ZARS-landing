@@ -57,7 +57,11 @@
       scrollTrigger: {
         trigger: intro, start: 'top top', pin: true, invalidateOnRefresh: true,
         end: () => '+=' + (isMobile() ? intro.clientHeight * 0.85 : innerHeight * 1.05),
-        scrub: isMobile() ? true : 0.45,
+        /* scrub:true (не число!) — на ПК scroll вже згладжує Lenis; додаткове власне
+           згладжування GSAP (числовий scrub) поверх нього — джерело розсинхрону й ривка
+           при різкій зміні напрямку скролу (відтворено: різкий скрол вниз-до-низу і назад
+           вгору давав стрибок ~580px саме в межах піна інтро). */
+        scrub: true,
         onRefresh: layout,
         onUpdate: (st) => {
           bar && bar.toggleAttribute('data-on-veil', st.progress < 0.5);
@@ -232,9 +236,13 @@
       const t = localT > 1 - TRANS ? (localT - (1 - TRANS)) / TRANS : 0;
       gsap.set(figs[i + 1], { clipPath: `inset(${(1 - t) * 100}% 0% 0% 0%)` });
       gsap.set(imgs[i + 1], { scale: 1.22 - 0.2 * t });
+      /* Обидва тексти встановлюються явно на кожному кадрі (навіть коли один з них — 0) —
+         інакше при зміні напрямку скролу навколо межі t=0.5 «застряглий» текст[i+1] лишався
+         на своїй останній непрозорості назавжди, і в паузі було видно текст на тексті. */
       if (t < 0.5) {
         const t1 = t / 0.5;
         gsap.set(texts[i], { autoAlpha: 1 - t1, y: -20 * t1 });
+        gsap.set(texts[i + 1], { autoAlpha: 0 });
       } else {
         const t2 = (t - 0.5) / 0.5;
         gsap.set(texts[i], { autoAlpha: 0 });
@@ -262,6 +270,23 @@
         idle = gsap.to(imgs[i], { yPercent: 6, duration: 7, ease: 'sine.inOut', yoyo: true, repeat: -1, overwrite: 'auto' });
       },
     });
+  }
+
+  /* Додаткові переваги: на мобільній — видимий слайдер прокрутки під карткою
+     (нативний горизонтальний скрол/свайп, JS лише малює заповнення). */
+  const points = document.querySelector('[data-points]');
+  if (points) {
+    const list = points.querySelector('.d-point__list');
+    const fill = points.querySelector('.d-points__slider i');
+    const paint = () => {
+      const max = list.scrollWidth - list.clientWidth;
+      const frac = max > 0 ? gsap.utils.clamp(0, 1, list.scrollLeft / max) : 0;
+      gsap.set(fill, { x: `${frac * 300}%` });
+    };
+    let raf = 0;
+    list.addEventListener('scroll', () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(paint); }, { passive: true });
+    addEventListener('resize', paint);
+    paint();
   }
 
   /* Логотип у підвалі виїжджає знизу, коли сторінку докручено */

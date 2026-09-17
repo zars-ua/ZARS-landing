@@ -40,7 +40,7 @@ for i, h in enumerate(houses):
         <figcaption class="d-gal__cap"><h3 class="d-gal__name">{h["name"]}</h3><p class="d-gal__years">{h["years"]}</p></figcaption>
       </figure>
     </li>""")
-ticks = ''.join(f'<li><button class="d-gal__tick" type="button" aria-current="{str(i == 0).lower()}" aria-label="{h["name"]}, {h["years"]}"><span>{h["years"][:4]}</span></button></li>' for i, h in enumerate(houses))
+ticks = ''.join(f'<li><button class="d-gal__tick" type="button" aria-current="{str(i == 0).lower()}" aria-label="{h["name"]}, {h["years"]}"><span>{h["years"][-4:]}</span></button></li>' for i, h in enumerate(houses))
 
 ADV = [
     ('arch', 'Архітектура', 'Архітектурний фрагмент Будинку Каркашадзе', ['Будинки Каркашадзе завжди мають унікальні для свого місця архітектурні рішення, що зберігають цінність і розвивають потенціал території, на якій вони побудовані.', 'Кожен наш новий будинок прагне доповнювати та підкреслювати унікальний архітектурний літопис Одеси.']),
@@ -63,7 +63,7 @@ POINTS = [
     ('art', 'Арт', 'Витвір мистецтва в холі', 'Наповнюючи Будинки Каркашадзе витворами мистецтва, ми підкреслюємо унікальний характер Будинків, демонструємо їх суть.'),
 ]
 points = ''.join(
-    f'<li class="d-point"><figure class="d-point__frame">{img(k, alt, "(max-width: 900px) 78vw, 24vw")}</figure><h3>{t}</h3><p>{p}</p></li>'
+    f'<li class="d-point"><figure class="d-point__frame">{img(k, alt, "(max-width: 900px) 100vw, 24vw")}<figcaption>{t}</figcaption></figure><p>{p}</p></li>'
     for k, t, alt, p in POINTS)
 
 page = head + f'''<body class="h-zars">
@@ -155,16 +155,17 @@ page = head + f'''<body class="h-zars">
   <div class="d-adv__sticky gut">
     <div class="d-adv__card">
       <div class="d-adv__media" aria-hidden="true">{adv_media}</div>
+      <ul class="d-adv__nav">{adv_nav}</ul>
       <div class="d-adv__body">
-        <ul class="d-adv__nav">{adv_nav}</ul>
         <div class="d-adv__texts">{adv_texts}</div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="d-points gut" aria-label="Додаткові переваги Будинків Каркашадзе">
+<section class="d-points gut" data-points aria-label="Додаткові переваги Будинків Каркашадзе">
   <ul class="d-point__list" data-rise>{points}</ul>
+  <div class="d-points__slider" aria-hidden="true"><i></i></div>
 </section>
 
 <footer class="d-foot" id="contacts">
