@@ -56,6 +56,16 @@ adv_media = ''.join(f'<figure>{img(k, alt, "(max-width: 900px) 100vw, 58vw")}</f
 adv_nav = ''.join(f'<li><button type="button" aria-current="{str(i == 0).lower()}">{t}</button></li>' for i, (k, t, alt, ps) in enumerate(ADV))
 adv_texts = ''.join(f'<article class="d-adv__text"><h3 class="d-adv__title">{t}</h3>{"".join(f"<p>{p}</p>" for p in ps)}</article>' for k, t, alt, ps in ADV)
 
+POINTS = [
+    ('kids', 'Дитячі простори', 'Дитячий майданчик у дворі', 'Кожен дитячий простір у дворі Будинків Каркашадзе являє собою унікальний, ретельно продуманий проєкт.'),
+    ('security', 'Безпека', 'Двір під відеоспостереженням', 'Захищеність — у цьому початкова суть будинку. Тому в усіх Будинках Каркашадзе встановлено продуману й надійну систему безпеки.'),
+    ('service', 'Сервіс', 'Сервіс ZARS management', 'ZARS management — це додаткові привілеї для власників квартир в Будинках Каркашадзе. В основу філософії ZARS management закладені принципи якості, довіри, естетики та інновацій.'),
+    ('art', 'Арт', 'Витвір мистецтва в холі', 'Наповнюючи Будинки Каркашадзе витворами мистецтва, ми підкреслюємо унікальний характер Будинків, демонструємо їх суть.'),
+]
+points = ''.join(
+    f'<li class="d-point"><figure class="d-point__frame">{img(k, alt, "(max-width: 900px) 78vw, 24vw")}</figure><h3>{t}</h3><p>{p}</p></li>'
+    for k, t, alt, p in POINTS)
+
 page = head + f'''<body class="h-zars">
 <!-- Сторінка девелопера. Генерується tools/build_dev_page.py; стилі mock/dev.css, рух mock/dev.js. -->
 {header}
@@ -151,6 +161,10 @@ page = head + f'''<body class="h-zars">
       </div>
     </div>
   </div>
+</section>
+
+<section class="d-points gut" aria-label="Додаткові переваги Будинків Каркашадзе">
+  <ul class="d-point__list" data-rise>{points}</ul>
 </section>
 
 <footer class="d-foot" id="contacts">
