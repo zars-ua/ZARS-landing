@@ -141,12 +141,14 @@ page = head + f'''<body class="h-zars">
   </div>
 </section>
 
-<section class="d-adv gut" data-adv aria-label="Переваги Будинків Каркашадзе">
-  <div class="d-adv__card">
-    <div class="d-adv__media" aria-hidden="true">{adv_media}</div>
-    <div class="d-adv__body">
-      <ul class="d-adv__nav">{adv_nav}</ul>
-      <div class="d-adv__texts">{adv_texts}</div>
+<section class="d-adv" data-adv aria-label="Переваги Будинків Каркашадзе">
+  <div class="d-adv__sticky gut">
+    <div class="d-adv__card">
+      <div class="d-adv__media" aria-hidden="true">{adv_media}</div>
+      <div class="d-adv__body">
+        <ul class="d-adv__nav">{adv_nav}</ul>
+        <div class="d-adv__texts">{adv_texts}</div>
+      </div>
     </div>
   </div>
 </section>
