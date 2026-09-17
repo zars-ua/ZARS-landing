@@ -34,11 +34,12 @@ body.h-zars { background: #FFFFFF; }
 
 /* ---------- 30 років: по центру сторінки ---------- */
 .d-claim { display: flex; justify-content: center; padding-block: var(--sp); }
-.d-claim__inner { display: flex; align-items: center; gap: clamp(1.75rem, 5vw, 5.5rem); }
+.d-claim__inner { --claim-text: clamp(1.55rem, 0.9rem + 2.7vw, 4.1rem); display: flex; align-items: center; gap: clamp(1.75rem, 5vw, 5.5rem); }
 .d-claim__years { display: grid; justify-items: center; margin: 0; flex: none; }
-.d-claim__num { font: 400 clamp(5.6rem, 2rem + 9.5vw, 11.5rem)/0.8 'History', sans-serif; letter-spacing: -0.01em; color: var(--brand); }
+/* Висота «30» дорівнює висоті трьох рядків тексту праворуч: 3 рядки × line-height 1.06 + 2 проміжки 0.12em = 3.42em тексту; цифра — один рядок line-height 0.8 → множник 3.42/0.8 */
+.d-claim__num { font: 400 calc(var(--claim-text) * 4.275)/0.8 'History', sans-serif; letter-spacing: -0.01em; color: var(--brand); }
 .d-claim__unit { margin-top: clamp(1.1rem, 2.6vh, 2rem); margin-right: -0.42em; font: 400 clamp(1rem, 0.75rem + 0.7vw, 1.6rem)/1 'History', sans-serif; letter-spacing: 0.42em; text-transform: uppercase; color: var(--ink); }
-.d-claim__text { display: grid; gap: 0.12em; margin: 0; font: 400 clamp(1.55rem, 0.9rem + 2.7vw, 4.1rem)/1.06 'History', sans-serif; letter-spacing: 0.03em; text-transform: uppercase; color: var(--ink); }
+.d-claim__text { display: grid; gap: 0.12em; margin: 0; font: 400 var(--claim-text)/1.06 'History', sans-serif; letter-spacing: 0.03em; text-transform: uppercase; color: var(--ink); }
 
 /* ---------- Холдинг ЗАРС ---------- */
 .d-holding { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(2.5rem, 6vw, 7rem); align-items: center; padding-block: var(--sp); }
@@ -51,6 +52,7 @@ body.h-zars { background: #FFFFFF; }
 .d-founder figcaption { display: grid; gap: 0.25rem; margin-top: 0.7rem; }
 .d-founder b { font: 400 0.8125rem/1.35 'History', sans-serif; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); }
 .d-founder span { font-size: 0.8125rem; line-height: 1.45; color: var(--muted); }
+.d-founder__years { white-space: nowrap; }
 .d-holding__title { margin: 0 0 1.6rem; font: 400 clamp(2rem, 1rem + 2.6vw, 3.6rem)/1.06 'History', sans-serif; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink); }
 .d-holding__text p { max-width: 46ch; margin: 0 0 1.1rem; font: 400 1.0625rem/1.65 var(--text-font); color: var(--ink-2); }
 .d-holding__text p:last-child { margin-bottom: 0; }
@@ -66,11 +68,11 @@ body.h-zars { background: #FFFFFF; }
 .d-photo__text .w { display: inline-block; }
 
 /* ---------- Будинки Каркашадзе: колонки однакової висоти ---------- */
-.d-kk { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(2rem, 6vw, 8rem); align-items: stretch; padding-block: var(--sp) var(--sp-tight); }
-.d-kk__title { display: flex; flex-direction: column; justify-content: space-between; margin: 0; font: 400 clamp(2rem, 1.1rem + 2.4vw, 3.6rem)/1.15 'History', sans-serif; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); }
+.d-kk { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(2rem, 6vw, 8rem); align-items: start; padding-block: var(--sp) var(--sp-tight); }
+.d-kk__title { margin: 0; font: 400 clamp(2.4rem, 1.3rem + 2.9vw, 4.4rem)/1.15 'History', sans-serif; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); }
 .d-kk__title .line { display: block; overflow: hidden; }
 .d-kk__title .line > span { display: block; }
-.d-kk__story { margin: 0; max-width: 52ch; font: 300 clamp(1.05rem, 0.95rem + 0.35vw, 1.3rem)/1.65 var(--text-font); color: var(--ink-2); }
+.d-kk__story { margin: 0; max-width: 52ch; font: 300 clamp(0.9375rem, 0.85rem + 0.3vw, 1.1rem)/1.65 var(--text-font); color: var(--ink-2); }
 
 /* ---------- Галерея будинків: горизонтальна стрічка ---------- */
 .d-gal { padding-block: var(--sp-tight) var(--sp); }
@@ -103,6 +105,30 @@ body.h-zars { background: #FFFFFF; }
 .d-gal__arrows button:disabled { opacity: 0.32; cursor: default; }
 .d-gal__arrows svg { width: 17px; height: 17px; }
 
+/* ---------- Галерея на ПК: пінена стрічка «Rolex» — прокрутка/свайп вниз перемикає слайд дискретно ---------- */
+@media (min-width: 901px) {
+  .gal-on .d-gal { position: relative; padding-block: 0; }
+  .gal-on .d-gal__viewport { position: relative; height: 100svh; overflow: hidden; margin: 0; padding: 0; cursor: default; }
+  .gal-on .d-gal__track { display: block; height: 100%; }
+  .gal-on .d-gal__slide { position: absolute; inset: 5.25rem 0 1.25rem; margin: 0; scroll-snap-align: unset; }
+  .gal-on .d-gal__figure { position: absolute; inset: 0; height: auto; aspect-ratio: auto; }
+  .gal-on .d-gal__figure img { left: -8%; width: 116%; }
+  .gal-on .d-gal__cap { max-width: 46rem; }
+  .gal-on .d-gal__name { font-size: clamp(1.9rem, 0.8rem + 4vw, 5.2rem); line-height: 1.02; }
+  .gal-on .d-gal__bar { position: absolute; z-index: 40; left: clamp(1.4rem, 4vw, 4rem); right: clamp(1.4rem, 4vw, 4rem); bottom: calc(1.25rem + clamp(1rem, 2.6vh, 1.8rem)); margin-top: 0; }
+  .gal-on .d-gal__count { color: rgba(255, 255, 255, 0.82); }
+  .gal-on .d-gal__count b { color: #fff; }
+  .gal-on .d-gal__ticks::before { background: rgba(255, 255, 255, 0.3); }
+  .gal-on .d-gal__tick { color: #fff; }
+  .gal-on .d-gal__tick::before { background: rgba(255, 255, 255, 0.55); }
+  .gal-on .d-gal__tick:hover::before { background: #fff; }
+  .gal-on .d-gal__tick[aria-current='true']::before { background: var(--brand); }
+  .gal-on .d-gal__tick span { color: rgba(255, 255, 255, 0.85); }
+  .gal-on .d-gal__arrows button { border-color: rgba(255, 255, 255, 0.5); color: #fff; }
+  .gal-on .d-gal__arrows button:hover:not(:disabled) { background: var(--brand); border-color: var(--brand); color: #fff; }
+  .gal-on .d-gal__arrows button:disabled { opacity: 0.35; }
+}
+
 /* ---------- Переваги: одна картка, вміст гортається ---------- */
 .d-adv__card { display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); background: var(--stone); }
 .d-adv__media { position: relative; overflow: hidden; background: #2A2A2A; }
@@ -114,19 +140,19 @@ body.h-zars { background: #FFFFFF; }
 .d-adv__nav button { padding: 0.35rem 0; border: 0; border-bottom: 1px solid transparent; background: none; color: var(--muted); font: 400 0.8125rem/1.2 'History', sans-serif; letter-spacing: 0.14em; text-transform: uppercase; cursor: pointer; transition: color 350ms, border-color 350ms; }
 .d-adv__nav button:hover { color: var(--ink); }
 .d-adv__nav button[aria-current='true'] { color: var(--ink); border-bottom-color: var(--brand); }
-.d-adv__texts { margin-top: clamp(1.6rem, 3.4vh, 2.6rem); }
+.d-adv__texts { position: relative; margin-top: clamp(1.4rem, 3vh, 2.2rem); }
 .d-adv__title { margin: 0 0 1rem; font: 400 clamp(1.9rem, 1rem + 2.4vw, 3.4rem)/1.06 'History', sans-serif; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink); }
 .d-adv__text p { max-width: 44ch; margin: 0 0 0.85rem; font: 400 1rem/1.65 var(--text-font); color: var(--ink-2); }
 .d-adv__text p:last-child { margin-bottom: 0; }
-.d-adv__progress { display: none; }
-.adv-on .d-adv { height: 100svh; padding-top: 5.25rem; padding-bottom: 1.25rem; }
-.adv-on .d-adv__card { height: 100%; }
+/* Компактна картка: висота блоку задається фото (--adv-media-h), текстовий стовпець вирівняний по центру
+   висоти найвищого варіанта тексту (--adv-text-h, вимірюється у dev.js), без порожнього хвоста знизу. */
+.adv-on .d-adv { height: auto; padding-top: 4.75rem; padding-bottom: 1.25rem; }
+.adv-on .d-adv__media { height: var(--adv-media-h, 60svh); }
 .adv-on .d-adv__media figure { position: absolute; inset: 0; display: block; aspect-ratio: auto; }
 .adv-on .d-adv__media img { position: absolute; left: 0; top: -10%; height: 120%; will-change: transform; }
-.adv-on .d-adv__texts { position: relative; flex: 1 1 auto; }
+.adv-on .d-adv__body { justify-content: center; }
+.adv-on .d-adv__texts { flex: none; height: var(--adv-text-h, auto); }
 .adv-on .d-adv__text { position: absolute; inset: 0 0 auto 0; }
-.adv-on .d-adv__progress { display: block; position: relative; height: 1px; margin-top: 1.5rem; background: color-mix(in srgb, var(--ink) 18%, transparent); }
-.d-adv__progress i { position: absolute; inset: 0; background: var(--brand); transform-origin: left; transform: scaleX(0); }
 
 /* ---------- Підвал ---------- */
 .d-foot { overflow: hidden; background: #B05523; color: #FFFFFF; padding: var(--sp) var(--gut) 0; }
@@ -146,10 +172,11 @@ body.h-zars { background: #FFFFFF; }
   [data-site='zars'] { --sp: clamp(3.5rem, 9vh, 5rem); --sp-tight: clamp(2.5rem, 6vh, 3.5rem); }
   .d-intro { height: min(125vw, 100svh); min-height: 0; }
   .motion .d-intro__cue { bottom: 1rem; height: 3rem; }
-  .d-claim__inner { flex-direction: column; align-items: center; gap: clamp(1.4rem, 5vw, 2.2rem); text-align: center; }
+  .d-claim__inner { flex-direction: column; align-items: flex-start; gap: clamp(1.4rem, 5vw, 2.2rem); text-align: left; }
+  .d-claim__years { justify-items: start; }
   .d-claim__num { font-size: clamp(5rem, 22vw, 7.5rem); }
-  .d-claim__unit { margin-top: 0.8rem; }
-  .d-claim__text { justify-items: center; font-size: clamp(1.4rem, 6.4vw, 2rem); }
+  .d-claim__unit { margin-top: 0.8rem; margin-right: 0; }
+  .d-claim__text { justify-items: start; text-align: left; font-size: clamp(1.4rem, 6.4vw, 2rem); }
   .d-holding { grid-template-columns: 1fr; gap: 0; }
   .d-holding__photo { aspect-ratio: 4 / 5; margin-inline: calc(-1 * var(--gut)); }
   .d-founder { left: auto; right: 0; bottom: -9%; width: 46%; }
@@ -166,13 +193,13 @@ body.h-zars { background: #FFFFFF; }
   .d-gal__arrows button { width: 2.6rem; height: 2.6rem; }
   .d-adv__card { grid-template-columns: 1fr; }
   .adv-on .d-adv { padding-top: 4.4rem; padding-bottom: 0.75rem; }
-  .adv-on .d-adv__card { grid-template-rows: 46svh minmax(0, 1fr); }
+  .adv-on .d-adv__card { grid-template-rows: 32svh auto; }
+  .adv-on .d-adv__media { height: auto; }
   .d-adv__nav { display: none; }
   .d-adv__body { padding: 1.3rem 1.25rem 1.1rem; }
   .d-adv__texts { margin-top: 0; }
   .d-adv__title { margin-bottom: 0.7rem; font-size: clamp(1.55rem, 6.6vw, 2.1rem); }
   .d-adv__text p { margin-bottom: 0.55rem; font-size: 0.9375rem; line-height: 1.55; }
-  .adv-on .d-adv__progress { margin-top: 1rem; }
   .d-foot__grid { grid-template-columns: 1fr; }
   .d-foot__copy { justify-self: start; }
 }
@@ -180,7 +207,7 @@ body.h-zars { background: #FFFFFF; }
 /* Низькі телефони (iPhone SE та подібні) */
 @media (max-width: 900px) and (max-height: 740px) {
   .adv-on .d-adv { padding-top: 4rem; }
-  .adv-on .d-adv__card { grid-template-rows: 34svh minmax(0, 1fr); }
+  .adv-on .d-adv__card { grid-template-rows: 24svh auto; }
   .d-adv__body { padding: 1rem 1.1rem 0.9rem; }
   .d-adv__title { margin-bottom: 0.5rem; font-size: 1.45rem; }
   .d-adv__text p { margin-bottom: 0.45rem; font-size: 0.875rem; line-height: 1.5; }

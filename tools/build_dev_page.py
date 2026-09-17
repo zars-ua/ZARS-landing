@@ -86,7 +86,7 @@ page = head + f'''<body class="h-zars">
 <section class="d-claim gut" aria-label="30 років">
   <div class="d-claim__inner">
     <p class="d-claim__years"><span class="d-claim__num">30</span><span class="d-claim__unit">років</span></p>
-    <p class="d-claim__text"><span>створюємо унікальні проєкти</span><span>поза часом</span></p>
+    <p class="d-claim__text"><span>створюємо</span><span>унікальні проєкти</span><span>поза часом</span></p>
   </div>
 </section>
 
@@ -95,7 +95,7 @@ page = head + f'''<body class="h-zars">
     <figure class="d-holding__photo">{pic('office', 'office-m', 'Фасад офісу холдингу ЗАРС на Французькому бульварі', '(max-width: 900px) 100vw, 58vw')}</figure>
     <figure class="d-founder">
       <div class="d-founder__frame">{img('founder', 'Гіві Сілованович Каркашадзе, засновник ЗАРС', '(max-width: 900px) 46vw, 16vw')}</div>
-      <figcaption><b>Гіві Сілованович Каркашадзе</b><span>Засновник ЗАРС, 1930-2006</span></figcaption>
+      <figcaption><b>Гіві Сілованович Каркашадзе</b><span>Засновник ЗАРС,</span><span class="d-founder__years">1930-2006</span></figcaption>
     </figure>
   </div>
   <div class="d-holding__text" data-rise>
@@ -147,7 +147,6 @@ page = head + f'''<body class="h-zars">
     <div class="d-adv__body">
       <ul class="d-adv__nav">{adv_nav}</ul>
       <div class="d-adv__texts">{adv_texts}</div>
-      <div class="d-adv__progress" aria-hidden="true"><i></i></div>
     </div>
   </div>
 </section>

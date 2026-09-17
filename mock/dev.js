@@ -120,74 +120,171 @@
       .fromTo(founder.querySelector('figcaption'), { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.9, ease: 'expo.out' }, 0.8);
   }
 
-  /* Галерея будинків: горизонтальна стрічка зі стрілками, точками й перетягуванням.
-     Вертикальну прокрутку сторінки не перехоплює. */
+  /* Галерея будинків.
+     ПК: пінена стрічка «Rolex» — прокрутка/трекпад-свайп вниз перемикає слайд ДИСКРЕТНО
+     (снеп до найближчого кадру + невеличкий дебаунс не дають перемкнути кілька слайдів
+     за один різкий рух), плюс кнопки-стрілки. Паралакс фото — власний повільний цикл,
+     не прив'язаний до прокрутки, щоб сама прокрутка не «тягала» картинку замість перемикання.
+     Мобільна: горизонтальна стрічка — гортається вбік свайпом чи перетягуванням,
+     сторінку не пінить, вертикальну прокрутку не перехоплює. */
   const gal = document.querySelector('[data-gal]');
   if (gal) {
     const vp = gal.querySelector('.d-gal__viewport');
     const track = gal.querySelector('.d-gal__track');
     const slides = [...gal.querySelectorAll('.d-gal__slide')];
+    const imgs = slides.map((s) => s.querySelector('.d-gal__figure img'));
     const ticks = [...gal.querySelectorAll('.d-gal__tick')];
-    const cur = gal.querySelector('.d-gal__cur');
-    const prev = gal.querySelector('[data-prev]');
-    const next = gal.querySelector('[data-next]');
+    const curEl = gal.querySelector('.d-gal__cur');
+    const prevBtn = gal.querySelector('[data-prev]');
+    const nextBtn = gal.querySelector('[data-next]');
     const n = slides.length;
-    let idx = 0, raf = 0;
-    const left = (i) => slides[i].offsetLeft - track.offsetLeft;
-    const nearest = () => {
-      const x = vp.scrollLeft;
-      let best = 0, d = Infinity;
-      slides.forEach((s, i) => { const dd = Math.abs(left(i) - x); if (dd < d) { d = dd; best = i; } });
-      return best;
-    };
-    const paint = () => {
-      idx = nearest();
-      cur.textContent = String(idx + 1).padStart(2, '0');
+    let nav = null;
+
+    const paint = (idx) => {
+      curEl.textContent = String(idx + 1).padStart(2, '0');
       ticks.forEach((t, k) => t.setAttribute('aria-current', String(k === idx)));
-      prev.disabled = vp.scrollLeft <= 2;
-      next.disabled = vp.scrollLeft >= vp.scrollWidth - vp.clientWidth - 2;
-      const mid = vp.scrollLeft + vp.clientWidth / 2;
-      slides.forEach((s, i) => {
-        const c = left(i) + s.offsetWidth / 2;
-        gsap.set(s.querySelector('img'), { xPercent: gsap.utils.clamp(-5, 5, ((c - mid) / vp.clientWidth) * -5) });
-      });
+      prevBtn.disabled = idx <= 0;
+      nextBtn.disabled = idx >= n - 1;
     };
-    const go = (i) => vp.scrollTo({ left: left(gsap.utils.clamp(0, n - 1, i)), behavior: reduce ? 'auto' : 'smooth' });
-    vp.addEventListener('scroll', () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(paint); }, { passive: true });
-    prev.addEventListener('click', () => go(idx - 1));
-    next.addEventListener('click', () => go(idx + 1));
-    ticks.forEach((t, i) => t.addEventListener('click', () => go(i)));
-    vp.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight') { e.preventDefault(); go(idx + 1); }
-      if (e.key === 'ArrowLeft') { e.preventDefault(); go(idx - 1); }
-    });
-    let down = false, sx = 0, sl = 0, moved = false;
-    vp.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse') return; down = true; moved = false; sx = e.clientX; sl = vp.scrollLeft; vp.classList.add('is-drag'); });
-    addEventListener('pointermove', (e) => { if (!down) return; const dx = e.clientX - sx; if (Math.abs(dx) > 4) moved = true; vp.scrollLeft = sl - dx; });
-    addEventListener('pointerup', () => { if (!down) return; down = false; vp.classList.remove('is-drag'); go(nearest()); });
-    vp.addEventListener('click', (e) => { if (moved) { e.preventDefault(); e.stopPropagation(); } }, true);
+    ticks.forEach((t, i) => t.addEventListener('click', () => nav && nav.go(i)));
+    prevBtn.addEventListener('click', () => nav && nav.go(nav.idx() - 1));
+    nextBtn.addEventListener('click', () => nav && nav.go(nav.idx() + 1));
     gsap.fromTo(gal.querySelector('.d-gal__bar'), { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 1, ease: 'expo.out', scrollTrigger: { trigger: gal, start: 'top 75%', once: true } });
-    paint();
-    addEventListener('resize', paint);
+
+    ScrollTrigger.matchMedia({
+      '(min-width: 901px)': function () {
+        html.classList.add('gal-on');
+        gsap.set(slides, { zIndex: (k) => k + 1, clipPath: 'inset(0% 0% 0% 0%)' });
+        gsap.set(slides.slice(1), { clipPath: 'inset(0% 0% 0% 100%)' });
+        gsap.set(imgs.slice(1), { xPercent: 14 });
+        let z = n, cur = 0, idle = null;
+        const drift = (img) => gsap.to(img, { yPercent: 5, duration: 7, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 1.2, overwrite: 'auto' });
+        idle = drift(imgs[0]);
+        const show = (i) => {
+          if (i === cur) return;
+          const prev = cur; cur = i; paint(i);
+          gsap.set(slides[i], { zIndex: ++z });
+          idle && idle.kill();
+          gsap.set(imgs[cur], { yPercent: 0 });
+          idle = drift(imgs[cur]);
+          gsap.fromTo(slides[i], { clipPath: 'inset(0% 0% 0% 100%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1, ease: 'power2.inOut', overwrite: 'auto' });
+          gsap.fromTo(imgs[i], { xPercent: 14 }, { xPercent: 0, duration: 1, ease: 'power2.out', overwrite: 'auto' });
+          gsap.to(imgs[prev], { xPercent: -10, duration: 1, ease: 'power2.in', overwrite: 'auto' });
+        };
+        paint(0);
+        /* Дискретний крок: навіть якщо прокрутка різко пройшла кілька сегментів (інерція
+           трекпада), перемикаємось по одному кадру за раз — жоден слайд не «проскакує» непоміченим. */
+        let pending = 0, settleId = null, stepping = false;
+        const step = () => {
+          if (cur === pending) { stepping = false; return; }
+          stepping = true;
+          show(cur + (pending > cur ? 1 : -1));
+          setTimeout(step, 1080);
+        };
+        const commit = () => { if (!stepping) step(); };
+        const st = ScrollTrigger.create({
+          trigger: gal, start: 'top top', pin: true, invalidateOnRefresh: true, anticipatePin: 1,
+          end: () => '+=' + innerHeight * 0.6 * (n - 1),
+          snap: { snapTo: 1 / (n - 1), duration: 0.5, delay: 0.04, ease: 'power1.inOut' },
+          onUpdate: (self) => {
+            pending = Math.round(self.progress * (n - 1));
+            clearTimeout(settleId);
+            settleId = setTimeout(commit, 70);
+          },
+        });
+        nav = { idx: () => cur, go: (i) => scrollToY(st.start + (st.end - st.start) * (gsap.utils.clamp(0, n - 1, i) / (n - 1))) };
+        return () => { html.classList.remove('gal-on'); idle && idle.kill(); nav = null; };
+      },
+      '(max-width: 900px)': function () {
+        let idx = 0, raf = 0;
+        const left = (i) => slides[i].offsetLeft - track.offsetLeft;
+        const nearest = () => {
+          const x = vp.scrollLeft;
+          let best = 0, d = Infinity;
+          slides.forEach((s, i) => { const dd = Math.abs(left(i) - x); if (dd < d) { d = dd; best = i; } });
+          return best;
+        };
+        const onScroll = () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(paintMobile); };
+        const paintMobile = () => {
+          idx = nearest();
+          paint(idx);
+          prevBtn.disabled = vp.scrollLeft <= 2;
+          nextBtn.disabled = vp.scrollLeft >= vp.scrollWidth - vp.clientWidth - 2;
+          const mid = vp.scrollLeft + vp.clientWidth / 2;
+          slides.forEach((s, i) => {
+            const c = left(i) + s.offsetWidth / 2;
+            gsap.set(s.querySelector('img'), { xPercent: gsap.utils.clamp(-5, 5, ((c - mid) / vp.clientWidth) * -5) });
+          });
+        };
+        const go = (i) => vp.scrollTo({ left: left(gsap.utils.clamp(0, n - 1, i)), behavior: reduce ? 'auto' : 'smooth' });
+        nav = { idx: () => idx, go };
+        vp.addEventListener('scroll', onScroll, { passive: true });
+        const onKeydown = (e) => {
+          if (e.key === 'ArrowRight') { e.preventDefault(); go(idx + 1); }
+          if (e.key === 'ArrowLeft') { e.preventDefault(); go(idx - 1); }
+        };
+        vp.addEventListener('keydown', onKeydown);
+        let down = false, sx = 0, sl = 0, moved = false;
+        const onDown = (e) => { if (e.pointerType !== 'mouse') return; down = true; moved = false; sx = e.clientX; sl = vp.scrollLeft; vp.classList.add('is-drag'); };
+        const onMove = (e) => { if (!down) return; const dx = e.clientX - sx; if (Math.abs(dx) > 4) moved = true; vp.scrollLeft = sl - dx; };
+        const onUp = () => { if (!down) return; down = false; vp.classList.remove('is-drag'); go(nearest()); };
+        const onClick = (e) => { if (moved) { e.preventDefault(); e.stopPropagation(); } };
+        vp.addEventListener('pointerdown', onDown);
+        addEventListener('pointermove', onMove);
+        addEventListener('pointerup', onUp);
+        vp.addEventListener('click', onClick, true);
+        addEventListener('resize', paintMobile);
+        paintMobile();
+        return () => {
+          vp.removeEventListener('scroll', onScroll);
+          vp.removeEventListener('keydown', onKeydown);
+          vp.removeEventListener('pointerdown', onDown);
+          removeEventListener('pointermove', onMove);
+          removeEventListener('pointerup', onUp);
+          vp.removeEventListener('click', onClick, true);
+          removeEventListener('resize', paintMobile);
+          nav = null;
+        };
+      },
+    });
   }
 
-  /* Переваги: одна картка, кадри й тексти змінюються за прокруткою */
+  /* Переваги: одна компактна картка, кадри й тексти перемикаються ДИСКРЕТНО за прокруткою вниз
+     (снеп + дебаунс — як у галереї, щоб не перемикалось відразу кілька слайдів). Висота картки
+     задається фото (--adv-media-h), а стовпець тексту центрується по висоті найвищого варіанта
+     тексту (--adv-text-h, виміряно нижче), без порожнього хвоста знизу. Паралакс фото — власний
+     повільний цикл, не прив'язаний до прокрутки. */
   const adv = document.querySelector('[data-adv]');
   if (adv) {
     const figs = [...adv.querySelectorAll('.d-adv__media figure')];
     const texts = [...adv.querySelectorAll('.d-adv__text')];
+    const textsBox = adv.querySelector('.d-adv__texts');
     const navs = [...adv.querySelectorAll('.d-adv__nav button')];
-    const prog = adv.querySelector('.d-adv__progress i');
     const n = figs.length;
     html.classList.add('adv-on');
-    let z = 1, cur = -1;
+
+    const measure = () => {
+      const maxText = Math.max(...texts.map((t) => t.offsetHeight));
+      textsBox.style.setProperty('--adv-text-h', maxText + 'px');
+      const navH = adv.querySelector('.d-adv__nav').offsetHeight;
+      adv.style.setProperty('--adv-media-h', Math.round(navH + 22 + maxText + 80) + 'px');
+    };
+    measure();
+    addEventListener('resize', measure);
+    document.fonts && document.fonts.ready.then(measure);
+
+    let z = 1, cur = -1, idle = null;
     gsap.set(texts, { autoAlpha: 0 });
+    const drift = (img) => gsap.to(img, { yPercent: 6, duration: 7, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 1.4, overwrite: 'auto' });
     const show = (i) => {
       if (i === cur) return;
       const prev = cur;
       cur = i;
       navs.forEach((b, k) => b.setAttribute('aria-current', String(k === i)));
       gsap.set(figs[i], { zIndex: ++z });
+      idle && idle.kill();
+      gsap.set(figs[i].querySelector('img'), { yPercent: 0 });
+      idle = drift(figs[i].querySelector('img'));
       if (prev < 0) { gsap.set(texts[i], { autoAlpha: 1 }); return; }
       const down = i > prev;
       gsap.fromTo(figs[i], { clipPath: down ? 'inset(100% 0% 0% 0%)' : 'inset(0% 0% 100% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.1, ease: 'expo.inOut', overwrite: 'auto' });
@@ -197,18 +294,27 @@
       gsap.fromTo(texts[i].children, { autoAlpha: 0, y: down ? 44 : -44 }, { autoAlpha: 1, y: 0, duration: 0.9, ease: 'expo.out', stagger: 0.08, delay: 0.25, overwrite: 'auto' });
     };
     show(0);
+    /* Дискретний крок: навіть при різкій інерційній прокрутці перемикаємось по одному
+       кадру за раз, жоден слайд не проскакує непоміченим. */
+    let pending = 0, settleId = null, stepping = false;
+    const step = () => {
+      if (cur === pending) { stepping = false; return; }
+      stepping = true;
+      show(cur + (pending > cur ? 1 : -1));
+      setTimeout(step, 1300);
+    };
+    const commit = () => { if (!stepping) step(); };
     const st = ScrollTrigger.create({
       trigger: adv, start: 'top top', pin: true, invalidateOnRefresh: true, anticipatePin: 1,
       end: () => '+=' + innerHeight * (isMobile() ? 0.55 : 0.65) * n,
+      snap: { snapTo: 1 / (n - 1), duration: 0.5, delay: 0.04, ease: 'power1.inOut' },
       onUpdate: (self) => {
-        const pos = Math.min(n - 0.001, self.progress * n);
-        const i = Math.floor(pos);
-        show(i);
-        prog.style.transform = `scaleX(${(i + 1) / n})`;
-        gsap.set(figs[i].querySelector('img'), { yPercent: -7 + 14 * (pos - i) });
+        pending = Math.round(self.progress * (n - 1));
+        clearTimeout(settleId);
+        settleId = setTimeout(commit, 70);
       },
     });
-    navs.forEach((b, i) => b.addEventListener('click', () => scrollToY(st.start + (st.end - st.start) * ((i + 0.5) / n))));
+    navs.forEach((b, i) => b.addEventListener('click', () => scrollToY(st.start + (st.end - st.start) * (i / (n - 1)))));
   }
 
   /* Логотип у підвалі виїжджає знизу, коли сторінку докручено */
