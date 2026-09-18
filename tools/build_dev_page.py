@@ -98,9 +98,6 @@ page = head + f'''<body class="h-zars">
     <p class="d-claim__years"><span class="d-claim__num">30</span><span class="d-claim__unit">років</span></p>
     <p class="d-claim__text"><span>створюємо</span><span>унікальні проєкти</span><span>поза часом</span></p>
   </div>
-  <video class="d-claim__video" muted playsinline autoplay preload="auto" aria-hidden="true">
-    <source src="../assets/video/claim-building.mp4" type="video/mp4">
-  </video>
 </section>
 
 <section class="d-holding gut" aria-labelledby="holding-title">
@@ -119,7 +116,7 @@ page = head + f'''<body class="h-zars">
   </div>
 </section>
 
-<section class="d-photo d-photo--manifest gut" aria-label="Принципи ЗАРС">
+<section class="d-photo gut" aria-label="Принципи ЗАРС">
   <div class="d-photo__frame">
     {pic('manifest', 'manifest-p', 'Хвилясті балкони Будинку Каркашадзе на тлі неба')}
     <div class="d-photo__body"><p class="d-photo__text" data-words>Відмовившись від масового будівництва, ЗАРС створює унікальні проєкти поза часом, в яких естетика, якість і комфорт є основними принципами.</p></div>

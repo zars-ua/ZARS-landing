@@ -33,36 +33,13 @@ body.h-zars { background: #FFFFFF; }
 .d-intro__body { position: absolute; z-index: 2; left: var(--gut); right: var(--gut); bottom: clamp(2rem, 6vh, 4rem); }
 
 /* ---------- 30 років: по центру сторінки ---------- */
-/* --claim-text — на .d-claim (не на __inner!): відео-сусід поза .d-claim__inner теж має
-   рахувати свою висоту в тих самих 3 рядках тексту (див. .d-claim__video нижче). */
-.d-claim { --claim-text: clamp(1.55rem, 0.9rem + 2.7vw, 4.1rem); display: flex; justify-content: center; align-items: flex-start; gap: clamp(1.5rem, 4vw, 3.5rem); padding-block: var(--sp) 0; }
-.d-claim__inner { display: flex; align-items: center; gap: clamp(1.75rem, 5vw, 5.5rem); }
+.d-claim { display: flex; justify-content: center; padding-block: var(--sp) 0; }
+.d-claim__inner { --claim-text: clamp(1.55rem, 0.9rem + 2.7vw, 4.1rem); display: flex; align-items: center; gap: clamp(1.75rem, 5vw, 5.5rem); }
 .d-claim__years { display: grid; justify-items: center; margin: 0; flex: none; }
 /* Висота «30» дорівнює висоті трьох рядків тексту праворуч: 3 рядки × line-height 1.06 + 2 проміжки 0.12em = 3.42em тексту; цифра — один рядок line-height 0.8 → множник 3.42/0.8 */
 .d-claim__num { font: 400 calc(var(--claim-text) * 4.275)/0.8 'History', sans-serif; letter-spacing: -0.01em; color: var(--brand); }
 .d-claim__unit { margin-top: clamp(1.1rem, 2.6vh, 2rem); margin-right: -0.42em; font: 400 clamp(1rem, 0.75rem + 0.7vw, 1.6rem)/1 'History', sans-serif; letter-spacing: 0.42em; text-transform: uppercase; color: var(--ink); }
 .d-claim__text { display: grid; gap: 0.12em; margin: 0; font: 400 var(--claim-text)/1.06 'History', sans-serif; letter-spacing: 0.03em; text-transform: uppercase; color: var(--ink); }
-/* Ролик-замальовка будинку клієнта: лише ПК, поруч із текстом (див. @media 901px нижче).
-   Кадр уже обрізаний від чорних пілербоксів і не зациклений навмисно — це «домальовка» від
-   ескізу до готового будинку, останній кадр = готовий будинок; loop дав би різкий стрибок
-   назад у порожній ескіз кожні 3 с, тому відео просто грає раз і лишається на фіналі.
-   ⚠️ display:none МАЄ стояти ДО @media нижче в тексті файлу — інакше при рівній специфічності
-   пізніше правило в джерелі перемагає і ховає відео навіть на ПК (так і сталось першого разу,
-   коли @media-блок був вставлений вище цього рядка). */
-.d-claim__video { display: none; }
-
-/* ПК: відео праворуч від тексту — щоб звільнити місце, блок «30 років…» іде до лівого краю
-   замість центрування (мобільна лишається як була: центру не чіпаємо, відео там нема). */
-@media (min-width: 901px) {
-  .d-claim { justify-content: flex-start; }
-  .d-claim__video { display: block; flex: none; height: calc(var(--claim-text) * 3.42); width: auto; object-fit: cover; background: #EDEDED; }
-  /* Фон ролика — не чисто білий, а світло-сірий (#EDEDED, заміряно з кадру). Щоб відео не
-     «вирізалось» прямокутником на білій сторінці, підганяємо фон під нього — але лише в зоні
-     від цього блоку до «Будинки Каркашадзе» включно (за вказівкою клієнта), далі за галереєю
-     сторінка лишається білою як була. Секції йдуть впритул (однобічний padding-block), тому
-     смуга виходить суцільною без білих прошарків між ними. */
-  .d-claim, .d-holding, .d-photo--manifest, .d-kk { background: #EDEDED; }
-}
 
 /* ---------- Холдинг ЗАРС ---------- */
 .d-holding { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(2.5rem, 6vw, 7rem); align-items: center; padding-block: var(--sp) 0; }
