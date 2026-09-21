@@ -36,9 +36,18 @@ def loc_schema():
     {labels}
   </div>'''
 
+def stage_grid():
+    """Стадія будівництва ФБ29Б: чотири вертикальні кадри в ряд, розкриття й паралакс (21.09.2026)."""
+    shots = [('fb29b/build-1', 'Фасад будинку на стадії будівництва'), ('fb29b/build-2', 'Будинок і будівельний кран'),
+             ('fb29b/build-3', 'Балкони фасаду'), ('fb29b/build-4', 'Тераса на стадії будівництва')]
+    return '<div class="stage__grid" data-gallery data-stage>' + ''.join(
+        f'<figure class="stage__frame">{pic(k, alt, "(max-width: 900px) 50vw, 26vw")}</figure>' for k, alt in shots) + '</div>'
+
 def perks(items):
     """Горизонтальна карусель переваг з іконками (21.09.2026)."""
-    cards = ''.join(f'<li class="perk"><img class="perk__icon" src="../assets/icons/fb29b/{i}.svg" alt="" loading="lazy"><h3 class="perk__title">{t}</h3><p class="perk__text">{d}</p></li>' for i, t, d in items)
+    icon = lambda i: ('<span class="perk__icon perk__icon--logo"><svg viewBox="32.0 32.0 5120.0 756.0" aria-hidden="true"><use href="#zars"/></svg></span>' if i == 'zars-logo'
+                      else f'<img class="perk__icon" src="../assets/icons/fb29b/{i}.svg" alt="" loading="lazy">')
+    cards = ''.join(f'<li class="perk">{icon(i)}<h3 class="perk__title">{t}</h3><p class="perk__text">{d}</p></li>' for i, t, d in items)
     arrow = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>'
     return f'''<section class="perks" data-perks aria-roledescription="карусель" aria-label="Переваги будинку">
   <ul class="perks__track" tabindex="0">{cards}</ul>
@@ -217,20 +226,20 @@ fb29b = head + hero + f'''
   </div>
   {loc_schema()}
 </section>
-<section class="pans" aria-label="Вид">{pan('fb29b/view-sea', 'Захоплюючі краєвиди на море та місто', '', cls='pan--top')}</section>
+<section class="pans" aria-label="Вид">{pan('fb29b/view-sea', 'Захоплюючі краєвиди на море та місто', '', '(max-width: 900px) 200vw, min(125vw, 1520px)', cls='pan--top')}</section>
 
 <section class="pans pans--adv" aria-label="Переваги">
-  {pan('fb29b/terrace', 'Тераси або балкони', 'В кожній квартирі. Ми будуємо дім в одному з найзеленіших і мальовничих районів міста, щоб Ви завжди могли насолоджуватися краєвидами і свіжим повітрям.')}
+  {pan('fb29b/terrace', 'Тераси або балкони', 'В кожній квартирі. Ми будуємо дім в одному з найзеленіших і мальовничих районів міста, щоб Ви завжди могли насолоджуватися краєвидами і свіжим повітрям.', '(max-width: 900px) 200vw, min(125vw, 1520px)')}
   <div class="pans pans--split" style="padding-inline:0">
-    {pan('fb29b/yard-family', 'Прибудинкова територія', 'Паркова територія, що цілодобово охороняється.', '(max-width: 900px) 100vw, 60vw')}
-    {pan('fb29b/parking', 'Підземний паркінг', 'Місця для автомобілів мешканців під будинком.', '(max-width: 900px) 100vw, 40vw')}
+    {pan('fb29b/yard-family', 'Прибудинкова територія', 'Паркова територія, що цілодобово охороняється.', '(max-width: 900px) 200vw, 72vw')}
+    {pan('fb29b/parking', 'Підземний паркінг', 'Місця для автомобілів мешканців під будинком.', '(max-width: 900px) 200vw, 52vw')}
   </div>
   <div class="pans pans--split pans--split-rev" style="padding-inline:0">
-    {pan('fb29b/privacy-facade', 'Приватність', 'Всього 48 квартир у будинку.', '(max-width: 900px) 100vw, 40vw')}
-    {pan('fb29b/lobby-hall', 'Стиль і розкіш', 'Інтер’єр холу й місць загального користування оздоблені преміальними матеріалами — мармур, ліпнина, натуральне дерево.', '(max-width: 900px) 100vw, 60vw')}
+    {pan('fb29b/privacy-facade', 'Приватність', 'Всього 48 квартир у будинку.', '(max-width: 900px) 200vw, 52vw')}
+    {pan('fb29b/lobby-hall', 'Стиль і розкіш', 'Інтер’єр холу й місць загального користування оздоблені преміальними матеріалами — мармур, ліпнина, натуральне дерево.', '(max-width: 900px) 200vw, 72vw')}
   </div>
 </section>
-{perks([('developer', 'Кращий девелопер міста', '30 років будівництва нерухомості преміум-класу.'), ('quiet-place', 'Тихе місце', 'Непроїздний провулок біля моря і паркової зони.'), ('panoramic', 'Вікна Schüco', 'Панорамні вікна з алюмінієвих вітражів.'), ('master-bedroom', 'Майстер-спальня', 'Планування кожної квартири передбачає майстер-спальню.'), ('energy', 'Енергоефективність', 'Утеплення стін, енергозберігаючі вікна, сучасна котельня.'), ('lifts', 'Ліфти', 'Ексклюзивні, просторі, швидкісні, безшумні, останнього покоління.'), ('autonomy', 'Автономність', 'Автономне водопостачання, дизель-генератор.'), ('security', 'Безпека', 'Територія, що цілодобово охороняється. Відеоспостереження, система контролю доступу.'), ('windows', 'Вікна', 'Енергозберігаючі — з алюмінію і натурального дерева (Євробрус).')])}
+{perks([('zars-logo', 'Кращий девелопер міста', '30 років будівництва нерухомості преміум-класу.'), ('quiet-place', 'Тихе місце', 'Непроїздний провулок біля моря і паркової зони.'), ('panoramic', 'Вікна Schüco', 'Панорамні вікна з алюмінієвих вітражів.'), ('master-bedroom', 'Майстер-спальня', 'Планування кожної квартири передбачає майстер-спальню.'), ('energy', 'Енергоефективність', 'Утеплення стін, енергозберігаючі вікна, сучасна котельня.'), ('lifts', 'Ліфти', 'Ексклюзивні, просторі, швидкісні, безшумні, останнього покоління.'), ('autonomy', 'Автономність', 'Автономне водопостачання, дизель-генератор.'), ('security', 'Безпека', 'Територія, що цілодобово охороняється. Відеоспостереження, система контролю доступу.'), ('windows', 'Вікна', 'Енергозберігаючі — з алюмінію і натурального дерева (Євробрус).')])}
 
 <section class="air" id="plans" aria-labelledby="s29b-plans">
   <span class="label">Планування квартир</span>
@@ -238,12 +247,12 @@ fb29b = head + hero + f'''
   {plans([('fb29b/plan-1k-54', '1-кімнатна квартира', '54,31 м²', '8 поверх'), ('fb29b/plan-3k-131', '3-кімнатна квартира', '131,32 м²', '8 поверх'), ('fb29b/plan-3k-119', '3-кімнатна квартира', '119,38 м²', '9 поверх'), ('fb29b/plan-ph-208', 'Пентхаус', '208 м²', 'верхній рівень')], 'Площі проєктні. За дозвільною документацією квартири є житловими приміщеннями, а пентхаус є технічним приміщенням.')}
 </section>
 
-<section class="air" aria-labelledby="s29b-build">
-  <div style="margin-bottom:clamp(2.5rem,6vh,4rem)">
-    <h2 class="title-lg" id="s29b-build">Актуальна стадія будівництва</h2>
-    <p class="lead">Будується. Плановий строк здачі: IV квартал 2026.</p>
+<section class="air stage" aria-labelledby="s29b-build">
+  <div class="stage__head">
+    <h2 class="stage__title" id="s29b-build">Актуальна стадія будівництва</h2>
+    <p class="stage__lead">Будується. Плановий строк здачі: IV квартал 2026.</p>
   </div>
-  {gallery([('fb29b/build-1', 'Фасад будинку на стадії будівництва', 'e-4'), ('fb29b/build-2', 'Будинок і будівельний кран', 'e-8'), ('fb29b/build-3', 'Балкони фасаду', 'e-5 e-low'), ('fb29b/build-4', 'Тераса на стадії будівництва', 'e-7')])}
+  {stage_grid()}
 </section>
 
 {enquiry('Французький бульвар, 29Б')}

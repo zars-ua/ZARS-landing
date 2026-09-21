@@ -1,7 +1,6 @@
-/* Рух макета: GSAP + ScrollTrigger + Lenis. Без JS і з prefers-reduced-motion сторінка
+/* Рух макета: GSAP + ScrollTrigger (прокрутка нативна). Без JS сторінка
    показує кінцевий стан (весь текст, фото без вуалі). */
 (() => {
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const bar = document.querySelector('.bar');
 
   // Шапка: суцільна, щойно перший екран пішов
@@ -12,7 +11,9 @@
     }, { rootMargin: `-${bar.offsetHeight}px 0px 0px 0px` }).observe(stickAfter);
   }
 
-  if (reduce || !window.gsap || !window.ScrollTrigger) return;
+  /* Як і на сторінці девелопера: сценарні ефекти (паралакс, проявлення) працюють і з prefers-reduced-motion —
+     саме так виглядає Windows із вимкненими «ефектами анімації», і клієнт бачив там сторінку без паралаксу. */
+  if (!window.gsap || !window.ScrollTrigger) return;
   gsap.registerPlugin(ScrollTrigger);
   document.documentElement.classList.add('motion');
 
@@ -91,8 +92,10 @@
     const cap = pan.querySelector('.pan__cap');
     /* .pan--top кадровано до верхнього краю — фото тільки підіймається, верх кадру видно на вході */
     const top = pan.classList.contains('pan--top');
-    gsap.fromTo(img, { yPercent: top ? 0 : -9 }, {
-      yPercent: top ? -12 : 9, ease: 'none',
+    /* ФБ29Б: запас фото 12% (а не 24%), тож і хід паралаксу менший — інакше край фото вилазить у кадр */
+    const amp = document.documentElement.dataset.site === 'fb29b' ? 5 : 9;
+    gsap.fromTo(img, { yPercent: top ? 0 : -amp }, {
+      yPercent: top ? -amp * 2 : amp, ease: 'none',
       scrollTrigger: { trigger: pan, start: 'top bottom', end: 'bottom top', scrub: true },
     });
     if (!cap) return;
@@ -109,6 +112,20 @@
     gsap.timeline({ scrollTrigger: { trigger: schema.closest('.loc') || schema, start: 'top center', once: true } })
       .from(schema, { y: -100, autoAlpha: 0, scale: 1.4, rotation: 16, duration: 1.4, ease: 'power1.out' })
       .from(schema.querySelectorAll('.loc__label'), { autoAlpha: 0, x: 100, duration: 0.6, stagger: 0.2, ease: 'power1.out' });
+  });
+
+  /* 5в. Стадія будівництва ФБ29Б: кадри розкриваються знизу по черзі, фото всередині «сідає» зі збільшення;
+         далі за прокруткою парні кадри йдуть повільніше за непарні, а фото тече всередині рамки. */
+  document.querySelectorAll('[data-stage]').forEach((grid) => {
+    const frames = [...grid.querySelectorAll('.stage__frame')];
+    const imgs = frames.map((f) => f.querySelector('img'));
+    gsap.timeline({ scrollTrigger: { trigger: grid, start: 'top 82%', once: true } })
+      .fromTo(frames, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.4, stagger: 0.14, ease: 'expo.inOut' })
+      .fromTo(imgs, { scale: 1.3 }, { scale: 1, duration: 1.9, stagger: 0.14, ease: 'expo.out' }, 0.25);
+    frames.forEach((f, i) => {
+      gsap.fromTo(f, { y: i % 2 ? 50 : 0 }, { y: i % 2 ? -30 : 0, ease: 'none', scrollTrigger: { trigger: grid, start: 'top bottom', end: 'bottom top', scrub: true } });
+      gsap.fromTo(imgs[i], { yPercent: -6 }, { yPercent: 6, ease: 'none', scrollTrigger: { trigger: f, start: 'top bottom', end: 'bottom top', scrub: true } });
+    });
   });
 
   /* 6. Будинки Каркашадзе: кадри змінюються вбік за прокруткою (Rolex, горизонтально) */
