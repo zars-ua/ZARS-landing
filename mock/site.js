@@ -189,3 +189,56 @@
     show(0);
   });
 })();
+
+/* ---------- Карусель переваг ФБ29Б (21.09.2026) ----------
+   Нативний горизонтальний скрол зі scroll-snap: свайп, трекпад, клавіатура; стрілки гортають
+   на одну картку, смуга показує видиму частину стрічки. Без JS — звичайна стрічка зі свайпом. */
+(() => {
+  document.querySelectorAll('[data-perks]').forEach((root) => {
+    const track = root.querySelector('.perks__track');
+    const cards = [...track.children];
+    const prev = root.querySelector('[data-prev]');
+    const next = root.querySelector('[data-next]');
+    const fill = root.querySelector('.perks__bar i');
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const step = () => (cards[1] ? cards[1].offsetLeft - cards[0].offsetLeft : track.clientWidth);
+    let raf = 0;
+    const paint = () => {
+      const max = track.scrollWidth - track.clientWidth;
+      const vis = track.clientWidth / track.scrollWidth;
+      const p = max > 0 ? track.scrollLeft / max : 0;
+      fill.style.width = `${vis * 100}%`;
+      fill.style.transform = `translateX(${(p * (1 - vis) / vis) * 100}%)`;
+      prev.disabled = track.scrollLeft <= 2;
+      next.disabled = track.scrollLeft >= max - 2;
+    };
+    const by = (d) => track.scrollBy({ left: d * step(), behavior: reduce ? 'auto' : 'smooth' });
+    prev.addEventListener('click', () => by(-1));
+    next.addEventListener('click', () => by(1));
+    track.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); by(1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); by(-1); }
+    });
+    track.addEventListener('scroll', () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(paint); }, { passive: true });
+    addEventListener('resize', paint);
+    // перетягування мишею на ПК; після відпускання — доводка до найближчої картки
+    let down = false, sx = 0, sl = 0, moved = false;
+    track.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse') return; down = true; moved = false; sx = e.clientX; sl = track.scrollLeft; });
+    addEventListener('pointermove', (e) => {
+      if (!down) return;
+      const dx = e.clientX - sx;
+      if (!moved && Math.abs(dx) > 4) { moved = true; track.classList.add('is-drag'); }
+      if (moved) track.scrollLeft = sl - dx;
+    });
+    addEventListener('pointerup', () => {
+      if (!down) return;
+      down = false;
+      if (!moved) return;
+      const s = step(), i = Math.round(track.scrollLeft / s);
+      track.classList.remove('is-drag');
+      track.scrollTo({ left: i * s, behavior: reduce ? 'auto' : 'smooth' });
+    });
+    track.addEventListener('click', (e) => { if (moved) { e.preventDefault(); e.stopPropagation(); } }, true);
+    paint();
+  });
+})();

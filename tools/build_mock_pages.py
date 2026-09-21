@@ -19,9 +19,31 @@ def pic(key, alt, sizes='100vw', eager=False, cls=''):
     c = f' class="{cls}"' if cls else ''
     return f'<img{c} src="{src}" srcset="{ss}" sizes="{sizes}" data-full="{full}" alt="{alt}" loading="{load}" decoding="async">'
 
-def pan(key, title, text, sizes='100vw'):
-    return f'''<figure class="pan">{pic(key, title, sizes)}
-    <figcaption class="pan__cap"><h3 class="pan__title">{title}</h3><p class="pan__text">{text}</p></figcaption></figure>'''
+def pan(key, title, text, sizes='100vw', cls=''):
+    body = f'<p class="pan__text">{text}</p>' if text else ''
+    return f'''<figure class="pan{' ' + cls if cls else ''}">{pic(key, title, sizes)}
+    <figcaption class="pan__cap"><h3 class="pan__title">{title}</h3>{body}</figcaption></figure>'''
+
+def loc_schema():
+    """Схема розташування ФБ29Б — та сама картинка й підписи, що на zars.ua/objects/fr29b (21.09.2026)."""
+    items = [('street1', 'Французький бульвар', 1), ('street2', 'пров. Спортивний', 1), ('opera', 'Оперний театр <br>3,9 км', 0),
+             ('muz', 'Театр музкомедії <br>900 м', 0), ('b29', 'Французький <br>бульвар, 29Б', 0), ('club', 'Яхт-клуб <br>450 м', 0),
+             ('health', 'Траса здоров’я <br>350 м', 0), ('kino', 'Одеська кіностудія <br>350 м', 0), ('arcadia', 'Аркадія <br>4,4 км', 0),
+             ('airport', 'Аеропорт <br>9,4 км', 0)]
+    labels = ''.join(f'<div class="loc__item loc__{k}"><span class="{"loc__street" if st else "loc__label"}">{t}</span></div>' for k, t, st in items)
+    return f'''<div class="loc__schema" data-loc aria-label="Схема: відстані від будинку до значущих місць Одеси" role="img">
+    <div class="loc__item loc__bg"><img src="../assets/map/fr29b-map.svg" alt="" width="1556" height="1636" loading="lazy" decoding="async"></div>
+    {labels}
+  </div>'''
+
+def perks(items):
+    """Горизонтальна карусель переваг з іконками (21.09.2026)."""
+    cards = ''.join(f'<li class="perk"><img class="perk__icon" src="../assets/icons/fb29b/{i}.svg" alt="" loading="lazy"><h3 class="perk__title">{t}</h3><p class="perk__text">{d}</p></li>' for i, t, d in items)
+    arrow = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>'
+    return f'''<section class="perks" data-perks aria-roledescription="карусель" aria-label="Переваги будинку">
+  <ul class="perks__track" tabindex="0">{cards}</ul>
+  <div class="perks__nav"><button type="button" data-prev aria-label="Попередні переваги">{arrow}</button><span class="perks__bar"><i></i></span><button type="button" data-next aria-label="Наступні переваги">{arrow}</button></div>
+</section>'''
 
 def facts(items):
     return '<dl class="facts">' + ''.join(f'<div><dt>{t}</dt><dd>{d}</dd></div>' for t, d in items) + '</dl>'
@@ -186,33 +208,29 @@ fb29b = head + hero + f'''
   </div>
 </section>
 
-<section class="pans" aria-label="Будинок">{pan('fb29b/tower', 'Одеська класика', 'Естетика, натхненна архітектурою одеської класики.')}</section>
-
-<section class="air" aria-labelledby="s29b-loc">
-  <span class="label" id="s29b-loc">Розташування</span>
-  <div class="two">
-    <div>
-      <p class="big-dist"><b>500</b><span>метрів до моря</span></p>
-      <p class="lead">Ви немов живете за містом, однак залишаєтеся в безпосередній близькості до його ділового та культурно-розважального життя. До значущих місць Одеси можна дістатися пішки або за кілька хвилин автомобілем.</p>
-    </div>
-    {dist([('Траса здоров’я', '350 м'), ('Одеська кіностудія', '350 м'), ('Яхт-клуб', '450 м'), ('Театр музкомедії', '900 м'), ('Оперний театр', '3,9 км'), ('Аркадія', '4,4 км'), ('Аеропорт', '9,4 км')])}
+<section class="air loc" aria-labelledby="s29b-loc">
+  <div class="loc__text">
+    <span class="label" id="s29b-loc">Розташування</span>
+    <p class="big-dist"><b>500</b><span>метрів до моря</span></p>
+    <p class="lead">Ви немов живете за містом, однак залишаєтеся в безпосередній близькості до його ділового та культурно-розважального життя. До значущих місць Одеси можна дістатися пішки або за кілька хвилин автомобілем.</p>
+    <a class="act act--quiet loc__map" href="https://www.google.com/maps/search/?api=1&amp;query=46.4610972%2C30.7569145" target="_blank" rel="noopener">Дивитися на карті</a>
   </div>
+  {loc_schema()}
 </section>
-<section class="pans" aria-label="Вид">{pan('fb29b/view-sea', 'Тихе місце', 'Непроїздний провулок біля моря і паркової зони.')}</section>
+<section class="pans" aria-label="Вид">{pan('fb29b/view-sea', 'Захоплюючі краєвиди на море та місто', '', cls='pan--top')}</section>
 
-<section class="air" aria-labelledby="s29b-adv">
-  <h2 class="title-lg" id="s29b-adv">Переваги</h2>
-</section>
-<section class="pans" aria-label="Переваги">
+<section class="pans pans--adv" aria-label="Переваги">
   {pan('fb29b/terrace', 'Тераси або балкони', 'В кожній квартирі. Ми будуємо дім в одному з найзеленіших і мальовничих районів міста, щоб Ви завжди могли насолоджуватися краєвидами і свіжим повітрям.')}
   <div class="pans pans--split" style="padding-inline:0">
-    {pan('fb29b/yard', 'Прибудинкова територія', 'Паркова територія, що цілодобово охороняється.', '(max-width: 900px) 100vw, 60vw')}
+    {pan('fb29b/yard-family', 'Прибудинкова територія', 'Паркова територія, що цілодобово охороняється.', '(max-width: 900px) 100vw, 60vw')}
     {pan('fb29b/parking', 'Підземний паркінг', 'Місця для автомобілів мешканців під будинком.', '(max-width: 900px) 100vw, 40vw')}
   </div>
+  <div class="pans pans--split pans--split-rev" style="padding-inline:0">
+    {pan('fb29b/privacy-facade', 'Приватність', 'Всього 48 квартир у будинку.', '(max-width: 900px) 100vw, 40vw')}
+    {pan('fb29b/lobby-hall', 'Стиль і розкіш', 'Інтер’єр холу й місць загального користування оздоблені преміальними матеріалами — мармур, ліпнина, натуральне дерево.', '(max-width: 900px) 100vw, 60vw')}
+  </div>
 </section>
-<section class="air">
-  {facts([('Кращий девелопер міста', '30 років будівництва нерухомості преміум-класу.'), ('Камерність і приватність', 'Менше 50 квартир у будинку.'), ('Майстер-спальня', 'Планування кожної квартири передбачає майстер-спальню.'), ('Стиль і розкіш', 'Інтер’єр холу й місць загального користування оздоблені преміальними матеріалами — мармур, ліпнина, натуральне дерево.'), ('Енергоефективність', 'Утеплення стін, енергозберігаючі вікна, сучасна котельня.'), ('Автономність', 'Автономне водопостачання, дизель-генератор.'), ('Вікна Schüco', 'Панорамні вікна з алюмінієвих вітражів.'), ('Безпека', 'Територія, що цілодобово охороняється. Відеоспостереження, система контролю доступу.')])}
-</section>
+{perks([('developer', 'Кращий девелопер міста', '30 років будівництва нерухомості преміум-класу.'), ('quiet-place', 'Тихе місце', 'Непроїздний провулок біля моря і паркової зони.'), ('panoramic', 'Вікна Schüco', 'Панорамні вікна з алюмінієвих вітражів.'), ('master-bedroom', 'Майстер-спальня', 'Планування кожної квартири передбачає майстер-спальню.'), ('energy', 'Енергоефективність', 'Утеплення стін, енергозберігаючі вікна, сучасна котельня.'), ('lifts', 'Ліфти', 'Ексклюзивні, просторі, швидкісні, безшумні, останнього покоління.'), ('autonomy', 'Автономність', 'Автономне водопостачання, дизель-генератор.'), ('security', 'Безпека', 'Територія, що цілодобово охороняється. Відеоспостереження, система контролю доступу.'), ('windows', 'Вікна', 'Енергозберігаючі — з алюмінію і натурального дерева (Євробрус).')])}
 
 <section class="air" id="plans" aria-labelledby="s29b-plans">
   <span class="label">Планування квартир</span>
@@ -226,11 +244,6 @@ fb29b = head + hero + f'''
     <p class="lead">Будується. Плановий строк здачі: IV квартал 2026.</p>
   </div>
   {gallery([('fb29b/build-1', 'Фасад будинку на стадії будівництва', 'e-4'), ('fb29b/build-2', 'Будинок і будівельний кран', 'e-8'), ('fb29b/build-3', 'Балкони фасаду', 'e-5 e-low'), ('fb29b/build-4', 'Тераса на стадії будівництва', 'e-7')])}
-</section>
-
-<section class="air" aria-labelledby="s29b-gal">
-  <h2 class="title-lg" id="s29b-gal" style="margin-bottom:clamp(2.5rem,6vh,4rem)">Галерея</h2>
-  {gallery([('fb29b/tower-park', 'Будинок серед парку', 'e-12'), ('fb29b/lane', 'Провулок біля будинку', 'e-7'), ('fb29b/courtyard', 'Двір і дитячий майданчик', 'e-5'), ('fb29b/street', 'Фасад з боку вулиці', 'e-12')])}
 </section>
 
 {enquiry('Французький бульвар, 29Б')}

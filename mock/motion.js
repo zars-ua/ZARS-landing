@@ -89,8 +89,10 @@
   document.querySelectorAll('.pan').forEach((pan) => {
     const img = pan.querySelector('img');
     const cap = pan.querySelector('.pan__cap');
-    gsap.fromTo(img, { yPercent: -9 }, {
-      yPercent: 9, ease: 'none',
+    /* .pan--top кадровано до верхнього краю — фото тільки підіймається, верх кадру видно на вході */
+    const top = pan.classList.contains('pan--top');
+    gsap.fromTo(img, { yPercent: top ? 0 : -9 }, {
+      yPercent: top ? -12 : 9, ease: 'none',
       scrollTrigger: { trigger: pan, start: 'top bottom', end: 'bottom top', scrub: true },
     });
     if (!cap) return;
@@ -100,6 +102,14 @@
       .to(cap, { autoAlpha: 0, y: -40, duration: 0.25, ease: 'power1.in' });
   });
 
+
+  /* 5б. Схема розташування ФБ29Б — та сама анімація, що на zars.ua/objects/fr29b (їхній script.js):
+         схема «опускається» з повороту й збільшення, потім підписи по черзі виїжджають справа. */
+  document.querySelectorAll('[data-loc]').forEach((schema) => {
+    gsap.timeline({ scrollTrigger: { trigger: schema.closest('.loc') || schema, start: 'top center', once: true } })
+      .from(schema, { y: -100, autoAlpha: 0, scale: 1.4, rotation: 16, duration: 1.4, ease: 'power1.out' })
+      .from(schema.querySelectorAll('.loc__label'), { autoAlpha: 0, x: 100, duration: 0.6, stagger: 0.2, ease: 'power1.out' });
+  });
 
   /* 6. Будинки Каркашадзе: кадри змінюються вбік за прокруткою (Rolex, горизонтально) */
   document.querySelectorAll('[data-dk]').forEach((dk) => {

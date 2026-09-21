@@ -253,5 +253,33 @@
   ],
   "ratio": 0.6667,
   "source": "https://marketing89613.wixsite.com/penthouse_fb29 · static.wixstatic.com/media/18e4f2_d34a599db8934127850436d781a9e595~mv2.jpg"
+ },
+ "fb29b/yard-family": {
+  "widths": [
+   960,
+   1600,
+   1920
+  ],
+  "ratio": 1.7778,
+  "source": "клієнт, 21.09.2026 · прибудинкова-територія.png"
+ },
+ "fb29b/privacy-facade": {
+  "widths": [
+   960,
+   1600,
+   1920
+  ],
+  "ratio": 1.7778,
+  "source": "клієнт, 21.09.2026 · приватність-фасад.png"
+ },
+ "fb29b/lobby-hall": {
+  "widths": [
+   960,
+   1600,
+   1920,
+   2000
+  ],
+  "ratio": 1.3333,
+  "source": "клієнт, 21.09.2026 · стиль-і-розкіш-хол.png"
  }
 }
