@@ -70,6 +70,7 @@ page = head + f'''<body class="h-zars">
 <!-- Сторінка девелопера. Генерується tools/build_dev_page.py; стилі mock/dev.css, рух mock/dev.js. -->
 {header}
 
+<div class="d-intro-run">
 <section class="d-intro" data-intro aria-label="ЗАРС">
   <div class="d-intro__media">
     <video muted playsinline loop autoplay preload="auto" poster="../assets/video/zars-intro-poster.webp">
@@ -92,6 +93,7 @@ page = head + f'''<body class="h-zars">
     </div>
   </div>
 </section>
+</div>
 
 <section class="d-claim gut" aria-label="30 років">
   <div class="d-claim__inner">
@@ -179,8 +181,8 @@ page = head + f'''<body class="h-zars">
 {sym}
 <script src="../assets/vendor/gsap.min.js" defer></script>
 <script src="../assets/vendor/ScrollTrigger.min.js" defer></script>
-<script src="../assets/vendor/lenis.min.js" defer></script>
 <script src="dev.js" defer></script>
+<script src="menu.js" defer></script>
 </body>
 </html>
 '''

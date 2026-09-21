@@ -16,14 +16,8 @@
   gsap.registerPlugin(ScrollTrigger);
   document.documentElement.classList.add('motion');
 
-  // Плавна прокрутка
-  if (window.Lenis) {
-    const lenis = new Lenis({ lerp: 0.085, wheelMultiplier: 0.9 });
-    window.__lenis = lenis;
-    lenis.on('scroll', ScrollTrigger.update);
-    gsap.ticker.add((t) => lenis.raf(t * 1000));
-    gsap.ticker.lagSmoothing(0);
-  }
+  /* Прокрутка — нативна браузерна (21.09.2026), як на arccagroup.us (еталон клієнта):
+     Lenis прибрано — він рухав сторінку з головного потоку й смикався на слабших Windows-ПК. */
 
   /* 1. Літери ЗАРС як вікно. Світла вуаль кольору сторінки з вирізаними літерами;
         прокрутка збільшує знак довкола точки всередині ніжки «Р», доки проріз не заповнить екран. */
@@ -55,7 +49,7 @@
       scrollTrigger: {
         trigger: intro, start: 'top top', end: '+=160%', scrub: 0.8, pin: true, anticipatePin: 1,
         invalidateOnRefresh: true,
-        onRefresh: () => { o = layout(); gsap.set(letters, { svgOrigin: `${o.ox} ${o.oy}` }); },
+        onRefresh: () => { o = layout(); gsap.set(letters, { svgOrigin: `${o.ox} ${o.oy}`, smoothOrigin: false, x: 0, y: 0 }); },
         onUpdate: (st) => bar && bar.toggleAttribute('data-on-veil', st.progress < 0.42),
       },
     });
@@ -151,7 +145,7 @@
     ticks.forEach((tk, i) => tk.addEventListener('click', () => {
       const st = tl.scrollTrigger;
       const y = st.start + (st.end - st.start) * (i / (n - 1));
-      window.__lenis ? window.__lenis.scrollTo(y, { duration: 1.4 }) : window.scrollTo({ top: y, behavior: 'smooth' });
+      window.scrollTo({ top: y, behavior: 'smooth' });
     }));
   });
 
@@ -184,3 +178,16 @@
     });
   });
 })();
+
+/* Якірні посилання (#presentation, #contacts) — плавно, нативним скролом, з відступом під шапку.
+   CSS scroll-behavior:smooth не вмикаємо: він ламає ScrollTrigger.refresh (той сам прокручує сторінку). */
+document.addEventListener('click', (e) => {
+  const a = e.target.closest('a[href^="#"]');
+  if (!a || a.getAttribute('href').length < 2) return;
+  const t = document.querySelector(a.getAttribute('href'));
+  if (!t) return;
+  e.preventDefault();
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  window.scrollTo({ top: t.getBoundingClientRect().top + scrollY, behavior: reduce ? 'auto' : 'smooth' });
+  history.replaceState(null, '', a.getAttribute('href'));
+});

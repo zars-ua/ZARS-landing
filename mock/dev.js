@@ -14,16 +14,11 @@
   html.classList.add('motion');
   if (reduce) html.classList.add('reduce');
 
-  /* Lenis — лише на ПК. На мобільній вона віртуалізує тач-скрол через RAF/lerp, що на слабших
-     телефонах дає ривки; нативний інерційний скрол там і плавніший, і дешевший. */
-  let lenis = null;
-  if (window.Lenis && !reduce && !isMobile()) {
-    lenis = new Lenis({ lerp: 0.1 });
-    lenis.on('scroll', ScrollTrigger.update);
-    gsap.ticker.add((t) => lenis.raf(t * 1000));
-    gsap.ticker.lagSmoothing(0);
-  }
-  const scrollToY = (y) => (lenis ? lenis.scrollTo(y, { duration: 1.2 }) : window.scrollTo({ top: y, behavior: reduce ? 'auto' : 'smooth' }));
+  /* Прокрутка — нативна браузерна на всіх пристроях (21.09.2026), як на arccagroup.us, який
+     клієнт дав еталоном плавності. Lenis прибрано: він рухав сторінку з головного потоку, і кожен
+     важкий кадр анімації (замір під 4× сповільненням CPU: 85–320 мс) зупиняв саму прокрутку —
+     на слабших Windows-ПК це читалось як ривки. Нативний скрол браузер згладжує в окремому потоці. */
+  const scrollToY = (y) => window.scrollTo({ top: y, behavior: reduce ? 'auto' : 'smooth' });
   const bar = document.querySelector('.bar');
 
   /* 1. Інтро: літери ЗАРС як вікно у відео; логотип і гасло з'являються самі після розкриття */
@@ -45,7 +40,15 @@
       svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
       use.setAttribute('x', x); use.setAttribute('y', y);
       use.setAttribute('width', lw); use.setAttribute('height', lh);
-      gsap.set(letters, { svgOrigin: `${x + (STEM.x - VB.x) / VB.w * lw} ${y + (STEM.y - VB.y) / VB.h * lh}` });
+      /* Точку збільшення ставимо лише на незбільшеному знаку (scale 1, без компенсації зсуву).
+         Інакше, якщо layout() викликано, коли знак уже збільшено (перезавантаження посеред
+         сторінки, refresh після завантаження відео), GSAP рахував origin у збільшених координатах
+         (-242/-960 замість 764/452): на поверненні нагору літери їхали за екран і перший екран
+         лишався порожнім білим (зловлено 21.09.2026). */
+      const s = gsap.getProperty(letters, 'scale');
+      gsap.set(letters, { scale: 1, x: 0, y: 0 });
+      gsap.set(letters, { svgOrigin: `${x + (STEM.x - VB.x) / VB.w * lw} ${y + (STEM.y - VB.y) / VB.h * lh}`, smoothOrigin: false });
+      gsap.set(letters, { scale: s });
     };
     layout();
     const lockup = gsap.timeline({ paused: true })
@@ -55,13 +58,13 @@
     const tl = gsap.timeline({
       defaults: { ease: 'none' },
       scrollTrigger: {
-        trigger: intro, start: 'top top', pin: true, invalidateOnRefresh: true,
-        end: () => '+=' + (isMobile() ? intro.clientHeight * 0.85 : innerHeight * 1.05),
-        /* scrub:true (не число!) — на ПК scroll вже згладжує Lenis; додаткове власне
-           згладжування GSAP (числовий scrub) поверх нього — джерело розсинхрону й ривка
-           при різкій зміні напрямку скролу (відтворено: різкий скрол вниз-до-низу і назад
-           вгору давав стрибок ~580px саме в межах піна інтро). */
-        scrub: true,
+        /* без pin: інтро прилипає CSS-ом (position:sticky в обгортці .d-intro-run) */
+        trigger: intro.parentElement, start: 'top top', end: 'bottom bottom', invalidateOnRefresh: true,
+        /* Числовий scrub тепер безпечний: Lenis прибрано (раніше число поверх Lenis давало
+           розсинхрон і стрибок ~580px), а сторінка під час сцени стоїть (sticky) — розходитись
+           нема з чим. 0,6 с згладжує кроки коліщатка, і на поверненні нагору знак ЗАРС
+           плавно «наповзає» на відео навіть після різкого ривка вгору. */
+        scrub: 0.6,
         onRefresh: layout,
         onUpdate: (st) => {
           bar && bar.toggleAttribute('data-on-veil', st.progress < 0.5);
@@ -297,3 +300,16 @@
 
   addEventListener('load', () => ScrollTrigger.refresh());
 })();
+
+/* Якірні посилання (#presentation, #contacts) — плавно, нативним скролом, з відступом під шапку.
+   CSS scroll-behavior:smooth не вмикаємо: він ламає ScrollTrigger.refresh (той сам прокручує сторінку). */
+document.addEventListener('click', (e) => {
+  const a = e.target.closest('a[href^="#"]');
+  if (!a || a.getAttribute('href').length < 2) return;
+  const t = document.querySelector(a.getAttribute('href'));
+  if (!t) return;
+  e.preventDefault();
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  window.scrollTo({ top: t.getBoundingClientRect().top + scrollY, behavior: reduce ? 'auto' : 'smooth' });
+  history.replaceState(null, '', a.getAttribute('href'));
+});

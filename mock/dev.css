@@ -34,6 +34,11 @@ body.h-zars { background: #FFFFFF; }
 .reduce .d-intro__cue::after { animation: none; }
 .d-intro__cue.is-gone { opacity: 0; }
 .d-intro__body { position: absolute; z-index: 2; left: var(--gut); right: var(--gut); bottom: clamp(2rem, 6vh, 4rem); }
+/* Інтро «їде» на CSS sticky, а не на GSAP pin (21.09.2026): прилипання робить сам браузер
+   у потоці компонування, тож кадр не смикається на початку/кінці сцени навіть на слабкому ПК.
+   Висота обгортки = висота екрана інтро + довжина сцени (на ПК 105vh, на моб. 0,85 висоти інтро). */
+.motion .d-intro-run { height: calc(max(100svh, 560px) + 105vh); }
+.motion .d-intro { position: sticky; top: 0; }
 
 /* ---------- 30 років: по центру сторінки ---------- */
 .d-claim { display: flex; justify-content: center; padding-block: var(--sp-block) 0; }
@@ -225,6 +230,7 @@ body.h-zars { background: #FFFFFF; }
 @media (max-width: 900px) {
   [data-site='zars'] { --sp: clamp(3.5rem, 9vh, 5rem); --sp-tight: clamp(2.5rem, 6vh, 3.5rem); }
   .d-intro { height: min(125vw, 100svh); min-height: 0; }
+  .motion .d-intro-run { height: calc(min(125vw, 100svh) * 1.85); }
   .motion .d-intro__cue { bottom: 1rem; height: 3rem; }
   .d-claim__inner { flex-direction: column; align-items: flex-start; gap: clamp(1.4rem, 5vw, 2.2rem); text-align: left; }
   .d-claim__years { justify-items: start; }

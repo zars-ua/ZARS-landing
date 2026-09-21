@@ -76,8 +76,8 @@ FOOT = '''<footer class="foot" id="contacts">
 
 SCRIPTS = '''<script src="../assets/vendor/gsap.min.js" defer></script>
 <script src="../assets/vendor/ScrollTrigger.min.js" defer></script>
-<script src="../assets/vendor/lenis.min.js" defer></script>
 <script src="motion.js" defer></script>
+<script src="menu.js" defer></script>
 <script src="site.js" defer></script>'''
 
 def shell(fname, body_sections):
