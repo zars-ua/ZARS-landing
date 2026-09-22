@@ -868,3 +868,9 @@ html.menu-open, html.menu-open body { overflow: hidden; }
 /* Форма «Приватна презентація» — на всіх трьох сторінках на білому, відокремлена волосяною лінією */
 .enquiry { background: #FFFFFF; border-top: 1px solid color-mix(in srgb, var(--ink) 12%, transparent); }
 [data-site='zars'] .enquiry { padding: var(--sp-block) var(--gut); }
+
+/* 22.09.2026 (5): шапка після прокрутки — матове скло: білий на 85 %, під ним розмито видно силуети сторінки */
+.bar[data-stuck] { background: rgba(255, 255, 255, 0.85); -webkit-backdrop-filter: blur(16px) saturate(1.4); backdrop-filter: blur(16px) saturate(1.4); box-shadow: 0 1px 0 rgba(63, 68, 64, 0.08); }
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { .bar[data-stuck] { background: rgba(255, 255, 255, 0.96); } }
+@media (prefers-reduced-transparency: reduce) { .bar[data-stuck] { background: #FFFFFF; -webkit-backdrop-filter: none; backdrop-filter: none; } }
+.bar[data-menu] { -webkit-backdrop-filter: none; backdrop-filter: none; }
