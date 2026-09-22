@@ -17,7 +17,8 @@
 [data-site='fb29'] {
   --text-font: 'Graphik', system-ui, sans-serif;
   --label-font: 'Graphik', system-ui, sans-serif;
-  --ground: #F6F4EF; --ink: #1E2A40; --ink-2: #4A5468; --muted: #525A6C; --stone: #E4E0D6; /* #5E6679 = 4,36 на кам'яному — затемнено */
+  /* 22.09.2026: як ФБ29Б — білий фон, фірмовий синій #294069, темно-сірі гайдлайну ЗАРС для тексту; кремовий прибрано */
+  --ground: #FFFFFF; --ink: #3F4440; --ink-2: #565D5B; --muted: #6D7271; --stone: #FFFFFF;
   --brand: #294069; --on-brand: #FFFFFF; --scrim: 16, 24, 40;
 }
 /* ФБ29Б — презентація: руда #913814, темно-коричневий #261610, Montserrat + History Pro */
@@ -614,10 +615,10 @@ html.menu-open, html.menu-open body { overflow: hidden; }
 @media (min-width: 901px) {
   .h-29b h1 { white-space: nowrap; font-size: clamp(1.9rem, 0.7rem + 2.2vw, 3.3rem); }
 }
-[data-site='fb29b'] .enquiry { background: #FFFFFF; border-top: 1px solid color-mix(in srgb, var(--ink) 12%, transparent); }
-[data-site='fb29b'] .plans__stage { border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent); }
-[data-site='fb29b'] .foot h4, [data-site='fb29b'] .foot__copy { color: rgba(255,255,255,0.78); }
-[data-site='fb29b'] .foot__copy { border-top-color: rgba(255,255,255,0.28); }
+:is([data-site='fb29b'], [data-site='fb29']) .enquiry { background: #FFFFFF; border-top: 1px solid color-mix(in srgb, var(--ink) 12%, transparent); }
+:is([data-site='fb29b'], [data-site='fb29']) .plans__stage { border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent); }
+:is([data-site='fb29b'], [data-site='fb29']) .foot h4, :is([data-site='fb29b'], [data-site='fb29']) .foot__copy { color: rgba(255,255,255,0.78); }
+:is([data-site='fb29b'], [data-site='fb29']) .foot__copy { border-top-color: rgba(255,255,255,0.28); }
 
 /* Кадр «Захоплюючі краєвиди»: кадрування до верхнього краю (море й люди на балконі); паралакс лише вгору */
 .pan--top img { inset: 0 0 auto; height: 114%; object-position: 62% 0; }
@@ -701,47 +702,47 @@ html.menu-open, html.menu-open body { overflow: hidden; }
   .pan--top img { object-position: 64% 0; }
 }
 /* ФБ29Б: без автопереносу в заголовках кадрів — «Захоплюючі краєвиди» ламало на «КРАЄВИ-ДИ» */
-[data-site='fb29b'] .pan__title { hyphens: manual; overflow-wrap: normal; }
+:is([data-site='fb29b'], [data-site='fb29']) .pan__title { hyphens: manual; overflow-wrap: normal; }
 
 /* =====================================================================
    ФБ29Б, правки 21.09.2026 (2): менші кадри з повітрям, відступи між блоками ÷1,5,
    планування в один екран, компактна стадія будівництва
    ===================================================================== */
 /* Відступи між блоками — у 1,5 раза менші, ніж загальні .air (7–12rem → 4,67–8rem) */
-[data-site='fb29b'] .air { padding-block: clamp(4.67rem, 10.7vh, 8rem); }
-[data-site='fb29b'] .perks { padding-block: clamp(4rem, 9.3vh, 6.67rem) clamp(3.33rem, 8vh, 5.33rem); }
-[data-site='fb29b'] .enquiry { padding-block: clamp(4rem, 9.3vh, 6.67rem); }
+:is([data-site='fb29b'], [data-site='fb29']) .air { padding-block: clamp(4.67rem, 10.7vh, 8rem); }
+:is([data-site='fb29b'], [data-site='fb29']) .perks { padding-block: clamp(4rem, 9.3vh, 6.67rem) clamp(3.33rem, 8vh, 5.33rem); }
+:is([data-site='fb29b'], [data-site='fb29']) .enquiry { padding-block: clamp(4rem, 9.3vh, 6.67rem); }
 
 /* Кадри: не на весь екран, у пропорції самих фото (інакше object-fit:cover у високій рамці
    розтягував фото до 1,9× — звідси «мило»), з повітрям між ними; запас під паралакс 12%, а не 24% */
-[data-site='fb29b'] .pans { max-width: 1240px; margin-inline: auto; gap: clamp(2.5rem, 5vw, 5rem); padding-inline: clamp(1.25rem, 3.5vw, 3.5rem); box-sizing: content-box; }
-[data-site='fb29b'] .pans .pans { max-width: none; margin-inline: 0; padding-inline: 0; }
-[data-site='fb29b'] .pan { height: auto; aspect-ratio: 16 / 9; max-height: 80svh; }
-[data-site='fb29b'] .pan img { inset: -6% 0; height: 112%; }
-[data-site='fb29b'] .pan--top img { inset: 0 0 auto; height: 112%; }
-[data-site='fb29b'] .pans--split { gap: clamp(1.5rem, 3vw, 3rem); align-items: start; }
-[data-site='fb29b'] .pans--split .pan:nth-child(1) { aspect-ratio: 16 / 10; }
-[data-site='fb29b'] .pans--split .pan:nth-child(2) { aspect-ratio: 4 / 3; margin-top: clamp(3rem, 9vh, 6rem); }
-[data-site='fb29b'] .pans--split-rev .pan:nth-child(1) { aspect-ratio: 4 / 3; margin-top: clamp(3rem, 9vh, 6rem); }
-[data-site='fb29b'] .pans--split-rev .pan:nth-child(2) { aspect-ratio: 4 / 3; margin-top: 0; }
-[data-site='fb29b'] .pan__cap { left: clamp(1.1rem, 2.6vw, 2.6rem); bottom: clamp(1.1rem, 3.5vh, 2.4rem); right: clamp(1.1rem, 2.6vw, 2.6rem); max-width: 30rem; }
-[data-site='fb29b'] .pan__title { font-size: clamp(1.3rem, 0.9rem + 1.3vw, 2.3rem); line-height: 1.08; }
-[data-site='fb29b'] .pans--split .pan__title { font-size: clamp(1.15rem, 0.85rem + 0.9vw, 1.8rem); }
-[data-site='fb29b'] .pans--split .pan__text { font-size: 0.9375rem; }
+:is([data-site='fb29b'], [data-site='fb29']) .pans { max-width: 1240px; margin-inline: auto; gap: clamp(2.5rem, 5vw, 5rem); padding-inline: clamp(1.25rem, 3.5vw, 3.5rem); box-sizing: content-box; }
+:is([data-site='fb29b'], [data-site='fb29']) .pans .pans { max-width: none; margin-inline: 0; padding-inline: 0; }
+:is([data-site='fb29b'], [data-site='fb29']) .pan { height: auto; aspect-ratio: 16 / 9; max-height: 80svh; }
+:is([data-site='fb29b'], [data-site='fb29']) .pan img { inset: -6% 0; height: 112%; }
+:is([data-site='fb29b'], [data-site='fb29']) .pan--top img { inset: 0 0 auto; height: 112%; }
+:is([data-site='fb29b'], [data-site='fb29']) .pans--split { gap: clamp(1.5rem, 3vw, 3rem); align-items: start; }
+:is([data-site='fb29b'], [data-site='fb29']) .pans--split .pan:nth-child(1) { aspect-ratio: 16 / 10; }
+:is([data-site='fb29b'], [data-site='fb29']) .pans--split .pan:nth-child(2) { aspect-ratio: 4 / 3; margin-top: clamp(3rem, 9vh, 6rem); }
+:is([data-site='fb29b'], [data-site='fb29']) .pans--split-rev .pan:nth-child(1) { aspect-ratio: 4 / 3; margin-top: clamp(3rem, 9vh, 6rem); }
+:is([data-site='fb29b'], [data-site='fb29']) .pans--split-rev .pan:nth-child(2) { aspect-ratio: 4 / 3; margin-top: 0; }
+:is([data-site='fb29b'], [data-site='fb29']) .pan__cap { left: clamp(1.1rem, 2.6vw, 2.6rem); bottom: clamp(1.1rem, 3.5vh, 2.4rem); right: clamp(1.1rem, 2.6vw, 2.6rem); max-width: 30rem; }
+:is([data-site='fb29b'], [data-site='fb29']) .pan__title { font-size: clamp(1.3rem, 0.9rem + 1.3vw, 2.3rem); line-height: 1.08; }
+:is([data-site='fb29b'], [data-site='fb29']) .pans--split .pan__title { font-size: clamp(1.15rem, 0.85rem + 0.9vw, 1.8rem); }
+:is([data-site='fb29b'], [data-site='fb29']) .pans--split .pan__text { font-size: 0.9375rem; }
 
 /* Логотип ЗАРС замість іконки «Кращий девелопер міста» */
 .perk__icon--logo { display: flex; align-items: flex-end; width: 124px; max-width: none; color: var(--brand); }
 .perk__icon--logo svg { display: block; width: 100%; height: auto; }
 
 /* Планування — весь блок в один екран */
-[data-site='fb29b'] #plans .title-lg { font-size: clamp(1.7rem, 1rem + 2vw, 3rem); margin-bottom: clamp(1.5rem, 3.5vh, 2.5rem) !important; }
-[data-site='fb29b'] #plans .label { margin-bottom: 0.9rem; }
-[data-site='fb29b'] .plans__stage { padding: clamp(0.75rem, 2vw, 1.75rem); }
-[data-site='fb29b'] .plans__stage img { max-height: min(46svh, 520px); }
-[data-site='fb29b'] .plans__list { top: 6rem; }
-[data-site='fb29b'] .plans__tab { padding-block: 0.95rem; }
-[data-site='fb29b'] .plans__meta { margin-top: 0.9rem; }
-[data-site='fb29b'] .plans .note { margin-top: 0.9rem; }
+:is([data-site='fb29b'], [data-site='fb29']) #plans .title-lg { font-size: clamp(1.7rem, 1rem + 2vw, 3rem); margin-bottom: clamp(1.5rem, 3.5vh, 2.5rem) !important; }
+:is([data-site='fb29b'], [data-site='fb29']) #plans .label { margin-bottom: 0.9rem; }
+:is([data-site='fb29b'], [data-site='fb29']) .plans__stage { padding: clamp(0.75rem, 2vw, 1.75rem); }
+:is([data-site='fb29b'], [data-site='fb29']) .plans__stage img { max-height: min(46svh, 520px); }
+:is([data-site='fb29b'], [data-site='fb29']) .plans__list { top: 6rem; }
+:is([data-site='fb29b'], [data-site='fb29']) .plans__tab { padding-block: 0.95rem; }
+:is([data-site='fb29b'], [data-site='fb29']) .plans__meta { margin-top: 0.9rem; }
+:is([data-site='fb29b'], [data-site='fb29']) .plans .note { margin-top: 0.9rem; }
 
 /* Стадія будівництва: заголовок менший, чотири вертикальні кадри в ряд зі сходинкою */
 .stage__head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem 3rem; flex-wrap: wrap; margin-bottom: clamp(2rem, 5vh, 3.2rem); }
@@ -756,14 +757,14 @@ html.menu-open, html.menu-open body { overflow: hidden; }
 .stage__frame:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; }
 
 @media (max-width: 900px) {
-  [data-site='fb29b'] .pans { gap: 2.5rem; padding-inline: clamp(1.25rem, 3.5vw, 3.5rem); }
-  [data-site='fb29b'] .pan, [data-site='fb29b'] .pans--split .pan:nth-child(n), [data-site='fb29b'] .pans--split-rev .pan:nth-child(n) { aspect-ratio: 1 / 1; max-height: none; margin-top: 0; }
-  [data-site='fb29b'] .pans--split { gap: 2.5rem; }
+  :is([data-site='fb29b'], [data-site='fb29']) .pans { gap: 2.5rem; padding-inline: clamp(1.25rem, 3.5vw, 3.5rem); }
+  :is([data-site='fb29b'], [data-site='fb29']) .pan, :is([data-site='fb29b'], [data-site='fb29']) .pans--split .pan:nth-child(n), :is([data-site='fb29b'], [data-site='fb29']) .pans--split-rev .pan:nth-child(n) { aspect-ratio: 1 / 1; max-height: none; margin-top: 0; }
+  :is([data-site='fb29b'], [data-site='fb29']) .pans--split { gap: 2.5rem; }
   .stage__grid { grid-template-columns: 1fr 1fr; }
   .stage__frame:nth-child(even) { margin-top: 2rem; }
-  [data-site='fb29b'] .plans__stage img { max-height: 44svh; }
+  :is([data-site='fb29b'], [data-site='fb29']) .plans__stage img { max-height: 44svh; }
 }
-[data-site='fb29b'] .pans + .pans { margin-top: clamp(2.5rem, 5vw, 5rem); }
+:is([data-site='fb29b'], [data-site='fb29']) .pans + .pans { margin-top: clamp(2.5rem, 5vw, 5rem); }
 
 /* =====================================================================
    Єдиний підвал усіх сторінок (22.09.2026) — як на сторінці девелопера (перенесено з dev.css)
@@ -785,8 +786,61 @@ html.menu-open, html.menu-open body { overflow: hidden; }
 /* 22.09.2026: ФБ29Б — підпис стадії під заголовком; помітніший паралакс карток (запас 20%, хід ±8%) */
 .stage__head { display: grid; justify-content: start; gap: 0.7rem; }
 .big-dist span { line-height: 1.2; }
-[data-site='fb29b'] .pan img { inset: -10% 0; height: 120%; }
-[data-site='fb29b'] .pan--top img { inset: 0 0 auto; height: 120%; }
-[data-site='fb29b'] .pan--top .pan__cap { max-width: none; }
-@media (min-width: 560px) { [data-site='fb29b'] .pan--top .pan__title { white-space: nowrap; } }
-[data-site='fb29b'] .pan::after { background: linear-gradient(0deg, rgba(20,21,20,0.78) 0%, rgba(20,21,20,0.38) 38%, rgba(20,21,20,0) 64%); }
+:is([data-site='fb29b'], [data-site='fb29']) .pan img { inset: -10% 0; height: 120%; }
+:is([data-site='fb29b'], [data-site='fb29']) .pan--top img { inset: 0 0 auto; height: 120%; }
+:is([data-site='fb29b'], [data-site='fb29']) .pan--top .pan__cap { max-width: none; }
+@media (min-width: 560px) { :is([data-site='fb29b'], [data-site='fb29']) .pan--top .pan__title { white-space: nowrap; } }
+:is([data-site='fb29b'], [data-site='fb29']) .pan::after { background: linear-gradient(0deg, rgba(20,21,20,0.78) 0%, rgba(20,21,20,0.38) 38%, rgba(20,21,20,0) 64%); }
+/* 22.09.2026 (2): на невисоких екранах (ноутбуки 1536×730, 1366×650) max-height:80svh разом з aspect-ratio
+   звужував кадр, а grid притискав його ліворуч (поля 148/350 px) — «не по центру». Кадр завжди на всю ширину колонки. */
+:is([data-site='fb29b'], [data-site='fb29']) .pan { width: 100%; justify-self: stretch; }
+
+/* =====================================================================
+   ФБ29 (22.09.2026): за зразком ФБ29Б — цифри будинку, схема розташування з zars.ua/objects/f29,
+   відзнака на великому фото зі стрічками
+   ===================================================================== */
+.stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2rem; margin: clamp(3rem, 8vh, 5rem) 0 0; padding-top: clamp(1.6rem, 4vh, 2.4rem); border-top: 1px solid color-mix(in srgb, var(--ink) 14%, transparent); }
+.stats dt { font: 400 clamp(2.6rem, 1.6rem + 3vw, 4.6rem)/1 var(--display-font, 'History'), serif; color: var(--brand); letter-spacing: -0.01em; }
+.stats dd { margin: 0.7rem 0 0; font-size: 0.9375rem; line-height: 1.45; color: var(--ink-2); }
+
+/* Схема: підкладка «дорога й море», поверх по черзі з'являються будинок, пам'ятки й лінії (як на zars.ua) */
+.loc--29 { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); align-items: center; }
+.loc--29 .loc__text { padding-bottom: 0; }
+.map29 { position: relative; }
+.map29 img { position: absolute; }
+.map29 .map29__base { position: relative; display: block; width: 100%; height: auto; }
+.map29__building { width: 12.2%; left: 35.4%; top: 30.5%; z-index: 3; }
+.map29__attr { width: 39.8%; left: 21.3%; top: 3.9%; z-index: 1; }
+.map29__lines { width: 28.2%; left: 28.4%; top: 21%; z-index: 2; }
+
+/* Відзнака: велике фото, поверх текст і чотири стрічки */
+.award { position: relative; max-width: 1240px; margin: 0 auto; box-sizing: content-box; padding-inline: clamp(1.25rem, 3.5vw, 3.5rem); }
+.award__media { position: relative; margin: 0; aspect-ratio: 16 / 9; max-height: 86svh; width: 100%; overflow: hidden; background: #1B2536; }
+.award__media img { position: absolute; left: 0; top: -10%; width: 100%; height: 120%; object-fit: cover; will-change: transform; }
+.award__media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(16,24,40,0.78) 0%, rgba(16,24,40,0.5) 42%, rgba(16,24,40,0.05) 75%), linear-gradient(0deg, rgba(16,24,40,0.45) 0%, rgba(16,24,40,0) 40%); }
+.award__body { position: absolute; z-index: 2; inset: 0 clamp(1.25rem, 3.5vw, 3.5rem); display: flex; flex-direction: column; justify-content: space-between; padding: clamp(1.6rem, 5vh, 3.5rem) clamp(1.4rem, 4vw, 3.5rem); color: #FFFFFF; }
+.award__title { margin: 0 0 1rem; font: 400 clamp(1.7rem, 1rem + 2vw, 3rem)/1.05 'Anglecia', Georgia, serif; }
+.award__text p { max-width: 40ch; margin: 0; font-size: clamp(0.95rem, 0.85rem + 0.3vw, 1.1rem); line-height: 1.6; color: rgba(255,255,255,0.9); }
+.award__ribbons { display: flex; gap: clamp(0.8rem, 2vw, 2rem); align-items: flex-start; }
+.award__ribbons figure { margin: 0; width: clamp(46px, 5.4vw, 84px); }
+.award__ribbons img { display: block; width: 100%; height: auto; filter: drop-shadow(0 8px 18px rgba(0,0,0,0.35)); }
+
+@media (max-width: 992px) {
+  .loc--29 { grid-template-columns: 1fr; }
+  .map29 { margin-inline: calc(-1 * clamp(1.25rem, 3.5vw, 3.5rem)); }
+}
+@media (max-width: 900px) {
+  .stats { grid-template-columns: 1fr 1fr; row-gap: 2rem; }
+  .award__media { aspect-ratio: 4 / 5; max-height: none; }
+  .award__media::after { background: linear-gradient(0deg, rgba(16,24,40,0.85) 0%, rgba(16,24,40,0.45) 55%, rgba(16,24,40,0.15) 100%); }
+  .award__body { justify-content: flex-end; gap: 1.6rem; }
+}
+[data-site='fb29'] .perk__icon--logo { color: #B05523; }
+.big-dist span { white-space: nowrap; }
+.award + .pans { margin-top: clamp(2.5rem, 5vw, 5rem); }
+@media (max-width: 900px) {
+  .award__media::after { background: linear-gradient(0deg, rgba(16,24,40,0.88) 0%, rgba(16,24,40,0.62) 50%, rgba(16,24,40,0.55) 100%); }
+}
+@media (max-width: 576px) {
+  .map29 { width: 160%; margin-left: -34%; margin-right: 0; }
+}

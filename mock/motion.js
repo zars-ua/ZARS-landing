@@ -93,7 +93,7 @@
     /* .pan--top кадровано до верхнього краю — фото тільки підіймається, верх кадру видно на вході */
     const top = pan.classList.contains('pan--top');
     /* ФБ29Б: запас фото 12% (а не 24%), тож і хід паралаксу менший — інакше край фото вилазить у кадр */
-    const amp = document.documentElement.dataset.site === 'fb29b' ? 8 : 9;
+    const amp = ['fb29b', 'fb29'].includes(document.documentElement.dataset.site) ? 8 : 9;
     /* scrub 0,5 — невелике згладження: без Lenis коліщатко на Windows іде кроками по 100px, і без нього паралакс «стрибав» */
     gsap.fromTo(img, { yPercent: top ? 0 : -amp }, {
       yPercent: top ? -amp * 2 : amp, ease: 'none',
@@ -132,6 +132,23 @@
   /* Знак ЗАРС у підвалі виїжджає знизу, коли сторінку докручено (як на сторінці девелопера) */
   const footMark = document.querySelector('.d-foot__mark svg');
   footMark && gsap.fromTo(footMark, { yPercent: 100 }, { yPercent: 0, ease: 'none', scrollTrigger: { trigger: footMark.parentElement, start: 'top bottom', end: 'bottom bottom', scrub: true } });
+
+  /* 5г. Схема ФБ29 — як на zars.ua/objects/f29 (їхній main.js): поверх підкладки по черзі проявляються
+         будинок, пам'ятки й лінії, по 0,5 с. Додано легкий «наплив» знизу. */
+  document.querySelectorAll('[data-map29]').forEach((m) => {
+    const layers = ['.map29__building', '.map29__attr', '.map29__lines'].map((q) => m.querySelector(q));
+    gsap.timeline({ scrollTrigger: { trigger: m, start: 'top 70%', once: true } })
+      .from(m.querySelector('.map29__base'), { autoAlpha: 0, y: 40, duration: 1, ease: 'power2.out' })
+      .from(layers, { autoAlpha: 0, y: 14, duration: 0.5, stagger: 0.5, ease: 'power1.out' }, 0.5);
+  });
+  /* Відзнака ФБ29: паралакс фото, стрічки «спускаються» по черзі */
+  document.querySelectorAll('.award').forEach((aw) => {
+    const img = aw.querySelector('.award__media img');
+    img && gsap.fromTo(img, { yPercent: -8 }, { yPercent: 8, ease: 'none', scrollTrigger: { trigger: aw, start: 'top bottom', end: 'bottom top', scrub: 0.5 } });
+    gsap.timeline({ scrollTrigger: { trigger: aw, start: 'top 65%', once: true } })
+      .from(aw.querySelectorAll('.award__text > *'), { autoAlpha: 0, y: 30, duration: 1, stagger: 0.12, ease: 'expo.out' })
+      .from(aw.querySelectorAll('.award__ribbons figure'), { yPercent: -30, autoAlpha: 0, duration: 1.1, stagger: 0.14, ease: 'expo.out' }, 0.2);
+  });
 
   /* 6. Будинки Каркашадзе: кадри змінюються вбік за прокруткою (Rolex, горизонтально) */
   document.querySelectorAll('[data-dk]').forEach((dk) => {

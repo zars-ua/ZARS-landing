@@ -43,10 +43,10 @@ def stage_grid():
     return '<div class="stage__grid" data-gallery data-stage>' + ''.join(
         f'<figure class="stage__frame">{pic(k, alt, "(max-width: 900px) 50vw, 26vw")}</figure>' for k, alt in shots) + '</div>'
 
-def perks(items):
+def perks(items, site='fb29b'):
     """Горизонтальна карусель переваг з іконками (21.09.2026)."""
     icon = lambda i: ('<span class="perk__icon perk__icon--logo"><svg viewBox="32.0 32.0 5120.0 756.0" aria-hidden="true"><use href="#zars"/></svg></span>' if i == 'zars-logo'
-                      else f'<img class="perk__icon" src="../assets/icons/fb29b/{i}.svg" alt="" loading="lazy">')
+                      else f'<img class="perk__icon" src="../assets/icons/{site}/{i}.svg" alt="" loading="lazy">')
     cards = ''.join(f'<li class="perk">{icon(i)}<h3 class="perk__title">{t}</h3><p class="perk__text">{d}</p></li>' for i, t, d in items)
     arrow = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>'
     return f'''<section class="perks" data-perks aria-roledescription="карусель" aria-label="Переваги будинку">
@@ -133,58 +133,60 @@ fb29 = head + hero + f'''
     <p class="words" data-reveal-words style="margin:0;text-align:left">Будинки Каркашадзе — це унікальний приклад висотного цегляного будівництва, якість якого не має аналогів в Одесі.</p>
     <p class="lead">Більше того, у світі взагалі не так багато висотних будівель, побудованих повністю з цегли.</p>
   </div>
+  <dl class="stats" data-stats>
+    <div><dt>10</dt><dd>поверхів</dd></div>
+    <div><dt>3</dt><dd>секції</dd></div>
+    <div><dt>120</dt><dd>місць<br>у підземному паркінгу</dd></div>
+    <div><dt>0,7</dt><dd>га — загальна площа<br>території комплексу</dd></div>
+  </dl>
 </section>
 
-<section class="pans pans--split" aria-label="Концепція">
-  {pan('fb29/path', 'Приватність', 'Лише три квартири на поверсі. На території комплексу немає торговельно-офісних приміщень і сторонньої інфраструктури.', '(max-width: 900px) 100vw, 60vw')}
-  {pan('fb29/rise', 'Комфорт', 'Концепція будинку на Французькому бульварі, 29 передбачає комфорт та абсолютну приватність мешканців.', '(max-width: 900px) 100vw, 40vw')}
+<section class="air loc loc--29" aria-labelledby="s29-loc">
+  <div class="loc__text">
+    <span class="label" id="s29-loc">Розташування</span>
+    <p class="big-dist"><b>400</b><span>метрів<br>до моря</span></p>
+    <p class="lead">Будинок розташований усього у 400 метрах від моря та у 40 метрах від парку «Ювілейний». Поєднання чистого морського та «лісового» повітря створює найкращі екологічні умови для життя.</p>
+    <a class="act act--quiet loc__map" href="https://www.google.com/maps/search/?api=1&amp;query=46.4614137%2C30.7562069" target="_blank" rel="noopener">Дивитися на карті</a>
+  </div>
+  <div class="map29" data-map29 role="img" aria-label="Схема: відстані від будинку до моря, Траси здоров’я, яхт-клубу, театрів, Аркадії та аеропорту">
+    <img class="map29__base" src="../assets/map/fb29/road-and-sea.webp" alt="" width="1303" height="980" loading="lazy" decoding="async">
+    <img class="map29__building" src="../assets/map/fb29/building.svg" alt="" loading="lazy">
+    <img class="map29__attr" src="../assets/map/fb29/attraction.svg" alt="" loading="lazy">
+    <img class="map29__lines" src="../assets/map/fb29/lines.svg" alt="" loading="lazy">
+  </div>
 </section>
 
-<section class="air" aria-labelledby="s29-loc">
-  <span class="label" id="s29-loc">Розташування</span>
-  <div class="two">
-    <div>
-      <p class="big-dist"><b>400</b><span>метрів<br>до моря</span></p>
-      <p class="lead">Скільки існує Одеса, стільки Французький бульвар вважається кращим місцем для життя тут. Поєднання чистого морського та «лісового» повітря створює найкращі екологічні умови для життя.</p>
+<section class="award" aria-labelledby="s29-awards">
+  <figure class="award__media">{pic('fb29/dusk-wide', 'Будинок на Французькому бульварі, 29 увечері', '(max-width: 900px) 200vw, min(125vw, 1520px)')}</figure>
+  <div class="award__body">
+    <div class="award__text">
+      <h2 class="award__title" id="s29-awards">Відзнака проєкту</h2>
+      <p>У 2021 році в Лондоні Будинок Каркашадзе Французький бульвар, 29 був відзначений міжнародною премією International Property Awards у 4 номінаціях.</p>
     </div>
-    {dist([('Траса здоров’я', '200 м'), ('Яхт-клуб', '400 м'), ('Одеська кіностудія', '420 м'), ('Театр музичної комедії', '900 м'), ('Театр опери та балету', '3,9 км'), ('Аркадія', '4,4 км'), ('Аеропорт', '9,4 км')])}
+    <div class="award__ribbons">''' + ''.join(
+    f'<figure><img src="../assets/awards/ipa-{s}-960.webp" srcset="../assets/awards/ipa-{s}-480.webp 1x, ../assets/awards/ipa-{s}-960.webp 2x" width="113" height="480" alt="European Property Awards 2021-2022: {t}" loading="lazy"></figure>'
+    for s, t in [('high-rise-development', 'Residential High Rise Development'), ('high-rise-architecture', 'Residential High Rise Architecture'), ('architecture-multiple-residence', 'Architecture Multiple Residence'), ('residential-development', 'Residential Development')]) + f'''</div>
   </div>
 </section>
-<section class="pans" aria-label="Море">{pan('fb29/sea', 'Чорне море', 'Вид на море та місто з верхніх поверхів.')}</section>
 
-<section class="air" aria-labelledby="s29-adv">
-  <h2 class="title-lg" id="s29-adv">Переваги</h2>
-</section>
-<section class="pans" aria-label="Переваги">
-  {pan('fb29/lobby', 'Виправдана розкіш', 'Оздоблення місць загального користування мармуром, деревом, оніксом.')}
+<section class="pans pans--adv" aria-label="Переваги">
+  {pan('fb29/sea', 'Чорне море', 'Вид на море та місто з верхніх поверхів.', '(max-width: 900px) 200vw, min(125vw, 1520px)')}
+  {pan('fb29/lobby', 'Виправдана розкіш', 'Оздоблення місць загального користування мармуром, деревом, оніксом.', '(max-width: 900px) 200vw, min(125vw, 1520px)')}
+  <div class="pans pans--split pans--split-rev" style="padding-inline:0">
+    {pan('fb29/path', 'Приватність', 'Лише три квартири на поверсі. На території комплексу немає торговельно-офісних приміщень і сторонньої інфраструктури.', '(max-width: 900px) 200vw, 52vw')}
+    {pan('fb29/rise', 'Комфорт', 'Концепція будинку на Французькому бульварі, 29 передбачає комфорт та абсолютну приватність мешканців.', '(max-width: 900px) 200vw, 72vw')}
+  </div>
   <div class="pans pans--split" style="padding-inline:0">
-    {pan('fb29/garden', 'Благоустрій', 'Фонтани, площадки для відпочинку дітей та дорослих.', '(max-width: 900px) 100vw, 60vw')}
-    {pan('fb29/parking', 'Паркінг', 'Підземний паркінг на 149 місць.', '(max-width: 900px) 100vw, 40vw')}
+    {pan('fb29/garden', 'Благоустрій', 'Фонтани, площадки для відпочинку дітей та дорослих.', '(max-width: 900px) 200vw, 72vw')}
+    {pan('fb29/parking', 'Паркінг', 'Підземний паркінг на 120 місць.', '(max-width: 900px) 200vw, 52vw')}
   </div>
 </section>
-<section class="air">
-  {facts([('Кращий девелопер міста', '30 років будівництва нерухомості преміум-класу.'), ('Панорамні вікна', 'Алюміній та натуральне дерево (Євробрус).'), ('Автономність', 'Автономне теплопостачання, дизель-генератор.'), ('Безпека', 'Територія, що цілодобово охороняється, відеоспостереження.'), ('Розташування', 'Французький бульвар, 400 метрів до моря.'), ('Три квартири на поверсі', 'Абсолютна приватність мешканців.')])}
-</section>
+{perks([('zars-logo', 'Кращий девелопер міста', '30 років будівництва нерухомості преміум-класу.'), ('three-per-floor', 'Три квартири на поверсі', 'Абсолютна приватність мешканців.'), ('walls', 'Найкращий будівельний матеріал', 'Усі стіни з червоної ефективної керамічної цегли. Зовнішні 640 мм, внутрішні 510 мм та 380 мм, перегородки 120 мм.'), ('windows', 'Панорамні вікна', 'Алюміній та натуральне дерево (Євробрус).'), ('ceiling', 'Висота приміщень', '3,15 м.'), ('autonomy', 'Автономність', 'Автономне теплопостачання, дизель-генератор.'), ('power', 'Електропостачання', 'Трансформаторна підстанція. Дизель-генератор.'), ('security', 'Безпека', 'Територія, що цілодобово охороняється, відеоспостереження.')], 'fb29')}
 
 <section class="air" id="plans" aria-labelledby="s29-plans">
   <span class="label">Планування</span>
   <h2 class="title-lg" id="s29-plans" style="margin-bottom:clamp(2.5rem,6vh,4rem)">Трикімнатна квартира, 164,5 м²</h2>
   {plans([('fb29/plan-164-a', 'Варіант А', '164,5 м²', '11 поверх · вид на море та місто'), ('fb29/plan-164-b', 'Варіант Б', '164,5 м²', '11 поверх · вид на море та місто')], 'Площа проєктна. Детальні характеристики й наявність покажемо під час приватної презентації.')}
-</section>
-
-<section class="air awards" aria-labelledby="s29-awards">
-  <div>
-    <h2 class="title-lg" id="s29-awards">Відзнака проєкту</h2>
-    <p class="lead">У 2021 році в Лондоні Будинок Каркашадзе Французький бульвар, 29 був відзначений міжнародною премією International Property Awards у 4 номінаціях.</p>
-  </div>
-  <div class="awards__ribbons">''' + ''.join(
-    f'<figure><img src="../assets/awards/ipa-{s}-960.webp" srcset="../assets/awards/ipa-{s}-480.webp 1x, ../assets/awards/ipa-{s}-960.webp 2x" width="113" height="480" alt="European Property Awards 2021-2022: {t}" loading="lazy"><figcaption>{t}</figcaption></figure>'
-    for s, t in [('high-rise-development', 'Residential High Rise Development'), ('high-rise-architecture', 'Residential High Rise Architecture'), ('architecture-multiple-residence', 'Architecture Multiple Residence'), ('residential-development', 'Residential Development')]) + f'''</div>
-</section>
-
-<section class="air" aria-labelledby="s29-photo">
-  <h2 class="title-lg" id="s29-photo" style="margin-bottom:clamp(2.5rem,6vh,4rem)">Фото</h2>
-  {gallery([('fb29/tower-green', 'Будинок над зеленню парку', 'e-7'), ('fb29/canopy', 'Біонічні навіси і фасад будинку', 'e-5'), ('fb29/autumn', 'Будинок на тлі осіннього парку', 'e-12'), ('fb29/dusk', 'Будинок у парку з моря', 'e-6'), ('fb29/garden', 'Прибудинкова територія', 'e-6')])}
 </section>
 
 {enquiry('Французький бульвар, 29')}
