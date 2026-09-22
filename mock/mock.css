@@ -844,3 +844,18 @@ html.menu-open, html.menu-open body { overflow: hidden; }
 @media (max-width: 576px) {
   .map29 { width: 160%; margin-left: -34%; margin-right: 0; }
 }
+
+/* =====================================================================
+   Аудит 22.09.2026: зони натискання (≥ 40 px), без зміни вигляду
+   ===================================================================== */
+.bar__logo { padding-block: 12px; margin-block: -12px; }
+.d-foot li a { display: inline-block; padding-block: 0.45rem; margin-block: -0.45rem; }
+@media (pointer: coarse) { .d-foot ul { gap: 1.1rem; } .d-foot li a { padding-block: 0.7rem; margin-block: -0.7rem; } }
+.enquiry__phone { padding-block: 0.4rem; }
+/* CTA в один рядок на вузьких телефонах (на 360 px «Приватна презентація» ламалась на два) */
+.act { white-space: nowrap; }
+@media (max-width: 420px) { .act { letter-spacing: 0.08em; padding-inline: 1.25rem; gap: 0.8rem; } .act::after { width: 1.4rem; } }
+/* ФБ29 за зразком ФБ29Б: назва на першому екрані в один рядок на ПК і менша */
+@media (min-width: 901px) { .h-29 h1 { white-space: nowrap; font-size: clamp(2.2rem, 0.9rem + 2.6vw, 3.8rem); } }
+/* Аудит: підписи на схемі ФБ29 на ПК були ~7 px — схема у 1,5 раза більша, правий край (море) обрізає секція */
+@media (min-width: 993px) { .map29 { width: 150%; margin-left: -8%; } }

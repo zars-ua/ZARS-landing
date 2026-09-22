@@ -128,7 +128,7 @@ page = head + f'''<body class="h-zars">
 </section>
 
 <section class="d-kk gut" aria-labelledby="kk-title">
-  <h2 class="d-kk__title" id="kk-title" data-lines><span class="line"><span>Будинки</span></span><span class="line"><span>Каркашадзе</span></span></h2>
+  <h2 class="d-kk__title" id="kk-title" data-lines><span class="line"><span>Будинки</span></span> <span class="line"><span>Каркашадзе</span></span></h2>
   <p class="d-kk__story" data-rise>Історія Будинків Каркашадзе почалася з мрії її засновника побудувати ідеальний будинок для життя. Ось уже 30 років компанія ЗАРС робить її реальністю і зберігає головні принципи, завдяки яким Будинки Каркашадзе стають мрією для інших людей. Мрією, яку вони зможуть передати вже як свою спадщину.</p>
 </section>
 

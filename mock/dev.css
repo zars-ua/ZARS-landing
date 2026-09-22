@@ -260,3 +260,4 @@ body.h-zars { background: #FFFFFF; }
   .d-adv__text p { margin-bottom: 0.45rem; font-size: 0.875rem; line-height: 1.48; }
   .motion .d-adv__card { max-height: 560px; }
 }
+.d-gal__tick { height: 2.9rem; } /* аудит 22.09: height:100% у li без висоти давав зону кліку 2 px */

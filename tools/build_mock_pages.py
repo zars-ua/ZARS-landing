@@ -93,7 +93,7 @@ def enquiry(project):
       <label class="field"><span>Проєкт</span><select name="project">{opts}</select></label>
       <label class="field"><span>Зручний час</span><select name="time"><option>Будь-коли</option><option>Зранку</option><option>Вдень</option><option>Увечері</option></select></label>
     </div>
-    <button class="act" type="submit">Запросити приватну презентацію</button>
+    <button class="act" type="submit">Надіслати запит</button>
     <p class="form__msg" role="status" aria-live="polite"></p>
   </form>
 </section>'''
@@ -137,22 +137,22 @@ fb29 = head + hero + f'''
     <div><dt>10</dt><dd>поверхів</dd></div>
     <div><dt>3</dt><dd>секції</dd></div>
     <div><dt>120</dt><dd>місць<br>у підземному паркінгу</dd></div>
-    <div><dt>0,7</dt><dd>га — загальна площа<br>території комплексу</dd></div>
+    <div><dt>0,7</dt><dd>га загальної площі<br>території комплексу</dd></div>
   </dl>
 </section>
 
 <section class="air loc loc--29" aria-labelledby="s29-loc">
   <div class="loc__text">
-    <span class="label" id="s29-loc">Розташування</span>
+    <h2 class="label" id="s29-loc">Розташування</h2>
     <p class="big-dist"><b>400</b><span>метрів<br>до моря</span></p>
     <p class="lead">Будинок розташований усього у 400 метрах від моря та у 40 метрах від парку «Ювілейний». Поєднання чистого морського та «лісового» повітря створює найкращі екологічні умови для життя.</p>
     <a class="act act--quiet loc__map" href="https://www.google.com/maps/search/?api=1&amp;query=46.4614137%2C30.7562069" target="_blank" rel="noopener">Дивитися на карті</a>
   </div>
   <div class="map29" data-map29 role="img" aria-label="Схема: відстані від будинку до моря, Траси здоров’я, яхт-клубу, театрів, Аркадії та аеропорту">
     <img class="map29__base" src="../assets/map/fb29/road-and-sea.webp" alt="" width="1303" height="980" loading="lazy" decoding="async">
-    <img class="map29__building" src="../assets/map/fb29/building.svg" alt="" loading="lazy">
-    <img class="map29__attr" src="../assets/map/fb29/attraction.svg" alt="" loading="lazy">
-    <img class="map29__lines" src="../assets/map/fb29/lines.svg" alt="" loading="lazy">
+    <img class="map29__building" src="../assets/map/fb29/building.webp" alt="" loading="lazy">
+    <img class="map29__attr" src="../assets/map/fb29/attraction.webp" alt="" loading="lazy">
+    <img class="map29__lines" src="../assets/map/fb29/lines.webp" alt="" loading="lazy">
   </div>
 </section>
 
@@ -216,14 +216,14 @@ fb29b = head + hero + f'''
 
 <section class="air loc" aria-labelledby="s29b-loc">
   <div class="loc__text">
-    <span class="label" id="s29b-loc">Розташування</span>
+    <h2 class="label" id="s29b-loc">Розташування</h2>
     <p class="big-dist"><b>500</b><span>метрів<br>до моря</span></p>
     <p class="lead">Ви немов живете за містом, однак залишаєтеся в безпосередній близькості до його ділового та культурно-розважального життя. До значущих місць Одеси можна дістатися пішки або за кілька хвилин автомобілем.</p>
     <a class="act act--quiet loc__map" href="https://www.google.com/maps/search/?api=1&amp;query=46.4610972%2C30.7569145" target="_blank" rel="noopener">Дивитися на карті</a>
   </div>
   {loc_schema()}
 </section>
-<section class="pans" aria-label="Вид">{pan('fb29b/view-sea', 'Захоплюючі краєвиди<br>на море та місто', '', '(max-width: 900px) 200vw, min(125vw, 1520px)', cls='pan--top')}</section>
+<section class="pans" aria-label="Вид">{pan('fb29b/view-sea', 'Захоплюючі краєвиди <br>на море та місто', '', '(max-width: 900px) 200vw, min(125vw, 1520px)', cls='pan--top')}</section>
 
 <section class="pans pans--adv" aria-label="Переваги">
   {pan('fb29b/terrace', 'Тераси або балкони', 'В кожній квартирі. Ми будуємо дім в одному з найзеленіших і мальовничих районів міста, щоб Ви завжди могли насолоджуватися краєвидами і свіжим повітрям.', '(max-width: 900px) 200vw, min(125vw, 1520px)')}
