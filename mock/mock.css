@@ -764,3 +764,29 @@ html.menu-open, html.menu-open body { overflow: hidden; }
   [data-site='fb29b'] .plans__stage img { max-height: 44svh; }
 }
 [data-site='fb29b'] .pans + .pans { margin-top: clamp(2.5rem, 5vw, 5rem); }
+
+/* =====================================================================
+   Єдиний підвал усіх сторінок (22.09.2026) — як на сторінці девелопера (перенесено з dev.css)
+   ===================================================================== */
+.d-foot { overflow: hidden; background: #B05523; color: #FFFFFF; padding: var(--sp-block, clamp(8.25rem, 19.25vh, 13.75rem)) var(--gut, clamp(1.25rem, 3.5vw, 3.5rem)) 0; font-family: 'Montserrat', system-ui, sans-serif; }
+.d-foot__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)) auto; gap: 2rem; align-items: start; }
+.d-foot h2 { margin: 0 0 1.1rem; font: 400 0.8125rem/1 'History', sans-serif; letter-spacing: 0.24em; text-transform: uppercase; color: #FFFFFF; }
+.d-foot ul { display: grid; gap: 0.65rem; margin: 0; padding: 0; list-style: none; }
+.d-foot li { line-height: 1.5; }
+.d-foot a { color: #FFFFFF; text-decoration: underline; text-decoration-color: rgba(255,255,255,0.45); text-underline-offset: 5px; transition: text-decoration-color 300ms; }
+.d-foot a:hover { text-decoration-color: #FFFFFF; }
+.d-foot a:focus-visible { outline: 2px solid #FFFFFF; outline-offset: 3px; }
+.d-foot__copy { justify-self: end; margin: 0; font-size: 0.875rem; }
+.d-foot__mark { margin-top: var(--sp, clamp(5rem, 12vh, 9rem)); overflow: hidden; font-size: 0; }
+.d-foot__mark svg { display: block; width: 100%; height: auto; color: #FFFFFF; will-change: transform; }
+@media (max-width: 1100px) { .d-foot__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 2.5rem; } .d-foot__copy { grid-column: 1 / -1; justify-self: start; } }
+@media (max-width: 520px) { .d-foot__grid { grid-template-columns: 1fr; } }
+
+/* 22.09.2026: ФБ29Б — підпис стадії під заголовком; помітніший паралакс карток (запас 20%, хід ±8%) */
+.stage__head { display: grid; justify-content: start; gap: 0.7rem; }
+.big-dist span { line-height: 1.2; }
+[data-site='fb29b'] .pan img { inset: -10% 0; height: 120%; }
+[data-site='fb29b'] .pan--top img { inset: 0 0 auto; height: 120%; }
+[data-site='fb29b'] .pan--top .pan__cap { max-width: none; }
+@media (min-width: 560px) { [data-site='fb29b'] .pan--top .pan__title { white-space: nowrap; } }
+[data-site='fb29b'] .pan::after { background: linear-gradient(0deg, rgba(20,21,20,0.78) 0%, rgba(20,21,20,0.38) 38%, rgba(20,21,20,0) 64%); }

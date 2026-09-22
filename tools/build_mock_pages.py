@@ -21,7 +21,7 @@ def pic(key, alt, sizes='100vw', eager=False, cls=''):
 
 def pan(key, title, text, sizes='100vw', cls=''):
     body = f'<p class="pan__text">{text}</p>' if text else ''
-    return f'''<figure class="pan{' ' + cls if cls else ''}">{pic(key, title, sizes)}
+    return f'''<figure class="pan{' ' + cls if cls else ''}">{pic(key, re.sub(r'<[^>]+>', ' ', title), sizes)}
     <figcaption class="pan__cap"><h3 class="pan__title">{title}</h3>{body}</figcaption></figure>'''
 
 def loc_schema():
@@ -98,12 +98,7 @@ def enquiry(project):
   </form>
 </section>'''
 
-FOOT = '''<footer class="foot" id="contacts">
-  <div><a class="foot__logo" href="index.html" aria-label="ЗАРС">{logo}</a></div>
-  <div><h4>Проєкти</h4><ul><li><a href="fb29.html">Французький бульвар, 29</a></li><li><a href="fb29b.html">Французький бульвар, 29Б</a></li><li><a href="index.html">Девелопер</a></li></ul></div>
-  <div><h4>Контакти</h4><ul><li><a href="tel:+380671608877">+380 (67) 160 88 77</a></li><li><a href="mailto:estate@zars.ua">estate@zars.ua</a></li><li>Одеса, Французький бульвар, 2</li></ul></div>
-  <p class="foot__copy">© 1996-2026 ЗАРС. Якість. Естетика. Традиції.</p>
-</footer>'''
+from site_footer import footer as _footer
 
 SCRIPTS = '''<script src="../assets/vendor/gsap.min.js" defer></script>
 <script src="../assets/vendor/ScrollTrigger.min.js" defer></script>
@@ -149,7 +144,7 @@ fb29 = head + hero + f'''
   <span class="label" id="s29-loc">Розташування</span>
   <div class="two">
     <div>
-      <p class="big-dist"><b>400</b><span>метрів до моря</span></p>
+      <p class="big-dist"><b>400</b><span>метрів<br>до моря</span></p>
       <p class="lead">Скільки існує Одеса, стільки Французький бульвар вважається кращим місцем для життя тут. Поєднання чистого морського та «лісового» повітря створює найкращі екологічні умови для життя.</p>
     </div>
     {dist([('Траса здоров’я', '200 м'), ('Яхт-клуб', '400 м'), ('Одеська кіностудія', '420 м'), ('Театр музичної комедії', '900 м'), ('Театр опери та балету', '3,9 км'), ('Аркадія', '4,4 км'), ('Аеропорт', '9,4 км')])}
@@ -193,7 +188,7 @@ fb29 = head + hero + f'''
 </section>
 
 {enquiry('Французький бульвар, 29')}
-{FOOT.format(logo=LOGO)}
+{_footer(LOGO)}
 {sym}
 {SCRIPTS}
 </body>
@@ -220,23 +215,23 @@ fb29b = head + hero + f'''
 <section class="air loc" aria-labelledby="s29b-loc">
   <div class="loc__text">
     <span class="label" id="s29b-loc">Розташування</span>
-    <p class="big-dist"><b>500</b><span>метрів до моря</span></p>
+    <p class="big-dist"><b>500</b><span>метрів<br>до моря</span></p>
     <p class="lead">Ви немов живете за містом, однак залишаєтеся в безпосередній близькості до його ділового та культурно-розважального життя. До значущих місць Одеси можна дістатися пішки або за кілька хвилин автомобілем.</p>
     <a class="act act--quiet loc__map" href="https://www.google.com/maps/search/?api=1&amp;query=46.4610972%2C30.7569145" target="_blank" rel="noopener">Дивитися на карті</a>
   </div>
   {loc_schema()}
 </section>
-<section class="pans" aria-label="Вид">{pan('fb29b/view-sea', 'Захоплюючі краєвиди на море та місто', '', '(max-width: 900px) 200vw, min(125vw, 1520px)', cls='pan--top')}</section>
+<section class="pans" aria-label="Вид">{pan('fb29b/view-sea', 'Захоплюючі краєвиди<br>на море та місто', '', '(max-width: 900px) 200vw, min(125vw, 1520px)', cls='pan--top')}</section>
 
 <section class="pans pans--adv" aria-label="Переваги">
   {pan('fb29b/terrace', 'Тераси або балкони', 'В кожній квартирі. Ми будуємо дім в одному з найзеленіших і мальовничих районів міста, щоб Ви завжди могли насолоджуватися краєвидами і свіжим повітрям.', '(max-width: 900px) 200vw, min(125vw, 1520px)')}
-  <div class="pans pans--split" style="padding-inline:0">
-    {pan('fb29b/yard-family', 'Прибудинкова територія', 'Паркова територія, що цілодобово охороняється.', '(max-width: 900px) 200vw, 72vw')}
-    {pan('fb29b/parking', 'Підземний паркінг', 'Місця для автомобілів мешканців під будинком.', '(max-width: 900px) 200vw, 52vw')}
-  </div>
   <div class="pans pans--split pans--split-rev" style="padding-inline:0">
     {pan('fb29b/privacy-facade', 'Приватність', 'Всього 48 квартир у будинку.', '(max-width: 900px) 200vw, 52vw')}
     {pan('fb29b/lobby-hall', 'Стиль і розкіш', 'Інтер’єр холу й місць загального користування оздоблені преміальними матеріалами — мармур, ліпнина, натуральне дерево.', '(max-width: 900px) 200vw, 72vw')}
+  </div>
+  <div class="pans pans--split" style="padding-inline:0">
+    {pan('fb29b/yard-family', 'Прибудинкова територія', 'Зручні лавки, яскраві клумби, ексклюзивний фонтан і стильні ліхтарі формують унікальний ландшафт благоустрою в стилі класицизму з сучасними елементами.', '(max-width: 900px) 200vw, 72vw')}
+    {pan('fb29b/parking', 'Підземний паркінг', 'Високі стелі та просторі паркомісця.', '(max-width: 900px) 200vw, 52vw')}
   </div>
 </section>
 {perks([('zars-logo', 'Кращий девелопер міста', '30 років будівництва нерухомості преміум-класу.'), ('quiet-place', 'Тихе місце', 'Непроїздний провулок біля моря і паркової зони.'), ('panoramic', 'Вікна Schüco', 'Панорамні вікна з алюмінієвих вітражів.'), ('master-bedroom', 'Майстер-спальня', 'Планування кожної квартири передбачає майстер-спальню.'), ('energy', 'Енергоефективність', 'Утеплення стін, енергозберігаючі вікна, сучасна котельня.'), ('lifts', 'Ліфти', 'Ексклюзивні, просторі, швидкісні, безшумні, останнього покоління.'), ('autonomy', 'Автономність', 'Автономне водопостачання, дизель-генератор.'), ('security', 'Безпека', 'Територія, що цілодобово охороняється. Відеоспостереження, система контролю доступу.'), ('windows', 'Вікна', 'Енергозберігаючі — з алюмінію і натурального дерева (Євробрус).')])}
@@ -257,7 +252,7 @@ fb29b = head + hero + f'''
 
 {enquiry('Французький бульвар, 29Б')}
 <p class="legal">«Французький бульвар, 29Б» є адресою, що використовується в рекламних цілях. Будівельна адреса: пров. Спортивний, 4 та бульвар Французький, 29-Б, м. Одеса. Квартири за дозвільною документацією є житловими приміщеннями, пентхаус є технічним приміщенням. Візуалізації та площі проєктні.</p>
-{FOOT.format(logo=LOGO)}
+{_footer(LOGO)}
 {sym}
 {SCRIPTS}
 </body>

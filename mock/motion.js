@@ -93,10 +93,11 @@
     /* .pan--top кадровано до верхнього краю — фото тільки підіймається, верх кадру видно на вході */
     const top = pan.classList.contains('pan--top');
     /* ФБ29Б: запас фото 12% (а не 24%), тож і хід паралаксу менший — інакше край фото вилазить у кадр */
-    const amp = document.documentElement.dataset.site === 'fb29b' ? 5 : 9;
+    const amp = document.documentElement.dataset.site === 'fb29b' ? 8 : 9;
+    /* scrub 0,5 — невелике згладження: без Lenis коліщатко на Windows іде кроками по 100px, і без нього паралакс «стрибав» */
     gsap.fromTo(img, { yPercent: top ? 0 : -amp }, {
       yPercent: top ? -amp * 2 : amp, ease: 'none',
-      scrollTrigger: { trigger: pan, start: 'top bottom', end: 'bottom top', scrub: true },
+      scrollTrigger: { trigger: pan, start: 'top bottom', end: 'bottom top', scrub: 0.5 },
     });
     if (!cap) return;
     gsap.timeline({ scrollTrigger: { trigger: pan, start: 'top 85%', end: 'bottom 15%', scrub: true } })
@@ -127,6 +128,10 @@
       gsap.fromTo(imgs[i], { yPercent: -6 }, { yPercent: 6, ease: 'none', scrollTrigger: { trigger: f, start: 'top bottom', end: 'bottom top', scrub: true } });
     });
   });
+
+  /* Знак ЗАРС у підвалі виїжджає знизу, коли сторінку докручено (як на сторінці девелопера) */
+  const footMark = document.querySelector('.d-foot__mark svg');
+  footMark && gsap.fromTo(footMark, { yPercent: 100 }, { yPercent: 0, ease: 'none', scrollTrigger: { trigger: footMark.parentElement, start: 'top bottom', end: 'bottom bottom', scrub: true } });
 
   /* 6. Будинки Каркашадзе: кадри змінюються вбік за прокруткою (Rolex, горизонтально) */
   document.querySelectorAll('[data-dk]').forEach((dk) => {

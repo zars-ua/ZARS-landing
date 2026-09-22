@@ -214,17 +214,6 @@ body.h-zars { background: #FFFFFF; }
 .d-points__slider { display: none; }
 
 /* ---------- Підвал ---------- */
-.d-foot { overflow: hidden; background: #B05523; color: #FFFFFF; padding: var(--sp-block) var(--gut) 0; }
-.d-foot__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; align-items: start; }
-.d-foot h2 { margin: 0 0 1.1rem; font: 400 0.8125rem/1 'History', sans-serif; letter-spacing: 0.24em; text-transform: uppercase; }
-.d-foot ul { display: grid; gap: 0.65rem; margin: 0; padding: 0; list-style: none; }
-.d-foot li { line-height: 1.5; }
-.d-foot a { color: #FFFFFF; text-decoration: underline; text-decoration-color: rgba(255,255,255,0.45); text-underline-offset: 5px; transition: text-decoration-color 300ms; }
-.d-foot a:hover { text-decoration-color: #FFFFFF; }
-.d-foot a:focus-visible { outline: 2px solid #FFFFFF; outline-offset: 3px; }
-.d-foot__copy { justify-self: end; margin: 0; font-size: 0.875rem; }
-.d-foot__mark { margin-top: var(--sp); overflow: hidden; font-size: 0; }
-.d-foot__mark svg { display: block; width: 100%; height: auto; color: #FFFFFF; will-change: transform; }
 
 /* ---------- Мобільна ---------- */
 @media (max-width: 900px) {
@@ -263,8 +252,6 @@ body.h-zars { background: #FFFFFF; }
   .d-point { scroll-snap-align: start; }
   .d-points__slider { display: block; position: relative; height: 1px; margin-top: 1.4rem; background: color-mix(in srgb, var(--ink) 14%, transparent); }
   .d-points__slider i { position: absolute; inset: 0; width: 25%; background: var(--brand); transform-origin: left; transform: translateX(0); will-change: transform; }
-  .d-foot__grid { grid-template-columns: 1fr; }
-  .d-foot__copy { justify-self: start; }
 }
 
 /* Низькі телефони (iPhone SE та подібні) */

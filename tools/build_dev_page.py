@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Збирає mock/index.html — сторінку девелопера (16.09.2026).
 Шапку й символ логотипа бере з поточного mock/index.html; зображення — з assets/zars/manifest.json."""
+import sys, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from site_footer import footer
 import json, os, re
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 cur = open(os.path.join(ROOT, 'mock/index.html')).read()
@@ -170,14 +172,7 @@ page = head + f'''<body class="h-zars">
   <div class="d-points__slider" aria-hidden="true"><i></i></div>
 </section>
 
-<footer class="d-foot" id="contacts">
-  <div class="d-foot__grid">
-    <div><h2>Контакти</h2><ul><li><a href="tel:+380671608877">+380 (67) 160 88 77</a></li><li><a href="mailto:estate@zars.ua">estate@zars.ua</a></li><li>Одеса, Французький бульвар, 2</li></ul></div>
-    <div><h2>Соціальні мережі</h2><ul><li><a href="https://www.instagram.com/zars.ua/" target="_blank" rel="noopener">Instagram</a></li><li><a href="https://www.facebook.com/www.zars.ua/" target="_blank" rel="noopener">Facebook</a></li></ul></div>
-    <p class="d-foot__copy">© 1996-2026 ЗАРС</p>
-  </div>
-  <div class="d-foot__mark" aria-hidden="true">{LOGO}</div>
-</footer>
+{footer(LOGO)}
 {sym}
 <script src="../assets/vendor/gsap.min.js" defer></script>
 <script src="../assets/vendor/ScrollTrigger.min.js" defer></script>
