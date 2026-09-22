@@ -78,26 +78,7 @@ def gallery(items):
     return '<div class="editorial" data-gallery>' + ''.join(
         f'<figure class="{cls}">{pic(k, alt, "(max-width: 900px) 100vw, 60vw")}</figure>' for k, alt, cls in items) + '</div>'
 
-def enquiry(project):
-    opts = ''.join(f'<option{" selected" if p == project else ""}>{p}</option>' for p in ['Французький бульвар, 29', 'Французький бульвар, 29Б'])
-    return f'''<section class="enquiry" id="presentation" aria-labelledby="enq-title">
-  <div>
-    <h2 class="title-lg" id="enq-title">Приватна презентація</h2>
-    <p class="lead">Покажемо будинок і квартири особисто, у зручний для Вас час.</p>
-    <a class="enquiry__phone" href="tel:{TEL}">{PHONE}</a>
-  </div>
-  <form class="form" data-enquiry novalidate>
-    <label class="field"><span>Ім'я</span><input name="name" autocomplete="name" required></label>
-    <label class="field"><span>Телефон</span><input name="phone" type="tel" autocomplete="tel" inputmode="tel" required></label>
-    <div class="form__row">
-      <label class="field"><span>Проєкт</span><select name="project">{opts}</select></label>
-      <label class="field"><span>Зручний час</span><select name="time"><option>Будь-коли</option><option>Зранку</option><option>Вдень</option><option>Увечері</option></select></label>
-    </div>
-    <button class="act" type="submit">Надіслати запит</button>
-    <p class="form__msg" role="status" aria-live="polite"></p>
-  </form>
-</section>'''
-
+from site_footer import enquiry
 from site_footer import footer as _footer
 
 SCRIPTS = '''<script src="../assets/vendor/gsap.min.js" defer></script>
@@ -146,7 +127,7 @@ fb29 = head + hero + f'''
     <h2 class="label" id="s29-loc">Розташування</h2>
     <p class="big-dist"><b>400</b><span>метрів<br>до моря</span></p>
     <p class="lead">Будинок розташований усього у 400 метрах від моря та у 40 метрах від парку «Ювілейний». Поєднання чистого морського та «лісового» повітря створює найкращі екологічні умови для життя.</p>
-    <a class="act act--quiet loc__map" href="https://www.google.com/maps/search/?api=1&amp;query=46.4614137%2C30.7562069" target="_blank" rel="noopener">Дивитися на карті</a>
+    <a class="act act--quiet loc__map" href="https://maps.app.goo.gl/zJ51Kp11aGbDACjj6" target="_blank" rel="noopener">Дивитися на карті</a>
   </div>
   <div class="map29" data-map29 role="img" aria-label="Схема: відстані від будинку до моря, Траси здоров’я, яхт-клубу, театрів, Аркадії та аеропорту">
     <img class="map29__base" src="../assets/map/fb29/road-and-sea.webp" alt="" width="1303" height="980" loading="lazy" decoding="async">

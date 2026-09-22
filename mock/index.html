@@ -19,7 +19,7 @@
 <!-- Сторінка девелопера. Генерується tools/build_dev_page.py; стилі mock/dev.css, рух mock/dev.js. -->
 <header class="bar">
   <a class="bar__logo" href="index.html" aria-label="ЗАРС, на головну"><svg viewBox="32.0 32.0 5120.0 756.0" aria-hidden="true"><use href="#zars"/></svg></a>
-  <nav class="bar__nav" aria-label="Основна навігація"><a href="fb29.html">Французький бульвар, 29</a><a href="fb29b.html">Французький бульвар, 29Б</a><a href="#contacts">Контакти</a></nav>
+  <nav class="bar__nav" aria-label="Основна навігація"><a href="fb29.html">Французький бульвар, 29</a><a href="fb29b.html">Французький бульвар, 29Б</a><a href="#presentation">Зв’язатися</a></nav>
   <button class="bar__menu" type="button">Меню</button>
 </header>
 
@@ -188,6 +188,23 @@
   <div class="d-points__slider" aria-hidden="true"><i></i></div>
 </section>
 
+<section class="enquiry" id="presentation" aria-labelledby="enq-title">
+  <div>
+    <h2 class="title-lg" id="enq-title">Приватна презентація</h2>
+    <p class="lead">Покажемо будинок і квартири особисто, у зручний для Вас час.</p>
+    <a class="enquiry__phone" href="tel:+380671608877">+380 (67) 160 88 77</a>
+  </div>
+  <form class="form" data-enquiry novalidate>
+    <label class="field"><span>Ім'я</span><input name="name" autocomplete="name" required></label>
+    <label class="field"><span>Телефон</span><input name="phone" type="tel" autocomplete="tel" inputmode="tel" required></label>
+    <div class="form__row">
+      <label class="field"><span>Проєкт</span><select name="project"><option>Французький бульвар, 29</option><option>Французький бульвар, 29Б</option><option selected>Ще не визначились</option></select></label>
+      <label class="field"><span>Зручний час</span><select name="time"><option>Будь-коли</option><option>Зранку</option><option>Вдень</option><option>Увечері</option></select></label>
+    </div>
+    <button class="act" type="submit">Надіслати запит</button>
+    <p class="form__msg" role="status" aria-live="polite"></p>
+  </form>
+</section>
 <footer class="d-foot" id="contacts">
   <div class="d-foot__grid">
     <div><h2>Проєкти</h2><ul><li><a href="fb29.html">Французький бульвар, 29</a></li><li><a href="fb29b.html">Французький бульвар, 29Б</a></li></ul></div>
@@ -202,6 +219,7 @@
 <script src="../assets/vendor/gsap.min.js" defer></script>
 <script src="../assets/vendor/ScrollTrigger.min.js" defer></script>
 <script src="dev.js" defer></script>
+<script src="site.js" defer></script>
 <script src="menu.js" defer></script>
 </body>
 </html>

@@ -859,3 +859,12 @@ html.menu-open, html.menu-open body { overflow: hidden; }
 @media (min-width: 901px) { .h-29 h1 { white-space: nowrap; font-size: clamp(2.2rem, 0.9rem + 2.6vw, 3.8rem); } }
 /* Аудит: підписи на схемі ФБ29 на ПК були ~7 px — схема у 1,5 раза більша, правий край (море) обрізає секція */
 @media (min-width: 993px) { .map29 { width: 150%; margin-left: -8%; } }
+
+/* 22.09.2026 (4) */
+/* ФБ29: «Унікальні пропозиції з видом на море» — увесь заголовок фірмовим синім */
+[data-site='fb29'] #s29-offer, [data-site='fb29'] #s29-offer .line { color: var(--brand); }
+/* Цифри будинку ФБ29 — по центру сторінки (кожна колонка центрована) */
+.stats { text-align: center; justify-items: center; }
+/* Форма «Приватна презентація» — на всіх трьох сторінках на білому, відокремлена волосяною лінією */
+.enquiry { background: #FFFFFF; border-top: 1px solid color-mix(in srgb, var(--ink) 12%, transparent); }
+[data-site='zars'] .enquiry { padding: var(--sp-block) var(--gut); }

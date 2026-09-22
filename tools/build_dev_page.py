@@ -2,7 +2,7 @@
 """Збирає mock/index.html — сторінку девелопера (16.09.2026).
 Шапку й символ логотипа бере з поточного mock/index.html; зображення — з assets/zars/manifest.json."""
 import sys, os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from site_footer import footer
+from site_footer import footer, enquiry
 import json, os, re
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 cur = open(os.path.join(ROOT, 'mock/index.html')).read()
@@ -11,7 +11,7 @@ Z = M['zars']
 head = cur[:cur.index('<body')]
 head = re.sub(r'<link rel="stylesheet" href="mock\.css">', '<link rel="stylesheet" href="mock.css">\n<link rel="stylesheet" href="dev.css">', head) if 'dev.css' not in head else head
 header = re.search(r'<header class="bar">.*?</header>', cur, re.S).group(0)
-header = re.sub(r'\s*<a class="bar__cta"[^>]*>.*?</a>', '', header, flags=re.S)  # на сторінці девелопера форми немає
+header = re.sub(r'\s*<a class="bar__cta"[^>]*>.*?</a>', '', header, flags=re.S)
 sym = re.search(r'<svg width="0" height="0".*?</svg>', cur, re.S).group(0)
 VB = re.search(r'<symbol id="zars" viewBox="([^"]+)"', sym).group(1)
 motto = re.search(r'<svg class="lockup__motto".*?</svg>', cur, re.S).group(0)
@@ -172,11 +172,13 @@ page = head + f'''<body class="h-zars">
   <div class="d-points__slider" aria-hidden="true"><i></i></div>
 </section>
 
+{enquiry("Ще не визначились")}
 {footer(LOGO)}
 {sym}
 <script src="../assets/vendor/gsap.min.js" defer></script>
 <script src="../assets/vendor/ScrollTrigger.min.js" defer></script>
 <script src="dev.js" defer></script>
+<script src="site.js" defer></script>
 <script src="menu.js" defer></script>
 </body>
 </html>
