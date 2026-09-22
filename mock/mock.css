@@ -874,3 +874,4 @@ html.menu-open, html.menu-open body { overflow: hidden; }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { .bar[data-stuck] { background: rgba(255, 255, 255, 0.96); } }
 @media (prefers-reduced-transparency: reduce) { .bar[data-stuck] { background: #FFFFFF; -webkit-backdrop-filter: none; backdrop-filter: none; } }
 .bar[data-menu] { -webkit-backdrop-filter: none; backdrop-filter: none; }
+.h-29 h1 + .act { margin-top: clamp(1.6rem, 3.5vh, 2.4rem); }
