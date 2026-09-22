@@ -10,6 +10,7 @@
     const imgs = [...stage.querySelectorAll('img')];
     const area = root.querySelector('.plans__area');
     const info = root.querySelector('.plans__info');
+    const desc = root.querySelector('.plans__desc');
     const select = (i, focus) => {
       tabs.forEach((t, k) => {
         t.setAttribute('aria-selected', String(k === i));
@@ -26,6 +27,7 @@
       }
       area.textContent = tabs[i].dataset.area;
       info.textContent = tabs[i].dataset.info;
+      if (desc) { desc.textContent = tabs[i].dataset.desc || ''; desc.hidden = !tabs[i].dataset.desc; }
       if (focus) tabs[i].focus();
     };
     tabs.forEach((t, i) => {

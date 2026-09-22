@@ -61,16 +61,18 @@ def dist(items):
     return '<ul class="dist">' + ''.join(f'<li><span class="dist__name">{n}</span><span class="dist__val">{v}</span></li>' for n, v in items) + '</ul>'
 
 def plans(items, note=''):
+    items = [tuple(it) + ('',) * (5 - len(it)) for it in items]  # (ключ, назва, площа, інфо, опис — необов'язково)
     tabs = ''.join(
-        f'<li><button class="plans__tab" type="button" role="tab" aria-selected="{str(i == 0).lower()}" data-area="{a}" data-info="{inf}"><b>{t}</b><span>{a} · {inf}</span></button></li>'
-        for i, (k, t, a, inf) in enumerate(items))
-    imgs = ''.join(pic(k, f'Планування: {t}, {a}', '(max-width: 900px) 100vw, 60vw', eager=(i == 0)) for i, (k, t, a, inf) in enumerate(items))
+        f'<li><button class="plans__tab" type="button" role="tab" aria-selected="{str(i == 0).lower()}" data-area="{a}" data-info="{inf}" data-desc="{d}"><b>{t}</b><span>{a} · {inf}</span></button></li>'
+        for i, (k, t, a, inf, d) in enumerate(items))
+    imgs = ''.join(pic(k, f'Планування: {t}, {a}', '(max-width: 900px) 100vw, 60vw', eager=(i == 0)) for i, (k, t, a, inf, d) in enumerate(items))
     return f'''<div class="plans" data-plans>
     <ul class="plans__list" role="tablist" aria-label="Планування">{tabs}</ul>
     <div>
       <figure class="plans__stage">{imgs}</figure>
       <div class="plans__meta"><div><span class="plans__area">{items[0][2]}</span> <span class="plans__info">{items[0][3]}</span></div>
         <button class="zoom" type="button"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6.5 1a5.5 5.5 0 0 1 4.38 8.82l4.15 4.15-1.06 1.06-4.15-4.15A5.5 5.5 0 1 1 6.5 1Zm0 1.5a4 4 0 1 0 0 8 4 4 0 0 0 0-8ZM5.75 4h1.5v1.75H9v1.5H7.25V9h-1.5V7.25H4v-1.5h1.75Z" fill="currentColor"/></svg>Збільшити</button></div>
+      <p class="plans__desc"{'' if items[0][4] else ' hidden'}>{items[0][4]}</p>
       {f'<p class="note">{note}</p>' if note else ''}
     </div></div>'''
 
@@ -167,9 +169,9 @@ fb29 = head + hero + f'''
 {perks([('zars-logo', 'Кращий девелопер міста', '30 років будівництва нерухомості преміум-класу.'), ('three-per-floor', 'Три квартири на поверсі', 'Абсолютна приватність мешканців.'), ('walls', 'Найкращий будівельний матеріал', 'Усі стіни з червоної ефективної керамічної цегли. Зовнішні 640 мм, внутрішні 510 мм та 380 мм, перегородки 120 мм.'), ('windows', 'Панорамні вікна', 'Алюміній та натуральне дерево (Євробрус).'), ('ceiling', 'Висота приміщень', '3,15 м.'), ('autonomy', 'Автономність', 'Автономне теплопостачання, дизель-генератор.'), ('power', 'Електропостачання', 'Трансформаторна підстанція. Дизель-генератор.'), ('security', 'Безпека', 'Територія, що цілодобово охороняється, відеоспостереження.')], 'fb29')}
 
 <section class="air" id="plans" aria-labelledby="s29-plans">
-  <span class="label">Планування</span>
-  <h2 class="title-lg" id="s29-plans" style="margin-bottom:clamp(2.5rem,6vh,4rem)">Трикімнатна квартира, 164,5 м²</h2>
-  {plans([('fb29/plan-164-a', 'Варіант А', '164,5 м²', '11 поверх · вид на море та місто'), ('fb29/plan-164-b', 'Варіант Б', '164,5 м²', '11 поверх · вид на море та місто')], 'Площа проєктна. Детальні характеристики й наявність покажемо під час приватної презентації.')}
+  <span class="label">Планування квартир</span>
+  <h2 class="title-lg" id="s29-plans" style="margin-bottom:clamp(2.5rem,6vh,4rem)">Оберіть квартиру</h2>
+  {plans([('fb29/plan-164-a', 'Трикімнатна, варіант А', '164,5 м²', '11 поверх · вид на море та місто'), ('fb29/plan-164-b', 'Трикімнатна, варіант Б', '164,5 м²', '11 поверх · вид на море та місто'), ('fb29/plan-ph-330', 'Пентхаус', '330,5 м²', 'панорамний вид на море', 'Пентхаус площею 330,5 м² з вражаючим панорамним видом на море. Передбачено можливість облаштування індивідуального басейну: для цього вже сконструйовано чашу басейну з дотриманням усіх технологічних норм. Технічний поверх під усією площею пентхауса дозволяє розмістити необхідні комунікації та інженерні системи для його експлуатації.')], 'Площі проєктні. Детальні характеристики й наявність покажемо під час приватної презентації.')}
 </section>
 
 {enquiry('Французький бульвар, 29')}
