@@ -67,7 +67,7 @@
       if (e.key === 'ArrowRight') show(idx + 1);
       if (e.key === 'ArrowLeft') show(idx - 1);
     });
-    dlg.addEventListener('close', () => { document.documentElement.style.overflow = ''; opener?.focus(); });
+    dlg.addEventListener('close', () => { document.documentElement.style.overflow = ''; window.__lenis?.start(); opener?.focus(); });
     dlg._nav = nav;
   };
   const show = (i) => {
@@ -82,6 +82,7 @@
     dlg._nav.hidden = items.length < 2;
     show(i);
     document.documentElement.style.overflow = 'hidden';
+    window.__lenis?.stop();
     dlg.showModal();
   }
   document.querySelectorAll('[data-gallery]').forEach((g) => {

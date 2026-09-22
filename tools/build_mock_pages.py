@@ -83,6 +83,8 @@ from site_footer import footer as _footer
 
 SCRIPTS = '''<script src="../assets/vendor/gsap.min.js" defer></script>
 <script src="../assets/vendor/ScrollTrigger.min.js" defer></script>
+<script src="../assets/vendor/lenis.min.js" defer></script>
+<script src="smooth.js" defer></script>
 <script src="motion.js" defer></script>
 <script src="menu.js" defer></script>
 <script src="site.js" defer></script>'''

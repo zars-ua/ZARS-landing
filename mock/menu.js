@@ -33,6 +33,7 @@
     btn.textContent = v ? 'Закрити' : label;
     bar.toggleAttribute('data-menu', v);
     document.documentElement.classList.toggle('menu-open', v);
+    v ? window.__lenis?.stop() : window.__lenis?.start();
     if (v) {
       panel.hidden = false;
       requestAnimationFrame(() => { panel.classList.add('is-open'); panel.querySelector('a')?.focus({ preventScroll: true }); });

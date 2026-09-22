@@ -14,11 +14,8 @@
   html.classList.add('motion');
   if (reduce) html.classList.add('reduce');
 
-  /* Прокрутка — нативна браузерна на всіх пристроях (21.09.2026), як на arccagroup.us, який
-     клієнт дав еталоном плавності. Lenis прибрано: він рухав сторінку з головного потоку, і кожен
-     важкий кадр анімації (замір під 4× сповільненням CPU: 85–320 мс) зупиняв саму прокрутку —
-     на слабших Windows-ПК це читалось як ривки. Нативний скрол браузер згладжує в окремому потоці. */
-  const scrollToY = (y) => window.scrollTo({ top: y, behavior: reduce ? 'auto' : 'smooth' });
+  /* Плавна прокрутка коліщатком — mock/smooth.js (Lenis, лише миша/трекпад, незалежно від reduce; 22.09.2026). */
+  const scrollToY = (y) => (window.__lenis ? window.__lenis.scrollTo(y, { duration: 1.2 }) : window.scrollTo({ top: y, behavior: reduce ? 'auto' : 'smooth' }));
   const bar = document.querySelector('.bar');
 
   /* 1. Інтро: літери ЗАРС як вікно у відео; логотип і гасло з'являються самі після розкриття */
@@ -64,7 +61,7 @@
            розсинхрон і стрибок ~580px), а сторінка під час сцени стоїть (sticky) — розходитись
            нема з чим. 0,6 с згладжує кроки коліщатка, і на поверненні нагору знак ЗАРС
            плавно «наповзає» на відео навіть після різкого ривка вгору. */
-        scrub: 0.6,
+        scrub: window.__lenis ? true : 0.6,
         onRefresh: layout,
         onUpdate: (st) => {
           bar && bar.toggleAttribute('data-on-veil', st.progress < 0.5);
@@ -310,6 +307,7 @@ document.addEventListener('click', (e) => {
   if (!t) return;
   e.preventDefault();
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  window.scrollTo({ top: t.getBoundingClientRect().top + scrollY, behavior: reduce ? 'auto' : 'smooth' });
+  if (window.__lenis) window.__lenis.scrollTo(t, { duration: 1.2 });
+  else window.scrollTo({ top: t.getBoundingClientRect().top + scrollY, behavior: reduce ? 'auto' : 'smooth' });
   history.replaceState(null, '', a.getAttribute('href'));
 });

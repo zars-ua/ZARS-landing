@@ -177,6 +177,8 @@ page = head + f'''<body class="h-zars">
 {sym}
 <script src="../assets/vendor/gsap.min.js" defer></script>
 <script src="../assets/vendor/ScrollTrigger.min.js" defer></script>
+<script src="../assets/vendor/lenis.min.js" defer></script>
+<script src="smooth.js" defer></script>
 <script src="dev.js" defer></script>
 <script src="site.js" defer></script>
 <script src="menu.js" defer></script>

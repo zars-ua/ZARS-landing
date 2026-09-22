@@ -1,4 +1,4 @@
-/* Рух макета: GSAP + ScrollTrigger (прокрутка нативна). Без JS сторінка
+/* Рух макета: GSAP + ScrollTrigger (плавна прокрутка коліщатком — smooth.js). Без JS сторінка
    показує кінцевий стан (весь текст, фото без вуалі). */
 (() => {
   const bar = document.querySelector('.bar');
@@ -97,7 +97,7 @@
     /* scrub 0,5 — невелике згладження: без Lenis коліщатко на Windows іде кроками по 100px, і без нього паралакс «стрибав» */
     gsap.fromTo(img, { yPercent: top ? 0 : -amp }, {
       yPercent: top ? -amp * 2 : amp, ease: 'none',
-      scrollTrigger: { trigger: pan, start: 'top bottom', end: 'bottom top', scrub: 0.5 },
+      scrollTrigger: { trigger: pan, start: 'top bottom', end: 'bottom top', scrub: window.__lenis ? true : 0.5 },
     });
     if (!cap) return;
     gsap.timeline({ scrollTrigger: { trigger: pan, start: 'top 85%', end: 'bottom 15%', scrub: true } })
@@ -144,7 +144,7 @@
   /* Відзнака ФБ29: паралакс фото, стрічки «спускаються» по черзі */
   document.querySelectorAll('.award').forEach((aw) => {
     const img = aw.querySelector('.award__media img');
-    img && gsap.fromTo(img, { yPercent: -8 }, { yPercent: 8, ease: 'none', scrollTrigger: { trigger: aw, start: 'top bottom', end: 'bottom top', scrub: 0.5 } });
+    img && gsap.fromTo(img, { yPercent: -8 }, { yPercent: 8, ease: 'none', scrollTrigger: { trigger: aw, start: 'top bottom', end: 'bottom top', scrub: window.__lenis ? true : 0.5 } });
     gsap.timeline({ scrollTrigger: { trigger: aw, start: 'top 65%', once: true } })
       .from(aw.querySelectorAll('.award__text > *'), { autoAlpha: 0, y: 30, duration: 1, stagger: 0.12, ease: 'expo.out' })
       .from(aw.querySelectorAll('.award__ribbons figure'), { yPercent: -30, autoAlpha: 0, duration: 1.1, stagger: 0.14, ease: 'expo.out' }, 0.2);
@@ -194,7 +194,7 @@
     ticks.forEach((tk, i) => tk.addEventListener('click', () => {
       const st = tl.scrollTrigger;
       const y = st.start + (st.end - st.start) * (i / (n - 1));
-      window.scrollTo({ top: y, behavior: 'smooth' });
+      window.__lenis ? window.__lenis.scrollTo(y, { duration: 1.4 }) : window.scrollTo({ top: y, behavior: 'smooth' });
     }));
   });
 
@@ -237,6 +237,7 @@ document.addEventListener('click', (e) => {
   if (!t) return;
   e.preventDefault();
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  window.scrollTo({ top: t.getBoundingClientRect().top + scrollY, behavior: reduce ? 'auto' : 'smooth' });
+  if (window.__lenis) window.__lenis.scrollTo(t, { duration: 1.2 });
+  else window.scrollTo({ top: t.getBoundingClientRect().top + scrollY, behavior: reduce ? 'auto' : 'smooth' });
   history.replaceState(null, '', a.getAttribute('href'));
 });
