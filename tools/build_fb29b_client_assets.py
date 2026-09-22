@@ -28,3 +28,14 @@ svg = open(os.path.join(SRC, 'zars_map-оригінал-zars-ua.svg')).read()
 svg = svg.replace('#8c3b19', '#913814').replace('#aebadb', '#BFC3C4')
 open(os.path.join(ROOT, 'assets/map/fr29b-map.svg'), 'w').write(svg)
 print('map', len(svg))
+
+# ФБ29 (22.09.2026): фото благоустрою від клієнта — ~/Desktop/WEBP/Благоустройство.webp
+src29 = os.path.expanduser('~/Desktop/WEBP/Благоустройство.webp')
+im = Image.open(src29).convert('RGB')
+widths = [960, 1600, im.width]
+for w in widths:
+    im.resize((w, round(im.height * w / im.width)), Image.LANCZOS).save(os.path.join(ROOT, f'assets/wix/fb29/landscaping-{w}.webp'), quality=82, method=6)
+m = json.load(open(MAN))
+m['fb29/landscaping'] = {'widths': widths, 'ratio': round(im.width / im.height, 4), 'source': 'клієнт, 22.09.2026 · ~/Desktop/WEBP/Благоустройство.webp'}
+json.dump(m, open(MAN, 'w'), ensure_ascii=False, indent=1)
+print('fb29/landscaping', widths)
