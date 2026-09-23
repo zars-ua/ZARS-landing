@@ -60,12 +60,25 @@ def facts(items):
 def dist(items):
     return '<ul class="dist">' + ''.join(f'<li><span class="dist__name">{n}</span><span class="dist__val">{v}</span></li>' for n, v in items) + '</ul>'
 
+def planvid(video, key, title, area):
+    """Планування з анімацією (23.09.2026): видно візуалізацію, ролик запускає сам відвідувач — без автоплею."""
+    full = f"../assets/wix/{key}-{M[key]['widths'][-1]}.webp"
+    poster = f"../assets/wix/{key}-{M[key]['widths'][0]}.webp"
+    return f'''<div class="planvid" data-full="{full}" data-alt="Планування: {title}, {area}">
+      <video class="planvid__video" poster="{poster}" preload="none" playsinline muted disablepictureinpicture aria-label="Анімація планування: {title}, {area}">
+        <source src="../assets/video/{video}-540.mp4" type="video/mp4" media="(max-width: 700px)">
+        <source src="../assets/video/{video}.mp4" type="video/mp4">
+      </video>
+      <button class="planvid__play" type="button"><span class="planvid__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span><span class="planvid__label">Показати анімацію</span></button>
+    </div>'''
+
 def plans(items, note=''):
-    items = [tuple(it) + ('',) * (5 - len(it)) for it in items]  # (ключ, назва, площа, інфо, опис — необов'язково)
+    items = [tuple(it) + ('',) * (6 - len(it)) for it in items]  # (ключ, назва, площа, інфо, опис, відео — два останні необов'язкові)
     tabs = ''.join(
         f'<li><button class="plans__tab" type="button" role="tab" aria-selected="{str(i == 0).lower()}" data-area="{a}" data-info="{inf}" data-desc="{d}"><b>{t}</b><span>{a} · {inf}</span></button></li>'
-        for i, (k, t, a, inf, d) in enumerate(items))
-    imgs = ''.join(pic(k, f'Планування: {t}, {a}', '(max-width: 900px) 100vw, 60vw', eager=(i == 0)) for i, (k, t, a, inf, d) in enumerate(items))
+        for i, (k, t, a, inf, d, v) in enumerate(items))
+    imgs = ''.join(planvid(v, k, t, a) if v else pic(k, f'Планування: {t}, {a}', '(max-width: 900px) 100vw, 60vw', eager=(i == 0))
+                   for i, (k, t, a, inf, d, v) in enumerate(items))
     return f'''<div class="plans" data-plans>
     <ul class="plans__list" role="tablist" aria-label="Планування">{tabs}</ul>
     <div>
@@ -171,7 +184,7 @@ fb29 = head + hero + f'''
 <section class="air" id="plans" aria-labelledby="s29-plans">
   <span class="label">Планування квартир</span>
   <h2 class="title-lg" id="s29-plans" style="margin-bottom:clamp(2.5rem,6vh,4rem)">Оберіть квартиру</h2>
-  {plans([('fb29/plan-164-a', 'Трикімнатна, варіант А', '164,5 м²', '11 поверх · вид на море та місто'), ('fb29/plan-164-b', 'Трикімнатна, варіант Б', '164,5 м²', '11 поверх · вид на море та місто'), ('fb29/plan-ph-330', 'Пентхаус', '330,5 м²', 'панорамний вид на море', 'Пентхаус площею 330,5 м² з вражаючим панорамним видом на море. Передбачено можливість облаштування індивідуального басейну: для цього вже сконструйовано чашу басейну з дотриманням усіх технологічних норм. Технічний поверх під усією площею пентхауса дозволяє розмістити необхідні комунікації та інженерні системи для його експлуатації.')], 'Площі проєктні. Детальні характеристики й наявність покажемо під час приватної презентації.')}
+  {plans([('fb29/plan-164-vis', 'Трикімнатна, варіант А', '164,5 м²', '11 поверх · вид на море та місто', '', 'fb29-plan-164'), ('fb29/plan-164-b', 'Трикімнатна, варіант Б', '164,5 м²', '11 поверх · вид на море та місто'), ('fb29/plan-ph-330', 'Пентхаус', '330,5 м²', 'панорамний вид на море', 'Пентхаус площею 330,5 м² з вражаючим панорамним видом на море. Передбачено можливість облаштування індивідуального басейну: для цього вже сконструйовано чашу басейну з дотриманням усіх технологічних норм. Технічний поверх під усією площею пентхауса дозволяє розмістити необхідні комунікації та інженерні системи для його експлуатації.')], 'Площі проєктні. Детальні характеристики й наявність покажемо під час приватної презентації.')}
 </section>
 
 {enquiry('Французький бульвар, 29')}

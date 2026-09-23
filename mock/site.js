@@ -7,7 +7,9 @@
   document.querySelectorAll('[data-plans]').forEach((root) => {
     const tabs = [...root.querySelectorAll('.plans__tab')];
     const stage = root.querySelector('.plans__stage');
-    const imgs = [...stage.querySelectorAll('img')];
+    /* слайд — або <img>, або .planvid з відео (23.09.2026) */
+    const slides = [...stage.children];
+    const imgs = slides.map((el) => (el.tagName === 'IMG' ? el : el.querySelector('img')));
     const area = root.querySelector('.plans__area');
     const info = root.querySelector('.plans__info');
     const desc = root.querySelector('.plans__desc');
@@ -16,14 +18,20 @@
         t.setAttribute('aria-selected', String(k === i));
         t.tabIndex = k === i ? 0 : -1;
       });
-      if (imgs[i].hidden) {
-        stage.setAttribute('data-loading', '');
-        const show = () => {
-          imgs.forEach((im, k) => { im.hidden = k !== i; });
+      if (slides[i].hidden) {
+        slides.forEach((el, k) => { if (k !== i) stopPlanVideo(el); });
+        const im = imgs[i];
+        if (im && !im.complete) {
+          stage.setAttribute('data-loading', '');
+          im.loading = 'eager';
+          im.addEventListener('load', () => {
+            slides.forEach((el, k) => { el.hidden = k !== i; });
+            stage.removeAttribute('data-loading');
+          }, { once: true });
+        } else {
+          slides.forEach((el, k) => { el.hidden = k !== i; });
           stage.removeAttribute('data-loading');
-        };
-        imgs[i].complete ? show() : imgs[i].addEventListener('load', show, { once: true });
-        imgs[i].loading = 'eager';
+        }
       }
       area.textContent = tabs[i].dataset.area;
       info.textContent = tabs[i].dataset.info;
@@ -37,12 +45,32 @@
         if (d) { e.preventDefault(); select((i + d + tabs.length) % tabs.length, true); }
       });
     });
-    imgs.forEach((im, k) => { im.hidden = k !== 0; });
+    slides.forEach((el, k) => { el.hidden = k !== 0; });
     select(0);
     root.querySelector('.zoom')?.addEventListener('click', () => {
-      const cur = imgs.find((im) => !im.hidden);
-      openLightbox([{ src: cur.dataset.full || cur.currentSrc || cur.src, alt: cur.alt }], 0, true);
+      const cur = slides.find((el) => !el.hidden);
+      const im = cur.tagName === 'IMG' ? cur : null;
+      openLightbox([{ src: cur.dataset.full || (im && (im.dataset.full || im.currentSrc || im.src)), alt: cur.dataset.alt || (im && im.alt) || '' }], 0, true);
     });
+  });
+
+  /* ---------- Анімація планування: запускає відвідувач, без автоплею ---------- */
+  const stopPlanVideo = (el) => {
+    const v = el && el.querySelector && el.querySelector('video');
+    if (!v) return;
+    v.pause(); v.currentTime = 0; el.removeAttribute('data-playing');
+  };
+  document.querySelectorAll('.planvid').forEach((box) => {
+    const v = box.querySelector('video');
+    const btn = box.querySelector('.planvid__play');
+    const toggle = () => {
+      if (v.paused) { box.setAttribute('data-playing', ''); v.play().catch(() => box.removeAttribute('data-playing')); }
+      else { v.pause(); box.removeAttribute('data-playing'); }
+    };
+    btn.addEventListener('click', toggle);
+    v.addEventListener('click', toggle);
+    v.addEventListener('ended', () => { v.currentTime = 0; box.removeAttribute('data-playing'); });
+    v.addEventListener('pause', () => box.removeAttribute('data-playing'));
   });
 
   /* ---------- Лайтбокс ---------- */

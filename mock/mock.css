@@ -877,3 +877,17 @@ html.menu-open, html.menu-open body { overflow: hidden; }
 .h-29 h1 + .act { margin-top: clamp(1.6rem, 3.5vh, 2.4rem); }
 /* Опис планування (пентхаус ФБ29, 22.09.2026) */
 .plans__desc { max-width: 62ch; margin: 1rem 0 0; font-size: 0.9375rem; line-height: 1.6; color: var(--ink-2); }
+
+/* Планування з анімацією (23.09.2026): візуалізація + кнопка запуску, ролик сам не стартує */
+.planvid { position: relative; display: grid; justify-items: center; }
+/* висотою керує рамка, ширина — за пропорцією кадру, щоб з боків не було порожніх полів */
+.planvid__video { display: block; width: auto; max-width: 100%; height: min(62svh, 680px); background: #FFFFFF; cursor: pointer; }
+.planvid__play { position: absolute; left: 50%; bottom: clamp(0.8rem, 3%, 1.6rem); transform: translateX(-50%); display: inline-flex; align-items: center; gap: 0.7rem;
+  padding: 0.6rem 1.1rem 0.6rem 0.6rem; border: 0; border-radius: 999px; background: rgba(255,255,255,0.92); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  color: var(--ink); font: 500 0.75rem/1 var(--text-font); letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; box-shadow: 0 6px 24px rgba(0,0,0,0.16); transition: opacity 300ms, transform 300ms; }
+.planvid__icon { display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 50%; background: var(--brand); color: #FFFFFF; }
+.planvid__icon svg { width: 16px; height: 16px; }
+.planvid__play:hover { transform: translateX(-50%) translateY(-2px); }
+.planvid[data-playing] .planvid__play { opacity: 0; pointer-events: none; }
+/* на телефоні вертикальний план показуємо на всю ширину — обмеження висоти зробило б його вдвічі меншим */
+@media (max-width: 900px) { .planvid__video { height: auto; width: 100%; } .planvid__label { display: none; } .planvid__play { padding: 0.5rem; } }
