@@ -60,29 +60,27 @@ def facts(items):
 def dist(items):
     return '<ul class="dist">' + ''.join(f'<li><span class="dist__name">{n}</span><span class="dist__val">{v}</span></li>' for n, v in items) + '</ul>'
 
-def planvid(video, key, title, area):
-    """Планування з анімацією (23.09.2026): видно візуалізацію, ролик запускає сам відвідувач — без автоплею."""
-    full = f"../assets/wix/{key}-{M[key]['widths'][-1]}.webp"
-    poster = f"../assets/wix/{key}-{M[key]['widths'][0]}.webp"
-    return f'''<div class="planvid" data-full="{full}" data-alt="Планування: {title}, {area}">
-      <video class="planvid__video" poster="{poster}" preload="none" playsinline muted disablepictureinpicture aria-label="Анімація планування: {title}, {area}">
-        <source src="../assets/video/{video}-540.mp4" type="video/mp4" media="(max-width: 700px)">
-        <source src="../assets/video/{video}.mp4" type="video/mp4">
-      </video>
-      <button class="planvid__play" type="button"><span class="planvid__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span><span class="planvid__label">Показати анімацію</span></button>
-    </div>'''
-
 def plans(items, note=''):
-    items = [tuple(it) + ('',) * (6 - len(it)) for it in items]  # (ключ, назва, площа, інфо, опис, відео — два останні необов'язкові)
+    """Планування (09.10.2026): у кожної квартири перший кадр — візуалізація, другий — схема.
+    items: (ключі, назва, площа, інфо, опис). Ключі — рядок або список ['візуалізація', 'схема']."""
+    items = [tuple(it) + ('',) * (5 - len(it)) for it in items]
+    VIEWS = ('Візуалізація', 'Схема')
     tabs = ''.join(
         f'<li><button class="plans__tab" type="button" role="tab" aria-selected="{str(i == 0).lower()}" data-area="{a}" data-info="{inf}" data-desc="{d}"><b>{t}</b><span>{a} · {inf}</span></button></li>'
-        for i, (k, t, a, inf, d, v) in enumerate(items))
-    imgs = ''.join(planvid(v, k, t, a) if v else pic(k, f'Планування: {t}, {a}', '(max-width: 900px) 100vw, 60vw', eager=(i == 0))
-                   for i, (k, t, a, inf, d, v) in enumerate(items))
+        for i, (k, t, a, inf, d) in enumerate(items))
+    groups = ''
+    for i, (keys, t, a, inf, d) in enumerate(items):
+        ks = [keys] if isinstance(keys, str) else list(keys)
+        shots = ''.join(
+            pic(k, f'{VIEWS[j] if len(ks) > 1 else "Планування"}: {t}, {a}', '(max-width: 900px) 100vw, 60vw', eager=(i == 0 and j == 0))
+            for j, k in enumerate(ks))
+        groups += f'<div class="plans__group">{shots}</div>'
+    views = ''.join(f'<button class="plans__view" type="button" aria-pressed="{str(j == 0).lower()}">{v}</button>' for j, v in enumerate(VIEWS))
     return f'''<div class="plans" data-plans>
     <ul class="plans__list" role="tablist" aria-label="Планування">{tabs}</ul>
     <div>
-      <figure class="plans__stage">{imgs}</figure>
+      <figure class="plans__stage">{groups}</figure>
+      <div class="plans__views" role="group" aria-label="Вигляд планування">{views}</div>
       <div class="plans__meta"><div><span class="plans__area">{items[0][2]}</span> <span class="plans__info">{items[0][3]}</span></div>
         <button class="zoom" type="button"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6.5 1a5.5 5.5 0 0 1 4.38 8.82l4.15 4.15-1.06 1.06-4.15-4.15A5.5 5.5 0 1 1 6.5 1Zm0 1.5a4 4 0 1 0 0 8 4 4 0 0 0 0-8ZM5.75 4h1.5v1.75H9v1.5H7.25V9h-1.5V7.25H4v-1.5h1.75Z" fill="currentColor"/></svg>Збільшити</button></div>
       <p class="plans__desc"{'' if items[0][4] else ' hidden'}>{items[0][4]}</p>
@@ -184,7 +182,7 @@ fb29 = head + hero + f'''
 <section class="air" id="plans" aria-labelledby="s29-plans">
   <span class="label">Планування квартир</span>
   <h2 class="title-lg" id="s29-plans" style="margin-bottom:clamp(2.5rem,6vh,4rem)">Оберіть квартиру</h2>
-  {plans([('fb29/plan-164-vis', 'Трикімнатна, варіант А', '164,5 м²', '11 поверх · вид на море та місто', '', 'fb29-plan-164'), ('fb29/plan-164-b', 'Трикімнатна, варіант Б', '164,5 м²', '11 поверх · вид на море та місто'), ('fb29/plan-ph-330', 'Пентхаус', '330,5 м²', 'панорамний вид на море', 'Пентхаус площею 330,5 м² з вражаючим панорамним видом на море. Передбачено можливість облаштування індивідуального басейну: для цього вже сконструйовано чашу басейну з дотриманням усіх технологічних норм. Технічний поверх під усією площею пентхауса дозволяє розмістити необхідні комунікації та інженерні системи для його експлуатації.')], 'Площі проєктні. Детальні характеристики й наявність покажемо під час приватної презентації.')}
+  {plans([(('fb29/plan-164-a-vis', 'fb29/plan-164-a'), 'Трикімнатна, варіант А', '164,5 м²', '11 поверх · вид на море та місто'), (('fb29/plan-164-b-vis', 'fb29/plan-164-b'), 'Трикімнатна, варіант Б', '164,5 м²', '11 поверх · вид на море та місто'), ('fb29/plan-ph-330', 'Пентхаус', '330,5 м²', 'панорамний вид на море', 'Пентхаус площею 330,5 м² з вражаючим панорамним видом на море. Передбачено можливість облаштування індивідуального басейну: для цього вже сконструйовано чашу басейну з дотриманням усіх технологічних норм. Технічний поверх під усією площею пентхауса дозволяє розмістити необхідні комунікації та інженерні системи для його експлуатації.')], 'Площі проєктні. Детальні характеристики й наявність покажемо під час приватної презентації.')}
 </section>
 
 {enquiry('Французький бульвар, 29')}
@@ -239,7 +237,7 @@ fb29b = head + hero + f'''
 <section class="air" id="plans" aria-labelledby="s29b-plans">
   <span class="label">Планування квартир</span>
   <h2 class="title-lg" id="s29b-plans" style="margin-bottom:clamp(2.5rem,6vh,4rem)">Оберіть квартиру</h2>
-  {plans([('fb29b/plan-1k-54', '1-кімнатна квартира', '54,31 м²', '8 поверх'), ('fb29b/plan-3k-131', '3-кімнатна квартира', '131,32 м²', '8 поверх'), ('fb29b/plan-3k-119', '3-кімнатна квартира', '119,38 м²', '9 поверх'), ('fb29b/plan-ph-208', 'Пентхаус', '208 м²', 'верхній рівень')], 'Площі проєктні. За дозвільною документацією квартири є житловими приміщеннями, а пентхаус є технічним приміщенням.')}
+  {plans([(('fb29b/plan-1k-54-vis', 'fb29b/plan-1k-54'), '1-кімнатна квартира', '54,31 м²', '8 поверх'), (('fb29b/plan-3k-131-vis', 'fb29b/plan-3k-131'), '3-кімнатна квартира', '131,32 м²', '8 поверх'), (('fb29b/plan-3k-119-vis', 'fb29b/plan-3k-119'), '3-кімнатна квартира', '119,38 м²', '9 поверх'), (('fb29b/plan-ph-208-vis', 'fb29b/plan-ph-208'), 'Пентхаус', '208 м²', 'верхній рівень')], 'Площі проєктні. За дозвільною документацією квартири є житловими приміщеннями, а пентхаус є технічним приміщенням.')}
 </section>
 
 <section class="air stage" aria-labelledby="s29b-build">

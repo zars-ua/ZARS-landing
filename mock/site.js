@@ -3,36 +3,44 @@
 (() => {
   const PHONE = '+380 (67) 160 88 77';
 
-  /* ---------- Планування ---------- */
+  /* ---------- Планування ----------
+     Для кожної квартири два кадри: перший — візуалізація, другий — схема (09.10.2026).
+     Перемикач «Візуалізація / Схема» ховається, якщо кадр лише один. */
   document.querySelectorAll('[data-plans]').forEach((root) => {
     const tabs = [...root.querySelectorAll('.plans__tab')];
     const stage = root.querySelector('.plans__stage');
-    /* слайд — або <img>, або .planvid з відео (23.09.2026) */
-    const slides = [...stage.children];
-    const imgs = slides.map((el) => (el.tagName === 'IMG' ? el : el.querySelector('img')));
+    const groups = [...stage.querySelectorAll('.plans__group')];
+    const shots = groups.map((g) => [...g.querySelectorAll('img')]);
+    const views = [...root.querySelectorAll('.plans__view')];
+    const viewsRow = root.querySelector('.plans__views');
     const area = root.querySelector('.plans__area');
     const info = root.querySelector('.plans__info');
     const desc = root.querySelector('.plans__desc');
+    let cur = 0, view = 0;
+
+    const showShot = (i, v) => {
+      view = Math.min(v, shots[i].length - 1);
+      const img = shots[i][view];
+      const paint = () => {
+        shots[i].forEach((im, k) => { im.hidden = k !== view; });
+        stage.removeAttribute('data-loading');
+      };
+      if (img.complete) paint();
+      else { stage.setAttribute('data-loading', ''); img.loading = 'eager'; img.addEventListener('load', paint, { once: true }); }
+      views.forEach((b, k) => {
+        b.hidden = k >= shots[i].length;
+        b.setAttribute('aria-pressed', String(k === view));
+      });
+      viewsRow.hidden = shots[i].length < 2;
+    };
     const select = (i, focus) => {
+      cur = i;
       tabs.forEach((t, k) => {
         t.setAttribute('aria-selected', String(k === i));
         t.tabIndex = k === i ? 0 : -1;
       });
-      if (slides[i].hidden) {
-        slides.forEach((el, k) => { if (k !== i) stopPlanVideo(el); });
-        const im = imgs[i];
-        if (im && !im.complete) {
-          stage.setAttribute('data-loading', '');
-          im.loading = 'eager';
-          im.addEventListener('load', () => {
-            slides.forEach((el, k) => { el.hidden = k !== i; });
-            stage.removeAttribute('data-loading');
-          }, { once: true });
-        } else {
-          slides.forEach((el, k) => { el.hidden = k !== i; });
-          stage.removeAttribute('data-loading');
-        }
-      }
+      groups.forEach((g, k) => { g.hidden = k !== i; });
+      showShot(i, 0);
       area.textContent = tabs[i].dataset.area;
       info.textContent = tabs[i].dataset.info;
       if (desc) { desc.textContent = tabs[i].dataset.desc || ''; desc.hidden = !tabs[i].dataset.desc; }
@@ -45,32 +53,12 @@
         if (d) { e.preventDefault(); select((i + d + tabs.length) % tabs.length, true); }
       });
     });
-    slides.forEach((el, k) => { el.hidden = k !== 0; });
+    views.forEach((b, v) => b.addEventListener('click', () => showShot(cur, v)));
     select(0);
     root.querySelector('.zoom')?.addEventListener('click', () => {
-      const cur = slides.find((el) => !el.hidden);
-      const im = cur.tagName === 'IMG' ? cur : null;
-      openLightbox([{ src: cur.dataset.full || (im && (im.dataset.full || im.currentSrc || im.src)), alt: cur.dataset.alt || (im && im.alt) || '' }], 0, true);
+      const list = shots[cur].map((im) => ({ src: im.dataset.full || im.currentSrc || im.src, alt: im.alt }));
+      openLightbox(list, view, true);
     });
-  });
-
-  /* ---------- Анімація планування: запускає відвідувач, без автоплею ---------- */
-  const stopPlanVideo = (el) => {
-    const v = el && el.querySelector && el.querySelector('video');
-    if (!v) return;
-    v.pause(); v.currentTime = 0; el.removeAttribute('data-playing');
-  };
-  document.querySelectorAll('.planvid').forEach((box) => {
-    const v = box.querySelector('video');
-    const btn = box.querySelector('.planvid__play');
-    const toggle = () => {
-      if (v.paused) { box.setAttribute('data-playing', ''); v.play().catch(() => box.removeAttribute('data-playing')); }
-      else { v.pause(); box.removeAttribute('data-playing'); }
-    };
-    btn.addEventListener('click', toggle);
-    v.addEventListener('click', toggle);
-    v.addEventListener('ended', () => { v.currentTime = 0; box.removeAttribute('data-playing'); });
-    v.addEventListener('pause', () => box.removeAttribute('data-playing'));
   });
 
   /* ---------- Лайтбокс ---------- */

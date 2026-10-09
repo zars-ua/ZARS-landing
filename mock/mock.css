@@ -878,16 +878,15 @@ html.menu-open, html.menu-open body { overflow: hidden; }
 /* Опис планування (пентхаус ФБ29, 22.09.2026) */
 .plans__desc { max-width: 62ch; margin: 1rem 0 0; font-size: 0.9375rem; line-height: 1.6; color: var(--ink-2); }
 
-/* Планування з анімацією (23.09.2026): візуалізація + кнопка запуску, ролик сам не стартує */
-.planvid { position: relative; display: grid; justify-items: center; }
-/* висотою керує рамка, ширина — за пропорцією кадру, щоб з боків не було порожніх полів */
-.planvid__video { display: block; width: auto; max-width: 100%; height: min(62svh, 680px); background: #FFFFFF; cursor: pointer; }
-.planvid__play { position: absolute; left: 50%; bottom: clamp(0.8rem, 3%, 1.6rem); transform: translateX(-50%); display: inline-flex; align-items: center; gap: 0.7rem;
-  padding: 0.6rem 1.1rem 0.6rem 0.6rem; border: 0; border-radius: 999px; background: rgba(255,255,255,0.92); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
-  color: var(--ink); font: 500 0.75rem/1 var(--text-font); letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; box-shadow: 0 6px 24px rgba(0,0,0,0.16); transition: opacity 300ms, transform 300ms; }
-.planvid__icon { display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 50%; background: var(--brand); color: #FFFFFF; }
-.planvid__icon svg { width: 16px; height: 16px; }
-.planvid__play:hover { transform: translateX(-50%) translateY(-2px); }
-.planvid[data-playing] .planvid__play { opacity: 0; pointer-events: none; }
-/* на телефоні вертикальний план показуємо на всю ширину — обмеження висоти зробило б його вдвічі меншим */
-@media (max-width: 900px) { .planvid__video { height: auto; width: 100%; } .planvid__label { display: none; } .planvid__play { padding: 0.5rem; } }
+/* Планування: перемикач «Візуалізація / Схема» (09.10.2026) */
+.plans__group { display: grid; justify-items: center; }
+.plans__group[hidden] { display: none; } /* display:grid перебивав [hidden] — усі планування малювались одночасно */
+.plans__views { display: flex; gap: 0.5rem; margin-top: 0.9rem; }
+.plans__view { padding: 0.55rem 1rem; border: 1px solid color-mix(in srgb, var(--ink) 18%, transparent); background: none; color: var(--muted);
+  font: 500 0.6875rem/1 var(--text-font); letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; transition: color 300ms, border-color 300ms, background 300ms; }
+.plans__view:hover { color: var(--ink); border-color: color-mix(in srgb, var(--ink) 38%, transparent); }
+.plans__view[aria-pressed='true'] { background: var(--brand); border-color: var(--brand); color: var(--on-brand); }
+.plans__view[hidden] { display: none; }
+/* ФБ29: вертикальні візуалізації й схеми — вище, інакше кадр виходить удвічі вужчим за рамку */
+[data-site='fb29'] .plans__stage img { width: auto; max-width: 100%; height: auto; max-height: min(60svh, 640px); }
+@media (max-width: 900px) { [data-site='fb29'] .plans__stage img { width: 100%; height: auto; max-height: none; } }
