@@ -243,7 +243,6 @@ fb29b = head + hero + f'''
 <section class="air stage" aria-labelledby="s29b-build">
   <div class="stage__head">
     <h2 class="stage__title" id="s29b-build">Актуальна стадія будівництва</h2>
-    <p class="stage__lead">Будується.</p>
   </div>
   {stage_grid()}
 </section>
