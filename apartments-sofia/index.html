@@ -1,0 +1,670 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Ринок оренди Софії</title>
+<meta name="description" content="Аналітика ринку оренди Софії та прогноз оренди для 11 апартаментів добірки. Дані на 12.10.2026.">
+<meta property="og:title" content="Ринок оренди Софії">
+<meta property="og:description" content="Ставки, ціни, дохідність за районами та прогноз оренди для 11 апартаментів. Дані на 12.10.2026.">
+<meta property="og:type" content="website">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232563A8'/%3E%3Crect x='7' y='17' width='4' height='8' fill='%23fff'/%3E%3Crect x='14' y='12' width='4' height='13' fill='%23fff'/%3E%3Crect x='21' y='7' width='4' height='18' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js" integrity="sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<style>
+:root {
+  --font-anthropic-sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-anthropic-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --cds-gap-xs: 4px; --cds-gap-sm: 8px; --cds-gap-md: 16px; --cds-gap-xl: 40px;
+  --cds-pad-xs: 4px; --cds-pad-sm: 8px; --cds-pad-md: 16px; --cds-pad-lg: 20px; --cds-pad-xl: 48px;
+  --cds-radius: 8px;
+  --cds-font-size-caption: 13px; --cds-font-size-body: 15px; --cds-font-size-heading: 17px; --cds-font-size-title: 26px;
+  --cds-font-weight-medium: 600;
+}
+html, body { margin: 0; background: #FAFAF7; color: #1D2228; }
+body { font-size: var(--cds-font-size-body); -webkit-text-size-adjust: 100%; }
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+.sf a { color: inherit; }
+.sf-foot { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); border-top: 1px solid var(--color-border-line); padding-top: var(--cds-pad-md); }
+@media (max-width: 640px) { .sf-filter .muted { margin-left: 0; flex-basis: 100%; } }
+.sf {
+  /* Світла палітра закріплена за сторінкою */
+  --color-bg: #FAFAF7; --color-panel: #FFFFFF; --color-fg: #1D2228; --color-fg-muted: #5C636D; --color-border-line: #E2E2DC;
+  --color-ok: #1E7A46; --color-warn: #A35F00; --color-bad: #B42318;
+  --cds-chart-grid: #ECECE6; --cds-chart-axis: #B6B9BF; --cds-chart-muted: #B9BEC6; --cds-chart-status-critical: #C8452F;
+  --cds-surface-popover: #FFFFFF; --cds-border: #D9D9D2; --cds-text-secondary: #5C636D; --cds-shadow-popover: 0 6px 18px rgba(20, 24, 30, .10);
+  --sf-s1: #2563A8; --sf-s2: #C98A2B; --sf-s3: #8E5BB0;
+  color-scheme: light; background: var(--color-bg); color: var(--color-fg);
+  font-family: var(--font-anthropic-sans); display: grid; gap: var(--cds-gap-xl);
+  padding-block: var(--cds-pad-md) var(--cds-pad-xl);
+  padding-inline: max(clamp(16px, 4vw, 40px), calc((100% - 1180px) / 2));
+  min-height: 100%;
+}
+.sf h1 { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: clamp(1.9rem, 4vw, 2.6rem); line-height: 1.1; margin: 0; text-wrap: balance; }
+.sf h2 { font-size: var(--cds-font-size-title); font-family: var(--font-anthropic-serif); font-weight: 400; margin: 0; text-wrap: balance; }
+.sf h3 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0; }
+.sf p { margin: 0; max-width: 72ch; line-height: 1.55; }
+.sf .muted { color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); }
+.sf .eyebrow { text-transform: uppercase; letter-spacing: .08em; font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+.sf-head { display: grid; gap: var(--cds-gap-sm); }
+.sf-lede { font-size: var(--cds-font-size-heading); line-height: 1.5; max-width: 70ch; }
+.sf-section { display: grid; gap: var(--cds-gap-md); scroll-margin-top: 1rem; }
+.sf-section > header { display: grid; gap: var(--cds-gap-xs); }
+.sf-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr)); gap: var(--cds-gap-md); }
+.sf-kpi { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-md); display: grid; gap: var(--cds-gap-xs); align-content: start; }
+.sf-kpi .v { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); font-variant-numeric: tabular-nums; line-height: 1.1; }
+.sf-kpi .l { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); line-height: 1.35; }
+.sf-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 26rem), 1fr)); gap: var(--cds-gap-md); }
+.sf-card { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-lg); display: grid; gap: var(--cds-gap-sm); align-content: start; min-width: 0; }
+.sf-chart { position: relative; min-height: 120px; }
+.sf-chart svg { display: block; overflow: visible; }
+.sf-chart text { fill: var(--color-fg-muted); font-size: 11px; font-family: var(--font-anthropic-sans); }
+.sf-chart .lbl { fill: var(--color-fg); font-size: 12px; }
+.sf-tip { position: absolute; pointer-events: none; background: var(--cds-surface-popover); border: 1px solid var(--cds-border); border-radius: var(--cds-radius); box-shadow: var(--cds-shadow-popover); padding: var(--cds-pad-xs) var(--cds-pad-sm); font-size: var(--cds-font-size-caption); white-space: nowrap; z-index: 2; }
+.sf-tip .t { color: var(--cds-text-secondary); }
+.sf-legend { display: flex; flex-wrap: wrap; gap: var(--cds-gap-md); font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+.sf-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; }
+.sf-legend i.bar { border-radius: 2px; width: 18px; height: 8px; }
+.sf-tablewrap { overflow-x: auto; max-width: 100%; }
+.sf table { border-collapse: collapse; width: 100%; font-size: var(--cds-font-size-caption); font-variant-numeric: tabular-nums; }
+.sf th { text-align: left; font-weight: var(--cds-font-weight-medium); color: var(--color-fg-muted); padding: 6px 10px; border-bottom: 1px solid var(--color-border-line); vertical-align: bottom; white-space: nowrap; }
+.sf td { padding: 7px 10px; border-bottom: 1px solid var(--color-border-line); vertical-align: top; }
+.sf td.n, .sf th.n { text-align: right; white-space: nowrap; }
+.sf td.wrap { min-width: 18rem; max-width: 34rem; line-height: 1.4; }
+.sf td.url { word-break: break-all; min-width: 14rem; }
+.sf td.url a { color: inherit; }
+.sf tr.bench td { color: var(--color-fg-muted); }
+.sf .chip { display: inline-block; padding: 1px 8px; border-radius: 999px; border: 1px solid var(--color-border-line); white-space: nowrap; }
+.sf .chip[data-l="вище середньої"] { color: var(--color-ok); border-color: currentColor; }
+.sf .chip[data-l="нижче середньої"] { color: var(--color-bad); border-color: currentColor; }
+.sf .conf { color: var(--color-fg-muted); }
+.sf ul.sf-list { margin: 0; padding-left: 1.2em; display: grid; gap: var(--cds-gap-xs); max-width: 80ch; line-height: 1.5; }
+.sf .note { border-left: 2px solid var(--color-border-line); padding-left: var(--cds-pad-md); }
+.sf .fail { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: inherit; color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); }
+.sf .fail::before { content: ""; width: .375rem; height: .375rem; border-radius: 50%; background: var(--color-bad); }
+.sf-toc { display: flex; flex-wrap: wrap; gap: var(--cds-gap-sm); font-size: var(--cds-font-size-caption); }
+.sf-toc a { color: var(--color-fg-muted); text-decoration: none; border: 1px solid var(--color-border-line); border-radius: 999px; padding: 3px 10px; }
+.sf-filter { display: flex; flex-wrap: wrap; align-items: center; gap: var(--cds-gap-sm); position: sticky; top: env(safe-area-inset-top, 0px); z-index: 3; background: var(--color-bg); padding-block: var(--cds-pad-sm); border-bottom: 1px solid var(--color-border-line); }
+.sf-filter label { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+.sf-filter select, .sf-filter button { font: inherit; font-size: var(--cds-font-size-body); color: var(--color-fg); background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: 4px 10px; }
+.sf-filter button { cursor: pointer; color: var(--color-fg-muted); }
+.sf-filter button:focus-visible, .sf-filter select:focus-visible { outline: 2px solid var(--color-fg-muted); outline-offset: 1px; }
+.sf-filter .muted { margin-left: auto; }
+.sf-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr)); gap: var(--cds-gap-md); }
+.sf-oc { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-lg); display: grid; gap: var(--cds-gap-sm); align-content: start; }
+.sf-oc h3 { display: flex; justify-content: space-between; gap: var(--cds-gap-sm); }
+.sf-oc .meta { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+.sf-oc .big { font-family: var(--font-anthropic-serif); font-size: var(--cds-font-size-title); font-weight: 400; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.sf-oc .row { display: grid; grid-template-columns: 1fr auto; gap: 2px var(--cds-gap-sm); font-size: var(--cds-font-size-caption); font-variant-numeric: tabular-nums; }
+.sf-oc .row span:nth-child(odd) { color: var(--color-fg-muted); }
+.sf-oc .row span:nth-child(even) { text-align: right; }
+.sf-oc .chips { display: flex; flex-wrap: wrap; gap: 6px; font-size: var(--cds-font-size-caption); }
+.sf-oc .links { display: flex; flex-wrap: wrap; gap: var(--cds-gap-md); font-size: var(--cds-font-size-caption); }
+.sf-oc .links a, .sf td a.obj { color: var(--sf-s1); text-decoration: underline; text-underline-offset: 2px; }
+.sf-oc .links .none { color: var(--color-fg-muted); }
+.sf-oc .broker { border-top: 1px dashed var(--color-border-line); padding-top: var(--cds-pad-sm); display: grid; gap: 2px; }
+.sf-oc .broker { background: color-mix(in srgb, var(--sf-s3) 7%, var(--color-panel)); border: 1px solid color-mix(in srgb, var(--sf-s3) 35%, var(--color-border-line)); border-radius: var(--cds-radius); padding: var(--cds-pad-sm) var(--cds-pad-md); }
+.sf-oc .broker .blabel { font-size: var(--cds-font-size-body); font-weight: 700; color: var(--color-fg); }
+.sf-oc .broker .big { font-size: var(--cds-font-size-title); font-weight: 700; color: var(--sf-s3); }
+.sf-oc p { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+.sf-toc a:hover, .sf-toc a:focus-visible { color: var(--color-fg); outline: none; border-color: var(--color-fg-muted); }
+</style>
+</head>
+<body>
+<div class="sf" id="sf">
+  <header class="sf-head" id="top">
+    <div class="eyebrow">Аналітика для команди · дані на 12.10.2026</div>
+    <h1>Ринок оренди Софії</h1>
+    <p class="sf-lede">Валова дохідність за медіанами Софії —
+      <span data-source="city" data-field="value" data-where="key=yield_1br" data-fmt="1">—</span>% для апартаментів з однією спальнею та
+      <span data-source="city" data-field="value" data-where="key=yield_2br" data-fmt="1">—</span>% — із двома.
+      Купівля в Софії зараз — передусім збереження капіталу. За сукупністю ознак найсильнішими в добірці виглядають апартаменти з однією спальнею біля університетів (№6, №11): ціна нижча за медіану району, а ставки оренди підтверджує незалежне джерело. Дорогі апартаменти з двома спальнями (№1–3) поступаються за дохідністю.</p>
+    <nav class="sf-toc" aria-label="Розділи">
+      <a href="#city">Місто</a><a href="#districts">Райони</a><a href="#assessment">Оцінка об’єктів</a><a href="#forecast">Прогноз для об’єктів</a><a href="#rent">Оренда та аналоги</a><a href="#liquidity">Ліквідність</a><a href="#check">Звірка</a><a href="#method">Методика</a>
+    </nav>
+  </header>
+
+  <div class="sf-filter" id="filter">
+    <label for="sf-zone">Район</label>
+    <select id="sf-zone" class="sf-zone"></select>
+    <button type="button" id="sf-reset" hidden>Скинути</button>
+    <span class="muted" id="sf-filter-note">Фільтр діє на розділи «Оцінка об’єктів», «Райони», «Прогноз для об’єктів», «Оренда та аналоги» і «Ліквідність». Блок «Місто» — по всій Софії.</span>
+  </div>
+
+  <section class="sf-section" id="assessment">
+    <header><h2>Оцінка об’єктів</h2>
+      <p class="muted">Ліквідність для оренди та для перепродажу — експертна оцінка за трирівневою шкалою відносно об’єктів цієї добірки: вище середньої, середня, нижче середньої. Швидкість здачі в оренду та продажу портали не публікують, тому оцінка спирається на непрямі показники; колонка «Впевненість» показує, наскільки їх достатньо.</p>
+    </header>
+    <div class="sf-card">
+      <div class="sf-tablewrap">
+        <table data-source="objects" id="t-liq">
+          <thead><tr>
+            <th data-field="label">Об’єкт</th><th class="n" data-field="price">Ціна, €</th><th class="n" data-field="ppm">€/м²</th><th data-field="liq_rent">Оренда</th><th data-field="liq_resale">Перепродаж</th><th data-field="confidence">Впевненість оцінки</th>
+            <th class="n" data-field="dev_pct">Відносно медіани, %</th><th class="n" data-field="competitors">Конкурентів</th><th class="n" data-field="district_supply">Пропозиція району</th><th class="n" data-field="uc_share">Будівництво, %</th>
+            <th data-field="why">Чому</th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p class="muted">Для №2 ціну порівняно з усіма готовими апартаментами з 2 спальнями в районі: мебльованих цегляних у продажу замало для медіани.</p>
+    </div>
+  </section>
+
+  <section class="sf-section" id="forecast">
+    <header><h2>Прогноз для об’єктів</h2>
+      <p class="muted">Ставка оренди з меблями зараз і через 12 місяців: від обережного до базового сценарію зростання ринку (припущення — у розділі «Методика»). Дохідність — валова, до ціни оголошення.</p>
+    </header>
+    <div class="sf-cards" id="sf-cards"></div>
+    <div class="sf-card" id="c-broker">
+      <h3>Оцінка брокера і ринок: №1–4</h3>
+      <p class="muted">Брокер, який запропонував №1–4, надав власні ставки оренди. Наш прогноз спирається на аналоги в оголошеннях; ставку брокера показано як верхній сценарій. Колонки «Дешевше в оголошеннях» — частка аналогів, у яких ставка в оголошенні нижча за нижню межу оцінки брокера: що вона вища, то ближча оцінка брокера до верхівки ринку.</p>
+      <div class="sf-tablewrap">
+        <table data-source="objects" id="t-broker">
+          <thead><tr><th data-field="label">Об’єкт</th><th class="n" data-field="rent_lo">Наш прогноз від, €</th><th class="n" data-field="rent_hi">до, €</th><th class="n" data-field="broker_lo">Брокер від, €</th><th class="n" data-field="broker_hi">до, €</th><th class="n" data-field="broker_below_all">Дешевше в оголошеннях: усі аналоги, %</th><th class="n" data-field="broker_below_prem">новобудови й люкс, %</th><th class="n" data-field="broker_gross_lo">Дохідність за оцінкою брокера від, %</th><th class="n" data-field="broker_gross_hi">до, %</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p class="muted">Оцінка брокера — думка сторони продавця, договорами оренди вона не підтверджена. Для №2–4 вона потрапляє у верхню половину сегмента новобудов і люксу й досяжна за якісного ремонту; для №1 відповідає найкращим пропозиціям району.</p>
+    </div>
+  </section>
+
+  <section class="sf-section" id="city">
+    <header><h2>Місто: ставки, ціни, дохідність</h2>
+      <p class="muted">Усі оголошення Софії на homes.bg станом на 12.10.2026: оренда —
+        <span data-source="city" data-field="value" data-where="key=rent_listings" data-fmt="int">—</span> (<span data-source="city" data-field="value" data-where="key=rent_unique" data-fmt="int">—</span> після видалення повторів однієї квартири), продаж —
+        <span data-source="city" data-field="value" data-where="key=sale_listings" data-fmt="int">—</span> (квартири 20–250 м²). Медіани цін пропозиції.</p>
+    </header>
+    <div class="sf-kpis">
+      <div class="sf-kpi"><div class="v"><span data-source="city" data-field="value" data-where="key=rent_1br" data-fmt="int">—</span>&nbsp;€</div><div class="l">Оренда, 1 спальня з меблями (цегла), медіана на місяць</div></div>
+      <div class="sf-kpi"><div class="v"><span data-source="city" data-field="value" data-where="key=rent_2br" data-fmt="int">—</span>&nbsp;€</div><div class="l">Оренда, 2 спальні з меблями (цегла), медіана на місяць</div></div>
+      <div class="sf-kpi"><div class="v"><span data-source="city" data-field="value" data-where="key=sale_ppm_rf" data-fmt="int">—</span>&nbsp;€/м²</div><div class="l">Продаж: готові, з меблями, цегла — медіана ціни пропозиції</div></div>
+      <div class="sf-kpi"><div class="v"><span data-source="city" data-field="value" data-where="key=sale_ppm_all" data-fmt="int">—</span>&nbsp;€/м²</div><div class="l">Продаж: усі квартири — медіана ціни пропозиції</div></div>
+      <div class="sf-kpi"><div class="v"><span data-source="city" data-field="value" data-where="key=uc_share" data-fmt="int">—</span>%</div><div class="l">Частка оголошень про продаж у будинках, що будуються</div></div>
+    </div>
+    <div class="sf-grid">
+      <div class="sf-card">
+        <h3>Що це означає</h3>
+        <ul class="sf-list">
+          <li>Студія з меблями здається за <span data-source="city" data-field="value" data-where="key=rent_studio" data-fmt="int">—</span> €, апартаменти з 1 спальнею — за <span data-source="city" data-field="value" data-where="key=rent_1br" data-fmt="int">—</span> €, з 2 спальнями — за <span data-source="city" data-field="value" data-where="key=rent_2br" data-fmt="int">—</span> € (медіани). <span data-source="city" data-field="value" data-where="key=furnished_share" data-fmt="int">—</span>% пропозиції здається з меблями: без меблів об’єкт конкурує з меншістю ринку.</li>
+          <li>Медіанні апартаменти з 1 спальнею (готові, з меблями, цегла) коштують <span data-source="city" data-field="value" data-where="key=sale_1br" data-fmt="int">—</span> €, з 2 спальнями — <span data-source="city" data-field="value" data-where="key=sale_2br" data-fmt="int">—</span> €. Ціна другої спальні зростає швидше за ставку оренди, тому дохідність апартаментів з 2 спальнями нижча.</li>
+          <li>Зростання оренди сповільнюється: за оцінкою Best Place, у 2025 році оренда зросла на <span data-source="external" data-field="value" data-where="key=rent_growth_2025">—</span>, а на 2026 рік очікують <span data-source="external" data-field="value" data-where="key=rent_fcst_2026">—</span>.</li>
+          <li>Помітна частка оголошень про продаж — у будинках, що будуються; найбільше їх у районах Малинова долина та Овча купел (див. «Райони»).</li>
+        </ul>
+      </div>
+      <div class="sf-card">
+        <h3>Зовнішні орієнтири</h3>
+        <p class="muted">Оцінки аналітиків і ЗМІ, а не наші вимірювання.</p>
+        <div class="sf-tablewrap">
+          <table data-source="external" id="t-ext">
+            <thead><tr><th data-field="label">Показник</th><th data-field="value">Значення</th><th data-field="source">Джерело</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sf-section" id="districts">
+    <header><h2>Райони добірки</h2>
+      <p class="muted">Оренда — медіана оголошень «з меблями, цегла»; ціна — медіана готових мебльованих цегляних апартаментів того самого типу. Дохідність = річна оренда / ціна; її показано, якщо оголошень про продаж 5 і більше. Сірим — райони-орієнтири поза добіркою.</p>
+    </header>
+    <div class="sf-grid">
+      <div class="sf-card">
+        <h3>Валова дохідність апартаментів з 1 спальнею за районами</h3>
+        <p class="muted">Розкид між районами вузький. Найвища дохідність — у районах зі студентським і офісним попитом.</p>
+        <div class="sf-chart" id="ch-yield" style="min-height:360px"></div>
+      </div>
+      <div class="sf-card">
+        <h3>Оголошення про продаж і частка будівництва</h3>
+        <p class="muted">Там, де багато будинків, що будуються, готовий об’єкт під час перепродажу конкурує з цінами забудовників.</p>
+        <div class="sf-chart" id="ch-supply" style="min-height:360px"></div>
+      </div>
+    </div>
+    <div class="sf-card">
+      <h3>Таблиця районів</h3>
+      <div class="sf-tablewrap">
+        <table data-source="districts" id="t-dist">
+          <thead><tr>
+            <th data-field="district">Район</th>
+            <th class="n" data-field="rent1_med">Оренда 1 сп., €</th><th class="n" data-field="rent1_n">Оголош.</th><th class="n" data-field="rent1_ppm">€/м² на міс.</th>
+            <th class="n" data-field="sale1_med">Ціна 1 сп., €</th><th class="n" data-field="yield1">Дохідн. 1 сп., %</th>
+            <th class="n" data-field="rent2_med">Оренда 2 сп., €</th><th class="n" data-field="yield2">Дохідн. 2 сп., %</th>
+            <th class="n" data-field="supply">Оголош. про продаж</th><th class="n" data-field="uc_share">Будівництво, %</th><th class="n" data-field="ppm_all">Медіана, €/м²</th><th data-field="note">Примітка</th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p class="muted">Оренду пораховано після видалення повторів однієї квартири. Кількість оголошень про продаж — без такого очищення: у новобудовах багато різних квартир з однаковою площею та ціною, тому надійно відокремити повтори в продажу неможливо.</p>
+    </div>
+  </section>
+
+  <section class="sf-section" id="check">
+    <header><h2>Звірка з незалежним джерелом</h2>
+      <p class="muted">Наші медіани оренди (homes.bg, з меблями, цегла, без повторів) порівняно з медіанами активних оголошень alo.bg на ту саму дату (усі оголошення району). Розбіжність у межах ±10% означає, що дані узгоджуються.</p>
+    </header>
+    <div class="sf-card">
+      <div class="sf-tablewrap">
+        <table data-source="crosscheck" id="t-xc">
+          <thead><tr><th data-field="district">Район</th><th class="n" data-field="our1">1 сп., наша, €</th><th class="n" data-field="alo1">1 сп., alo.bg, €</th><th class="n" data-field="diff1">Різниця, %</th><th class="n" data-field="our2">2 сп., наша, €</th><th class="n" data-field="alo2">2 сп., alo.bg, €</th><th class="n" data-field="diff2">Різниця, %</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p class="muted">Для апартаментів з 1 спальнею (основний тип добірки) розбіжність з alo.bg у більшості районів — у межах ±10%. Наші медіани частіше нижчі: ми беремо лише цеглу з меблями й видаляємо повтори. Великі розбіжності: Подуяне і Дружба 2 для 1 спальні (наші медіани нижчі) та Дианабад для 2 спалень — там змішаний ринок, об’єктів добірки це не стосується.</p>
+    </div>
+  </section>
+
+  <section class="sf-section" id="rent">
+    <header><h2>Оренда та аналоги</h2>
+      <p class="muted">Кожна точка — оголошення-аналог: той самий район, той самий тип, з меблями, цегла, площа ±20%. Кольорові точки — новобудови та об’єкти з позначкою «люкс»: це сегмент наших об’єктів. Смуга — наш прогноз ставки.</p>
+    </header>
+    <div class="sf-card">
+      <div class="sf-legend"><span><i style="background:var(--cds-chart-muted)"></i>Решта фонду</span><span><i id="lg-prem"></i>Новобудова / люкс</span><span><i class="bar" id="lg-band"></i>Наш прогноз ставки</span><span><i class="bar" id="lg-broker" style="background:transparent"></i>Оцінка брокера (№1–4)</span></div>
+      <div class="sf-chart" id="ch-comps" style="min-height:440px"></div>
+    </div>
+    <div class="sf-card">
+      <h3>Прогноз оренди та дохідність</h3>
+      <p class="muted">Валова — річна оренда до ціни. Чиста — середина прогнозу після простою, податку, внесків і з урахуванням витрат на купівлю та меблі (припущення — у розділі «Методика»).</p>
+      <div class="sf-tablewrap">
+        <table data-source="objects" id="t-obj">
+          <thead><tr>
+            <th data-field="label">Об’єкт</th><th data-field="type">Тип</th><th class="n" data-field="area">м²</th><th class="n" data-field="price">Ціна, €</th><th class="n" data-field="ppm">€/м²</th>
+            <th class="n" data-field="rent_lo">Оренда від, €</th><th class="n" data-field="rent_hi">до, €</th><th class="n" data-source="forecast12" data-field="rent12_lo">Через 12 міс. від, €</th><th class="n" data-source="forecast12" data-field="rent12_hi">до, €</th>
+            <th class="n" data-field="gross_lo">Валова від, %</th><th class="n" data-field="gross_hi">до, %</th><th class="n" data-field="net_mid">Чиста, %</th>
+            <th class="n" data-field="comps_n">Аналогів</th><th class="n" data-field="comps_med">Медіана, €</th><th class="n" data-field="prem_n">Новобуд./люкс</th><th class="n" data-field="prem_med">Їхня медіана, €</th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="sf-section" id="liquidity">
+    <header><h2>Ліквідність</h2>
+      <p class="muted">Експертна оцінка за непрямими показниками: строк експозиції та ціни угод портали не публікують. Оцінок дві — як швидко об’єкт знайде орендаря і як швидко його продадуть. Основа — глибина ринку оренди, ціна відносно медіани готових мебльованих об’єктів району та кількість оголошень про готові об’єкти в ціновому коридорі ±15%.</p>
+    </header>
+    <div class="sf-grid">
+      <div class="sf-card">
+        <h3>Ціна за м² відносно медіани району</h3>
+        <p class="muted">Готові, з меблями, цегла, той самий тип. Праворуч від нуля — дорожче за ринок.</p>
+        <div class="sf-chart" id="ch-dev" style="min-height:400px"></div>
+      </div>
+      <div class="sf-card">
+        <h3>Конкуренти під час продажу</h3>
+        <p class="muted">Оголошення про готові об’єкти того самого типу й району в ціновому коридорі ±15% від нашої ціни (можливі повтори).</p>
+        <div class="sf-chart" id="ch-comp" style="min-height:400px"></div>
+      </div>
+    </div>
+    <div class="sf-card">
+      <h3>Посилання на об’єкти</h3>
+      <p class="muted">Для №1–4 — точні адреси від брокера. Для об’єктів Явлени точку ставить агентство: якщо в описі є вулиця, ми перевірили, що точка на ній. Для №10 точка агентства стоїть у сусідньому кварталі, тому мітку поставлено на вулицю з опису; номер будинку агентство не вказує.</p>
+      <div class="sf-tablewrap">
+        <table data-source="objects" id="t-links">
+          <thead><tr><th data-field="label">Об’єкт</th><th data-field="loc_precision">Точність локації</th><th data-field="map">Мапа</th><th data-field="ad">Оголошення</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="sf-section" id="method">
+    <header><h2>Методика та обмеження</h2></header>
+    <div class="sf-grid">
+      <div class="sf-card">
+        <h3>Як рахували</h3>
+        <ul class="sf-list">
+          <li>Джерело даних про ринок — усі оголошення Софії на homes.bg (відкритий API), вивантаження 12.10.2026. Ціни в левах переведено в євро за фіксованим курсом. Дані вивантажували ціновими діапазонами, щоб обійти обмеження API на кількість оголошень в одному запиті.</li>
+          <li>Аналоги оренди: той самий або сусідній район, той самий тип (двустаен = 1 спальня, тристаен = 2 спальні), «обзаведен» (з меблями), цегла, площа в межах ±20%. Повтори однієї квартири від різних агентств видалено: оголошення одного району й типу з площею ±2 м² і ціною ±3% вважаються одним об’єктом (так відсіялася приблизно чверть оголошень про оренду; медіани майже не змінилися).</li>
+          <li>Сегмент «новобудова / люкс» виділено за текстом картки: рік будівництва 2015+, «ново строителство», «нова сграда», «първи наемател» тощо або позначка «Луксозен имот». Вибіркова ручна перевірка хибних спрацювань не виявила.</li>
+          <li>Будинки, що будуються, у продажу визначено опосередковано — за полем опалення «Прокарва се» (підводиться): так зазвичай позначають будинки до введення в експлуатацію. Це ознака, а не підтверджений статус кожного будинку.</li>
+          <li>Ліквідність — експертна оцінка за трьома рівнями відносно об’єктів добірки. Враховано ціну за м² відносно медіани готових мебльованих об’єктів району, кількість оголошень про готові об’єкти в ціновому коридорі ±15%, частку будинків, що будуються, ставки оренди в районі та їх збіг з alo.bg, особливості об’єкта (ліфт, меблі, статус). Впевненість «низька» — якщо вибірка для порівняння мала або ключовий факт (адресу, стан) не підтверджено.</li>
+          <li>Ставки оренди від брокера для №1–4 (отримано 12.10.2026) показано окремо як верхній сценарій: це експертна оцінка сторони продавця. Наш прогноз побудовано лише за аналогами в оголошеннях.</li>
+          <li>Дані об’єктів №5–11 — картки yavlena.com (повторно перевірено 12.10.2026: усі оголошення активні, ціни не змінилися). №1–4 — описи та планування від брокера.</li>
+          <li>Назви районів подано мовою оригіналу, як в оголошеннях.</li>
+        </ul>
+      </div>
+      <div class="sf-card">
+        <h3>Припущення</h3>
+        <div class="sf-tablewrap">
+          <table data-source="assumptions" id="t-ass">
+            <thead><tr><th data-field="label">Параметр</th><th class="n" data-field="value">Значення</th><th data-field="unit">Од.</th><th data-field="status">Статус</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="sf-card">
+        <h3>Обмеження</h3>
+        <ul class="sf-list">
+          <li>Усі ціни — ціни пропозиції, а не угод. Фактичні договори зазвичай укладають за нижчими цінами (див. припущення).</li>
+          <li>Строк експозиції оголошень homes.bg не надає, тому швидкість продажу оцінено опосередковано: через кількість конкурентів і відхилення ціни від медіани.</li>
+          <li>Оголошення про продаж пораховано без очищення від повторів, тому кількість конкурентів і обсяг пропозиції — верхня оцінка.</li>
+          <li>Медіана апартаментів з 2 спальнями в районі Дианабад відображає переважно один преміальний комплекс; за даними alo.bg, медіана району нижча.</li>
+          <li>Малі вибірки: оренда апартаментів з 2 спальнями в районі Малинова долина (<span data-source="objects" data-field="comps_n" data-where="label=№4 Малинова долина" data-fmt="int">—</span> аналогів) і з 1 спальнею в районі Надежда (<span data-source="objects" data-field="comps_n" data-where="label=№9 Надежда 2" data-fmt="int">—</span>) — прогноз там менш точний.</li>
+          <li>№8: близькість до метро, про яку пише агент, не підтверджується точкою на мапі (вона далі ніж за кілометр від станції «Дружба») — адресу потрібно уточнити.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <footer class="sf-foot">Дані: homes.bg, alo.bg, yavlena.com, брокер (№1–4). Вимірювання 12.10.2026. Усі ціни — ціни пропозиції.</footer>
+</div>
+<script>
+(function () {
+  const DATA = {"objects":[{"n":1,"label":"№1 Овча купел 1","district":"Овча купел 1","type":"2 спальні","area":100,"price":317000,"ppm":3170,"source":"брокер","ad":null,"map":"https://maps.app.goo.gl/FefDGbtF4XDzg2NV6","rent_lo":750,"rent_hi":850,"gross_lo":2.8,"gross_hi":3.2,"net_mid":2.3,"comps_n":61,"comps_med":700,"comps_p75":800,"prem_n":17,"prem_med":720,"prem_p75":950,"sale_ref_ppm":2753,"sale_ref_n":15,"dev_pct":15,"competitors":118,"district_supply":679,"uc_share":37,"liq_rent":"середня","liq_resale":"нижче середньої","why":"Ціна за м² на 15% вища за медіану готових мебльованих апартаментів з 2 спальнями в районі; у ціновому коридорі ±15% — 118 оголошень про готові об’єкти, 37% пропозиції району — будинки, що будуються. Оренда: медіана новобудов і люксу — 720 €, прогноз 750–850 € спирається на новий ремонт (експертне судження).","zone":"Овча купел","loc_precision":"точна адреса (від брокера)","confidence":"середня","broker_lo":950,"broker_hi":1000,"broker_gross_lo":3.6,"broker_gross_hi":3.8,"broker_below_all":87,"broker_below_prem":71},{"n":2,"label":"№2 Подуяне","district":"Подуяне","type":"2 спальні","area":98,"price":310000,"ppm":3163,"source":"брокер","ad":null,"map":"https://maps.app.goo.gl/ddevY88D7kq8zP7s6","rent_lo":750,"rent_hi":850,"gross_lo":2.9,"gross_hi":3.3,"net_mid":2.4,"comps_n":35,"comps_med":750,"comps_p75":900,"prem_n":9,"prem_med":770,"prem_p75":900,"sale_ref_ppm":2508,"sale_ref_n":104,"dev_pct":26,"competitors":54,"district_supply":110,"uc_share":5,"liq_rent":"середня","liq_resale":"нижче середньої","why":"Ціна за м² на 26% вища за медіану всіх готових апартаментів з 2 спальнями в районі (зокрема в панельних будинках без ремонту); мебльованих цегляних для порівняння лише шість. Клубний будинок і метро за ~450 м — плюси, їхній внесок у ціну не виміряно.","sale_ref_note":"усі готові (мебльованих лише 6 — замало)","zone":"Подуяне","loc_precision":"точна адреса (від брокера)","confidence":"низька","broker_lo":900,"broker_hi":null,"broker_gross_lo":3.5,"broker_gross_hi":null,"broker_below_all":74,"broker_below_prem":56},{"n":3,"label":"№3 Красна поляна 3","district":"Красна поляна 3","type":"2 спальні","area":112,"price":320000,"ppm":2857,"source":"брокер","ad":null,"map":"https://maps.app.goo.gl/TrEw7jpnwirJWXzy5","rent_lo":800,"rent_hi":950,"gross_lo":3.0,"gross_hi":3.6,"net_mid":2.5,"comps_n":40,"comps_med":708,"comps_p75":900,"prem_n":14,"prem_med":950,"prem_p75":1200,"sale_ref_ppm":2917,"sale_ref_n":8,"dev_pct":-2,"competitors":7,"district_supply":39,"uc_share":0,"liq_rent":"середня","liq_resale":"середня","why":"Ціна на рівні медіани мебльованих аналогів району, конкурентів у ціновому коридорі ±15% — 7. Оголошень про апартаменти з 2 спальнями в районі мало (39), тому і порівняння, і попит оцінено на малій вибірці. Два санвузли — плюс для оренди.","zone":"Красна поляна","loc_precision":"точна адреса (від брокера)","confidence":"низька","broker_lo":1000,"broker_hi":1100,"broker_gross_lo":3.8,"broker_gross_hi":4.1,"broker_below_all":78,"broker_below_prem":50},{"n":4,"label":"№4 Малинова долина","district":"Малинова долина","type":"2 спальні","area":92,"price":294000,"ppm":3196,"source":"брокер","ad":null,"map":"https://maps.app.goo.gl/WHxtQUpyryWgeUjz9","rent_lo":950,"rent_hi":1050,"gross_lo":3.9,"gross_hi":4.3,"net_mid":3.2,"comps_n":13,"comps_med":950,"comps_p75":1000,"prem_n":9,"prem_med":999,"prem_p75":1000,"sale_ref_ppm":2944,"sale_ref_n":13,"dev_pct":9,"competitors":137,"district_supply":482,"uc_share":52,"liq_rent":"вище середньої","liq_resale":"середня","why":"Ставка оренди апартаментів з 2 спальнями в районі — найвища серед районів добірки. У продажу — 137 оголошень у ціновому коридорі ±15%, близько половини пропозиції району — будинки, що будуються; ціна на 9% вища за медіану мебльованих. Аналогів в оренді 13 — вибірка невелика.","zone":"Малинова долина","loc_precision":"точна адреса (від брокера)","confidence":"середня","broker_lo":1000,"broker_hi":1100,"broker_gross_lo":4.1,"broker_gross_hi":4.5,"broker_below_all":69,"broker_below_prem":56},{"n":5,"label":"№5 Гео Милев","district":"Гео Милев","type":"1 спальня","area":68,"price":224500,"ppm":3301,"source":"Явлена","ad":"https://www.yavlena.com/bg/172848","map":"https://www.google.com/maps?q=42.681126,23.359323","rent_lo":580,"rent_hi":650,"gross_lo":3.1,"gross_hi":3.5,"net_mid":2.5,"comps_n":27,"comps_med":599,"comps_p75":650,"prem_n":7,"prem_med":600,"prem_p75":620,"sale_ref_ppm":3243,"sale_ref_n":9,"dev_pct":2,"competitors":20,"district_supply":22,"uc_share":0,"liq_rent":"середня","liq_resale":"вище середньої","why":"У продажу в районі 22 оголошення про апартаменти з 1 спальнею, ціна на рівні медіани. Мінуси для оренди: немає ліфта, меблі є лише частково (потрібно докупити).","zone":"Гео Милев","loc_precision":"вулиця з опису, без номера будинку","confidence":"середня","broker_lo":null,"broker_hi":null,"broker_gross_lo":null,"broker_gross_hi":null,"broker_below_all":null,"broker_below_prem":null},{"n":6,"label":"№6 Студентски град","district":"Студентски град","type":"1 спальня","area":70,"price":217000,"ppm":3100,"source":"Явлена","ad":"https://www.yavlena.com/bg/176241","map":"https://www.google.com/maps?q=42.654396,23.346945","rent_lo":650,"rent_hi":720,"gross_lo":3.6,"gross_hi":4.0,"net_mid":2.9,"comps_n":42,"comps_med":634,"comps_p75":725,"prem_n":19,"prem_med":649,"prem_p75":740,"sale_ref_ppm":3267,"sale_ref_n":20,"dev_pct":-5,"competitors":20,"district_supply":57,"uc_share":5,"liq_rent":"вище середньої","liq_resale":"вище середньої","why":"Ціна на 5% нижча за медіану мебльованих аналогів району — найкраще співвідношення в добірці. Ставка оренди збігається з alo.bg (600 €). Попит студентів і молодих фахівців — експертне судження за профілем району.","zone":"Студентски град","loc_precision":"орієнтовно (точка агентства)","confidence":"середня","broker_lo":null,"broker_hi":null,"broker_gross_lo":null,"broker_gross_hi":null,"broker_below_all":null,"broker_below_prem":null},{"n":7,"label":"№7 Малинова долина","district":"Малинова долина","type":"1 спальня","area":63,"price":205000,"ppm":3254,"source":"Явлена","ad":"https://www.yavlena.com/bg/176010","map":"https://www.google.com/maps?q=42.639237,23.347812","rent_lo":700,"rent_hi":750,"gross_lo":4.1,"gross_hi":4.4,"net_mid":3.1,"comps_n":26,"comps_med":700,"comps_p75":799,"prem_n":12,"prem_med":727,"prem_p75":800,"sale_ref_ppm":3297,"sale_ref_n":34,"dev_pct":-1,"competitors":135,"district_supply":583,"uc_share":50,"liq_rent":"середня","liq_resale":"середня","why":"Для здачі в оренду потрібні кухня й меблі (~12 тис. €, оцінка). Новобудови та люкс у районі здаються за 727 € (медіана). У продажу — 135 оголошень у ціновому коридорі ±15%, багато будинків, що будуються.","zone":"Малинова долина","loc_precision":"орієнтовно (точка агентства)","confidence":"середня","broker_lo":null,"broker_hi":null,"broker_gross_lo":null,"broker_gross_hi":null,"broker_below_all":null,"broker_below_prem":null},{"n":8,"label":"№8 Дружба 2","district":"Дружба 2","type":"1 спальня","area":65,"price":229800,"ppm":3535,"source":"Явлена","ad":"https://www.yavlena.com/bg/175697","map":"https://www.google.com/maps?q=42.653495,23.409567","rent_lo":680,"rent_hi":750,"gross_lo":3.6,"gross_hi":3.9,"net_mid":2.9,"comps_n":31,"comps_med":600,"comps_p75":700,"prem_n":13,"prem_med":700,"prem_p75":750,"sale_ref_ppm":3333,"sale_ref_n":9,"dev_pct":6,"competitors":28,"district_supply":94,"uc_share":0,"liq_rent":"середня","liq_resale":"середня","why":"Новий будинок (2026), ціна за м² найвища в добірці (+6% до медіани). Близькість до метро, про яку пише агент, не підтверджується точкою на мапі (~1,3 км) — доки адресу не уточнено, оцінка непевна.","zone":"Дружба 2","loc_precision":"орієнтовно, адреса уточнюється","confidence":"низька","broker_lo":null,"broker_hi":null,"broker_gross_lo":null,"broker_gross_hi":null,"broker_below_all":null,"broker_below_prem":null},{"n":9,"label":"№9 Надежда 2","district":"Надежда 2","type":"1 спальня + тераса","area":88,"price":224500,"ppm":2551,"source":"Явлена","ad":"https://www.yavlena.com/bg/175256","map":"https://www.google.com/maps?q=42.732452,23.299064","rent_lo":580,"rent_hi":680,"gross_lo":3.1,"gross_hi":3.6,"net_mid":2.6,"comps_n":9,"comps_med":545,"comps_p75":630,"prem_n":3,"prem_med":650,"prem_p75":799,"sale_ref_ppm":3167,"sale_ref_n":4,"dev_pct":-19,"competitors":3,"district_supply":55,"uc_share":5,"liq_rent":"середня","liq_resale":"середня","why":"Аналогів в оренді мало (9); за даними alo.bg, ставки в районі Надежда 2 близькі до середніх по Софії. Ціна на 19% нижча за медіану мебльованих — плюс для продажу; мансардні стелі — мінус (вплив не виміряно).","zone":"Надежда","loc_precision":"вулиця з опису, без номера будинку","confidence":"низька","broker_lo":null,"broker_hi":null,"broker_gross_lo":null,"broker_gross_hi":null,"broker_below_all":null,"broker_below_prem":null},{"n":10,"label":"№10 Манастирски ливади","district":"Манастирски ливади","type":"ательє, 1 спальня","area":72,"price":235000,"ppm":3264,"source":"Явлена","ad":"https://www.yavlena.com/bg/175077","map":"https://www.google.com/maps?q=42.65588,23.30046","rent_lo":640,"rent_hi":720,"gross_lo":3.3,"gross_hi":3.7,"net_mid":2.7,"comps_n":55,"comps_med":600,"comps_p75":749,"prem_n":28,"prem_med":659,"prem_p75":799,"sale_ref_ppm":3187,"sale_ref_n":29,"dev_pct":2,"competitors":68,"district_supply":144,"uc_share":0,"liq_rent":"вище середньої","liq_resale":"середня","why":"Аналогів в оренді — 55, ставка району збігається з alo.bg (644 € і 650 €). Статус «ательє» звужує коло покупців, хоча ціна на рівні звичайних апартаментів — це привід для торгу.","zone":"Манастирски ливади","loc_precision":"точка на вулиці з опису (вул. «Тодор Джебаров»), номер будинку не вказано","confidence":"середня","broker_lo":null,"broker_hi":null,"broker_gross_lo":null,"broker_gross_hi":null,"broker_below_all":null,"broker_below_prem":null},{"n":11,"label":"№11 Дианабад","district":"Дианабад","type":"1 спальня","area":63,"price":216900,"ppm":3443,"source":"Явлена","ad":"https://www.yavlena.com/bg/175024","map":"https://www.google.com/maps?q=42.654983,23.338951","rent_lo":650,"rent_hi":720,"gross_lo":3.6,"gross_hi":4.0,"net_mid":2.9,"comps_n":61,"comps_med":620,"comps_p75":700,"prem_n":22,"prem_med":662,"prem_p75":725,"sale_ref_ppm":3581,"sale_ref_n":5,"dev_pct":-4,"competitors":17,"district_supply":32,"uc_share":3,"liq_rent":"вище середньої","liq_resale":"вище середньої","why":"Ціна на 4% нижча за медіану мебльованих, конкурентів у ціновому коридорі ±15% — 17. Ставка оренди апартаментів з 1 спальнею в районі Дианабад збігається з alo.bg (650 €). Паркомісце продається окремо за 24 500 €.","zone":"Дианабад","loc_precision":"орієнтовно (точка агентства)","confidence":"середня","broker_lo":null,"broker_hi":null,"broker_gross_lo":null,"broker_gross_hi":null,"broker_below_all":null,"broker_below_prem":null}],"comps":[{"n":1,"label":"№1","zone":"Овча купел","rent":375,"area":80,"segment":"решта фонду"},{"n":1,"label":"№1","zone":"Овча купел","rent":570,"area":80,"segment":"решта фонду"},{"n":1,"label":"№1","zone":"Овча купел","rent":1100,"area":80,"segment":"решта фонду"},{"n":1,"label":"№1","zone":"Овча купел","rent":640,"area":85,"segment":"решта фонду"},{"n":1,"label":"№1","zone":"Овча купел","rent":780,"area":87,"segment":"решта фонду"},{"n":1,"label":"№1","zone":"Овча купел","rent":650,"area":90,"segment":"решта фонду"},{"n":1,"label":"№1","zone":"Овча купел","rent":769,"area":90,"segment":"решта фонду"},{"n":1,"label":"№1","zone":"Овча купел","rent":600,"area":95,"segment":"новобудова/люкс"},{"n":1,"label":"№1","zone":"Овча купел","rent":800,"area":95,"segment":"новобудова/люкс"},{"n":1,"label":"№1","zone":"Овча купел","rent":750,"area":100,"segment":"решта фонду"},{"n":1,"label":"№1","zone":"Овча купел","rent":600,"area":101,"segment":"решта фонду"},{"n":1,"label":"№1","zone":"Овча купел","rent":680,"area":105,"segment":"решта фонду"},{"n":1,"label":"№1","zone":"Овча купел","rent":850,"area":106,"segment":"решта фонду"},{"n":1,"label":"№1","zone":"Овча купел","rent":515,"area":109,"segment":"новобудова/люкс"},{"n":1,"label":"№1","zone":"Овча купел","rent":820,"area":116,"segment":"решта фонду"},{"n":1,"label":"№1","zone":"Овча купел","rent":1190,"area":120,"segment":"новобудова/люкс"},{"n":1,"label":"№1","zone":"Овча купел","rent":750,"area":80,"segment":"решта фонду"},{"n":1,"label":"№1","zone":"Овча купел","rent":800,"area":80,"segment":"решта фонду"},{"n":1,"label":"№1","zone":"Овча купел","rent":665,"area":90,"segment":"решта фонду"},{"n":1,"label":"№1","zone":"Овча купел","rent":800,"area":90,"segment":"решта фонду"},{"n":1,"label":"№1","zone":"Овча купел","rent":749,"area":95,"segment":"решта фонду"},{"n":1,"label":"№1","zone":"Овча купел","rent":720,"area":98,"segment":"решта фонду"},{"n":1,"label":"№1","zone":"Овча купел","rent":1250,"area":98,"segment":"решта фонду"},{"n":1,"label":"№1","zone":"Овча купел","rent":530,"area":99,"segment":"новобудова/люкс"},{"n":1,"label":"№1","zone":"Овча купел","rent":900,"area":100,"segment":"решта фонду"},{"n":1,"label":"№1","zone":"Овча купел","rent":665,"area":105,"segment":"новобудова/люкс"},{"n":1,"label":"№1","zone":"Овча купел","rent":715,"area":110,"segment":"решта фонду"},{"n":1,"label":"№1","zone":"Овча купел","rent":800,"area":110,"segment":"решта фонду"},{"n":1,"label":"№1","zone":"Овча купел","rent":1000,"area":116,"segment":"решта фонду"},{"n":1,"label":"№1","zone":"Овча купел","rent":700,"area":120,"segment":"решта фонду"},{"n":1,"label":"№1","zone":"Овча купел","rent":1250,"area":120,"segment":"новобудова/люкс"},{"n":1,"label":"№1","zone":"Овча купел","rent":550,"area":80,"segment":"решта фонду"},{"n":1,"label":"№1","zone":"Овча купел","rent":600,"area":80,"segment":"новобудова/люкс"},{"n":1,"label":"№1","zone":"Овча купел","rent":700,"area":80,"segment":"решта фонду"},{"n":1,"label":"№1","zone":"Овча купел","rent":1170,"area":80,"segment":"новобудова/люкс"},{"n":1,"label":"№1","zone":"Овча купел","rent":749,"area":85,"segment":"новобудова/люкс"},{"n":1,"label":"№1","zone":"Овча купел","rent":850,"area":85,"segment":"решта фонду"},{"n":1,"label":"№1","zone":"Овча купел","rent":550,"area":86,"segment":"решта фонду"},{"n":1,"label":"№1","zone":"Овча купел","rent":600,"area":88,"segment":"решта фонду"},{"n":1,"label":"№1","zone":"Овча купел","rent":650,"area":90,"segment":"решта фонду"},{"n":1,"label":"№1","zone":"Овча купел","rent":720,"area":90,"segment":"решта фонду"},{"n":1,"label":"№1","zone":"Овча купел","rent":1250,"area":91,"segment":"новобудова/люкс"},{"n":1,"label":"№1","zone":"Овча купел","rent":475,"area":100,"segment":"решта фонду"},{"n":1,"label":"№1","zone":"Овча купел","rent":550,"area":100,"segment":"новобудова/люкс"},{"n":1,"label":"№1","zone":"Овча купел","rent":700,"area":100,"segment":"решта фонду"},{"n":1,"label":"№1","zone":"Овча купел","rent":900,"area":100,"segment":"решта фонду"},{"n":1,"label":"№1","zone":"Овча купел","rent":500,"area":103,"segment":"новобудова/люкс"},{"n":1,"label":"№1","zone":"Овча купел","rent":650,"area":110,"segment":"новобудова/люкс"},{"n":1,"label":"№1","zone":"Овча купел","rent":750,"area":110,"segment":"новобудова/люкс"},{"n":1,"label":"№1","zone":"Овча купел","rent":600,"area":120,"segment":"решта фонду"},{"n":1,"label":"№1","zone":"Овча купел","rent":950,"area":80,"segment":"новобудова/люкс"},{"n":1,"label":"№1","zone":"Овча купел","rent":375,"area":85,"segment":"решта фонду"},{"n":1,"label":"№1","zone":"Овча купел","rent":670,"area":85,"segment":"решта фонду"},{"n":1,"label":"№1","zone":"Овча купел","rent":550,"area":90,"segment":"решта фонду"},{"n":1,"label":"№1","zone":"Овча купел","rent":650,"area":90,"segment":"решта фонду"},{"n":1,"label":"№1","zone":"Овча купел","rent":800,"area":95,"segment":"решта фонду"},{"n":1,"label":"№1","zone":"Овча купел","rent":600,"area":97,"segment":"решта фонду"},{"n":1,"label":"№1","zone":"Овча купел","rent":766,"area":100,"segment":"решта фонду"},{"n":1,"label":"№1","zone":"Овча купел","rent":645,"area":110,"segment":"решта фонду"},{"n":1,"label":"№1","zone":"Овча купел","rent":720,"area":85,"segment":"новобудова/люкс"},{"n":1,"label":"№1","zone":"Овча купел","rent":595,"area":110,"segment":"решта фонду"},{"n":2,"label":"№2","zone":"Подуяне","rent":550,"area":79,"segment":"решта фонду"},{"n":2,"label":"№2","zone":"Подуяне","rent":770,"area":80,"segment":"новобудова/люкс"},{"n":2,"label":"№2","zone":"Подуяне","rent":840,"area":81,"segment":"решта фонду"},{"n":2,"label":"№2","zone":"Подуяне","rent":880,"area":81,"segment":"решта фонду"},{"n":2,"label":"№2","zone":"Подуяне","rent":650,"area":85,"segment":"решта фонду"},{"n":2,"label":"№2","zone":"Подуяне","rent":1000,"area":86,"segment":"решта фонду"},{"n":2,"label":"№2","zone":"Подуяне","rent":1100,"area":86,"segment":"решта фонду"},{"n":2,"label":"№2","zone":"Подуяне","rent":550,"area":90,"segment":"решта фонду"},{"n":2,"label":"№2","zone":"Подуяне","rent":650,"area":90,"segment":"решта фонду"},{"n":2,"label":"№2","zone":"Подуяне","rent":750,"area":90,"segment":"решта фонду"},{"n":2,"label":"№2","zone":"Подуяне","rent":800,"area":90,"segment":"решта фонду"},{"n":2,"label":"№2","zone":"Подуяне","rent":900,"area":90,"segment":"решта фонду"},{"n":2,"label":"№2","zone":"Подуяне","rent":1100,"area":90,"segment":"решта фонду"},{"n":2,"label":"№2","zone":"Подуяне","rent":750,"area":97,"segment":"решта фонду"},{"n":2,"label":"№2","zone":"Подуяне","rent":900,"area":97,"segment":"новобудова/люкс"},{"n":2,"label":"№2","zone":"Подуяне","rent":600,"area":100,"segment":"новобудова/люкс"},{"n":2,"label":"№2","zone":"Подуяне","rent":700,"area":100,"segment":"решта фонду"},{"n":2,"label":"№2","zone":"Подуяне","rent":750,"area":100,"segment":"решта фонду"},{"n":2,"label":"№2","zone":"Подуяне","rent":900,"area":100,"segment":"новобудова/люкс"},{"n":2,"label":"№2","zone":"Подуяне","rent":848,"area":106,"segment":"решта фонду"},{"n":2,"label":"№2","zone":"Подуяне","rent":1200,"area":106,"segment":"решта фонду"},{"n":2,"label":"№2","zone":"Подуяне","rent":800,"area":108,"segment":"решта фонду"},{"n":2,"label":"№2","zone":"Подуяне","rent":869,"area":115,"segment":"решта фонду"},{"n":2,"label":"№2","zone":"Подуяне","rent":620,"area":80,"segment":"решта фонду"},{"n":2,"label":"№2","zone":"Подуяне","rent":700,"area":80,"segment":"решта фонду"},{"n":2,"label":"№2","zone":"Подуяне","rent":900,"area":80,"segment":"новобудова/люкс"},{"n":2,"label":"№2","zone":"Подуяне","rent":550,"area":81,"segment":"новобудова/люкс"},{"n":2,"label":"№2","zone":"Подуяне","rent":600,"area":93,"segment":"новобудова/люкс"},{"n":2,"label":"№2","zone":"Подуяне","rent":850,"area":110,"segment":"решта фонду"},{"n":2,"label":"№2","zone":"Подуяне","rent":610,"area":80,"segment":"решта фонду"},{"n":2,"label":"№2","zone":"Подуяне","rent":650,"area":80,"segment":"решта фонду"},{"n":2,"label":"№2","zone":"Подуяне","rent":749,"area":90,"segment":"новобудова/люкс"},{"n":2,"label":"№2","zone":"Подуяне","rent":550,"area":105,"segment":"решта фонду"},{"n":2,"label":"№2","zone":"Подуяне","rent":969,"area":80,"segment":"новобудова/люкс"},{"n":2,"label":"№2","zone":"Подуяне","rent":550,"area":95,"segment":"решта фонду"},{"n":3,"label":"№3","zone":"Красна поляна","rent":530,"area":90,"segment":"решта фонду"},{"n":3,"label":"№3","zone":"Красна поляна","rent":550,"area":90,"segment":"решта фонду"},{"n":3,"label":"№3","zone":"Красна поляна","rent":600,"area":90,"segment":"решта фонду"},{"n":3,"label":"№3","zone":"Красна поляна","rent":530,"area":94,"segment":"решта фонду"},{"n":3,"label":"№3","zone":"Красна поляна","rent":750,"area":95,"segment":"решта фонду"},{"n":3,"label":"№3","zone":"Красна поляна","rent":550,"area":96,"segment":"решта фонду"},{"n":3,"label":"№3","zone":"Красна поляна","rent":799,"area":100,"segment":"новобудова/люкс"},{"n":3,"label":"№3","zone":"Красна поляна","rent":850,"area":100,"segment":"решта фонду"},{"n":3,"label":"№3","zone":"Красна поляна","rent":550,"area":103,"segment":"новобудова/люкс"},{"n":3,"label":"№3","zone":"Красна поляна","rent":720,"area":106,"segment":"новобудова/люкс"},{"n":3,"label":"№3","zone":"Красна поляна","rent":1100,"area":110,"segment":"новобудова/люкс"},{"n":3,"label":"№3","zone":"Красна поляна","rent":1200,"area":110,"segment":"новобудова/люкс"},{"n":3,"label":"№3","zone":"Красна поляна","rent":620,"area":115,"segment":"решта фонду"},{"n":3,"label":"№3","zone":"Красна поляна","rent":600,"area":120,"segment":"новобудова/люкс"},{"n":3,"label":"№3","zone":"Красна поляна","rent":800,"area":120,"segment":"решта фонду"},{"n":3,"label":"№3","zone":"Красна поляна","rent":1150,"area":120,"segment":"новобудова/люкс"},{"n":3,"label":"№3","zone":"Красна поляна","rent":1190,"area":125,"segment":"новобудова/люкс"},{"n":3,"label":"№3","zone":"Красна поляна","rent":580,"area":90,"segment":"решта фонду"},{"n":3,"label":"№3","zone":"Красна поляна","rent":645,"area":90,"segment":"решта фонду"},{"n":3,"label":"№3","zone":"Красна поляна","rent":700,"area":90,"segment":"решта фонду"},{"n":3,"label":"№3","zone":"Красна поляна","rent":435,"area":97,"segment":"решта фонду"},{"n":3,"label":"№3","zone":"Красна поляна","rent":550,"area":100,"segment":"решта фонду"},{"n":3,"label":"№3","zone":"Красна поляна","rent":665,"area":90,"segment":"решта фонду"},{"n":3,"label":"№3","zone":"Красна поляна","rent":800,"area":90,"segment":"решта фонду"},{"n":3,"label":"№3","zone":"Красна поляна","rent":749,"area":95,"segment":"решта фонду"},{"n":3,"label":"№3","zone":"Красна поляна","rent":720,"area":98,"segment":"решта фонду"},{"n":3,"label":"№3","zone":"Красна поляна","rent":1250,"area":98,"segment":"решта фонду"},{"n":3,"label":"№3","zone":"Красна поляна","rent":530,"area":99,"segment":"новобудова/люкс"},{"n":3,"label":"№3","zone":"Красна поляна","rent":900,"area":100,"segment":"решта фонду"},{"n":3,"label":"№3","zone":"Красна поляна","rent":665,"area":105,"segment":"новобудова/люкс"},{"n":3,"label":"№3","zone":"Красна поляна","rent":715,"area":110,"segment":"решта фонду"},{"n":3,"label":"№3","zone":"Красна поляна","rent":800,"area":110,"segment":"решта фонду"},{"n":3,"label":"№3","zone":"Красна поляна","rent":1000,"area":116,"segment":"решта фонду"},{"n":3,"label":"№3","zone":"Красна поляна","rent":700,"area":120,"segment":"решта фонду"},{"n":3,"label":"№3","zone":"Красна поляна","rent":1250,"area":120,"segment":"новобудова/люкс"},{"n":3,"label":"№3","zone":"Красна поляна","rent":1400,"area":125,"segment":"новобудова/люкс"},{"n":3,"label":"№3","zone":"Красна поляна","rent":1200,"area":131,"segment":"новобудова/люкс"},{"n":3,"label":"№3","zone":"Красна поляна","rent":670,"area":92,"segment":"новобудова/люкс"},{"n":3,"label":"№3","zone":"Красна поляна","rent":545,"area":100,"segment":"решта фонду"},{"n":3,"label":"№3","zone":"Красна поляна","rent":700,"area":120,"segment":"решта фонду"},{"n":4,"label":"№4","zone":"Малинова долина","rent":900,"area":75,"segment":"новобудова/люкс"},{"n":4,"label":"№4","zone":"Малинова долина","rent":950,"area":75,"segment":"решта фонду"},{"n":4,"label":"№4","zone":"Малинова долина","rent":800,"area":85,"segment":"новобудова/люкс"},{"n":4,"label":"№4","zone":"Малинова долина","rent":750,"area":90,"segment":"решта фонду"},{"n":4,"label":"№4","zone":"Малинова долина","rent":950,"area":90,"segment":"новобудова/люкс"},{"n":4,"label":"№4","zone":"Малинова долина","rent":1000,"area":90,"segment":"новобудова/люкс"},{"n":4,"label":"№4","zone":"Малинова долина","rent":1100,"area":90,"segment":"новобудова/люкс"},{"n":4,"label":"№4","zone":"Малинова долина","rent":630,"area":92,"segment":"решта фонду"},{"n":4,"label":"№4","zone":"Малинова долина","rent":900,"area":92,"segment":"новобудова/люкс"},{"n":4,"label":"№4","zone":"Малинова долина","rent":500,"area":96,"segment":"решта фонду"},{"n":4,"label":"№4","zone":"Малинова долина","rent":999,"area":100,"segment":"новобудова/люкс"},{"n":4,"label":"№4","zone":"Малинова долина","rent":1000,"area":103,"segment":"новобудова/люкс"},{"n":4,"label":"№4","zone":"Малинова долина","rent":1299,"area":110,"segment":"новобудова/люкс"},{"n":5,"label":"№5","zone":"Гео Милев","rent":375,"area":55,"segment":"решта фонду"},{"n":5,"label":"№5","zone":"Гео Милев","rent":700,"area":55,"segment":"решта фонду"},{"n":5,"label":"№5","zone":"Гео Милев","rent":460,"area":56,"segment":"решта фонду"},{"n":5,"label":"№5","zone":"Гео Милев","rent":550,"area":56,"segment":"решта фонду"},{"n":5,"label":"№5","zone":"Гео Милев","rent":650,"area":56,"segment":"решта фонду"},{"n":5,"label":"№5","zone":"Гео Милев","rent":1050,"area":56,"segment":"решта фонду"},{"n":5,"label":"№5","zone":"Гео Милев","rent":475,"area":58,"segment":"решта фонду"},{"n":5,"label":"№5","zone":"Гео Милев","rent":500,"area":60,"segment":"решта фонду"},{"n":5,"label":"№5","zone":"Гео Милев","rent":520,"area":60,"segment":"решта фонду"},{"n":5,"label":"№5","zone":"Гео Милев","rent":599,"area":60,"segment":"новобудова/люкс"},{"n":5,"label":"№5","zone":"Гео Милев","rent":650,"area":60,"segment":"решта фонду"},{"n":5,"label":"№5","zone":"Гео Милев","rent":550,"area":65,"segment":"новобудова/люкс"},{"n":5,"label":"№5","zone":"Гео Милев","rent":620,"area":65,"segment":"новобудова/люкс"},{"n":5,"label":"№5","zone":"Гео Милев","rent":650,"area":65,"segment":"решта фонду"},{"n":5,"label":"№5","zone":"Гео Милев","rent":670,"area":65,"segment":"решта фонду"},{"n":5,"label":"№5","zone":"Гео Милев","rent":600,"area":67,"segment":"новобудова/люкс"},{"n":5,"label":"№5","zone":"Гео Милев","rent":500,"area":70,"segment":"решта фонду"},{"n":5,"label":"№5","zone":"Гео Милев","rent":610,"area":70,"segment":"решта фонду"},{"n":5,"label":"№5","zone":"Гео Милев","rent":600,"area":73,"segment":"новобудова/люкс"},{"n":5,"label":"№5","zone":"Гео Милев","rent":650,"area":73,"segment":"решта фонду"},{"n":5,"label":"№5","zone":"Гео Милев","rent":580,"area":75,"segment":"решта фонду"},{"n":5,"label":"№5","zone":"Гео Милев","rent":450,"area":76,"segment":"решта фонду"},{"n":5,"label":"№5","zone":"Гео Милев","rent":410,"area":78,"segment":"решта фонду"},{"n":5,"label":"№5","zone":"Гео Милев","rent":475,"area":78,"segment":"новобудова/люкс"},{"n":5,"label":"№5","zone":"Гео Милев","rent":580,"area":78,"segment":"решта фонду"},{"n":5,"label":"№5","zone":"Гео Милев","rent":1199,"area":80,"segment":"новобудова/люкс"},{"n":5,"label":"№5","zone":"Гео Милев","rent":699,"area":81,"segment":"решта фонду"},{"n":6,"label":"№6","zone":"Студентски град","rent":500,"area":57,"segment":"решта фонду"},{"n":6,"label":"№6","zone":"Студентски град","rent":390,"area":60,"segment":"новобудова/люкс"},{"n":6,"label":"№6","zone":"Студентски град","rent":440,"area":60,"segment":"решта фонду"},{"n":6,"label":"№6","zone":"Студентски град","rent":480,"area":60,"segment":"решта фонду"},{"n":6,"label":"№6","zone":"Студентски град","rent":500,"area":60,"segment":"новобудова/люкс"},{"n":6,"label":"№6","zone":"Студентски град","rent":649,"area":60,"segment":"новобудова/люкс"},{"n":6,"label":"№6","zone":"Студентски град","rent":683,"area":60,"segment":"решта фонду"},{"n":6,"label":"№6","zone":"Студентски град","rent":749,"area":60,"segment":"решта фонду"},{"n":6,"label":"№6","zone":"Студентски град","rent":800,"area":60,"segment":"новобудова/люкс"},{"n":6,"label":"№6","zone":"Студентски град","rent":550,"area":61,"segment":"решта фонду"},{"n":6,"label":"№6","zone":"Студентски град","rent":450,"area":63,"segment":"новобудова/люкс"},{"n":6,"label":"№6","zone":"Студентски град","rent":620,"area":63,"segment":"решта фонду"},{"n":6,"label":"№6","zone":"Студентски град","rent":700,"area":63,"segment":"решта фонду"},{"n":6,"label":"№6","zone":"Студентски град","rent":400,"area":65,"segment":"решта фонду"},{"n":6,"label":"№6","zone":"Студентски град","rent":500,"area":65,"segment":"решта фонду"},{"n":6,"label":"№6","zone":"Студентски град","rent":569,"area":65,"segment":"решта фонду"},{"n":6,"label":"№6","zone":"Студентски град","rent":590,"area":65,"segment":"решта фонду"},{"n":6,"label":"№6","zone":"Студентски град","rent":649,"area":65,"segment":"решта фонду"},{"n":6,"label":"№6","zone":"Студентски град","rent":770,"area":65,"segment":"новобудова/люкс"},{"n":6,"label":"№6","zone":"Студентски град","rent":800,"area":65,"segment":"решта фонду"},{"n":6,"label":"№6","zone":"Студентски град","rent":1300,"area":65,"segment":"решта фонду"},{"n":6,"label":"№6","zone":"Студентски град","rent":1000,"area":66,"segment":"новобудова/люкс"},{"n":6,"label":"№6","zone":"Студентски град","rent":500,"area":70,"segment":"новобудова/люкс"},{"n":6,"label":"№6","zone":"Студентски град","rent":537,"area":70,"segment":"решта фонду"},{"n":6,"label":"№6","zone":"Студентски град","rent":600,"area":70,"segment":"новобудова/люкс"},{"n":6,"label":"№6","zone":"Студентски град","rent":649,"area":70,"segment":"новобудова/люкс"},{"n":6,"label":"№6","zone":"Студентски град","rent":675,"area":70,"segment":"новобудова/люкс"},{"n":6,"label":"№6","zone":"Студентски град","rent":740,"area":70,"segment":"новобудова/люкс"},{"n":6,"label":"№6","zone":"Студентски град","rent":819,"area":70,"segment":"новобудова/люкс"},{"n":6,"label":"№6","zone":"Студентски град","rent":700,"area":71,"segment":"новобудова/люкс"},{"n":6,"label":"№6","zone":"Студентски град","rent":900,"area":71,"segment":"решта фонду"},{"n":6,"label":"№6","zone":"Студентски град","rent":400,"area":74,"segment":"решта фонду"},{"n":6,"label":"№6","zone":"Студентски град","rent":650,"area":74,"segment":"решта фонду"},{"n":6,"label":"№6","zone":"Студентски град","rent":680,"area":74,"segment":"новобудова/люкс"},{"n":6,"label":"№6","zone":"Студентски град","rent":450,"area":75,"segment":"новобудова/люкс"},{"n":6,"label":"№6","zone":"Студентски град","rent":465,"area":75,"segment":"решта фонду"},{"n":6,"label":"№6","zone":"Студентски град","rent":600,"area":75,"segment":"решта фонду"},{"n":6,"label":"№6","zone":"Студентски град","rent":725,"area":75,"segment":"новобудова/люкс"},{"n":6,"label":"№6","zone":"Студентски град","rent":799,"area":75,"segment":"решта фонду"},{"n":6,"label":"№6","zone":"Студентски град","rent":700,"area":78,"segment":"решта фонду"},{"n":6,"label":"№6","zone":"Студентски град","rent":600,"area":80,"segment":"новобудова/люкс"},{"n":6,"label":"№6","zone":"Студентски град","rent":500,"area":81,"segment":"новобудова/люкс"},{"n":7,"label":"№7","zone":"Малинова долина","rent":620,"area":51,"segment":"решта фонду"},{"n":7,"label":"№7","zone":"Малинова долина","rent":700,"area":55,"segment":"решта фонду"},{"n":7,"label":"№7","zone":"Малинова долина","rent":799,"area":55,"segment":"новобудова/люкс"},{"n":7,"label":"№7","zone":"Малинова долина","rent":600,"area":57,"segment":"решта фонду"},{"n":7,"label":"№7","zone":"Малинова долина","rent":700,"area":58,"segment":"решта фонду"},{"n":7,"label":"№7","zone":"Малинова долина","rent":900,"area":59,"segment":"новобудова/люкс"},{"n":7,"label":"№7","zone":"Малинова долина","rent":550,"area":60,"segment":"решта фонду"},{"n":7,"label":"№7","zone":"Малинова долина","rent":650,"area":60,"segment":"новобудова/люкс"},{"n":7,"label":"№7","zone":"Малинова долина","rent":725,"area":60,"segment":"новобудова/люкс"},{"n":7,"label":"№7","zone":"Малинова долина","rent":570,"area":61,"segment":"решта фонду"},{"n":7,"label":"№7","zone":"Малинова долина","rent":819,"area":61,"segment":"решта фонду"},{"n":7,"label":"№7","zone":"Малинова долина","rent":550,"area":65,"segment":"решта фонду"},{"n":7,"label":"№7","zone":"Малинова долина","rent":600,"area":65,"segment":"решта фонду"},{"n":7,"label":"№7","zone":"Малинова долина","rent":649,"area":65,"segment":"решта фонду"},{"n":7,"label":"№7","zone":"Малинова долина","rent":729,"area":65,"segment":"новобудова/люкс"},{"n":7,"label":"№7","zone":"Малинова долина","rent":799,"area":65,"segment":"решта фонду"},{"n":7,"label":"№7","zone":"Малинова долина","rent":1000,"area":65,"segment":"новобудова/люкс"},{"n":7,"label":"№7","zone":"Малинова долина","rent":375,"area":68,"segment":"новобудова/люкс"},{"n":7,"label":"№7","zone":"Малинова долина","rent":700,"area":68,"segment":"новобудова/люкс"},{"n":7,"label":"№7","zone":"Малинова долина","rent":789,"area":68,"segment":"решта фонду"},{"n":7,"label":"№7","zone":"Малинова долина","rent":650,"area":70,"segment":"новобудова/люкс"},{"n":7,"label":"№7","zone":"Малинова долина","rent":749,"area":70,"segment":"решта фонду"},{"n":7,"label":"№7","zone":"Малинова долина","rent":850,"area":70,"segment":"решта фонду"},{"n":7,"label":"№7","zone":"Малинова долина","rent":599,"area":72,"segment":"новобудова/люкс"},{"n":7,"label":"№7","zone":"Малинова долина","rent":800,"area":73,"segment":"новобудова/люкс"},{"n":7,"label":"№7","zone":"Малинова долина","rent":755,"area":75,"segment":"новобудова/люкс"},{"n":8,"label":"№8","zone":"Дружба 2","rent":550,"area":55,"segment":"новобудова/люкс"},{"n":8,"label":"№8","zone":"Дружба 2","rent":600,"area":55,"segment":"решта фонду"},{"n":8,"label":"№8","zone":"Дружба 2","rent":700,"area":55,"segment":"решта фонду"},{"n":8,"label":"№8","zone":"Дружба 2","rent":750,"area":55,"segment":"новобудова/люкс"},{"n":8,"label":"№8","zone":"Дружба 2","rent":800,"area":55,"segment":"новобудова/люкс"},{"n":8,"label":"№8","zone":"Дружба 2","rent":440,"area":56,"segment":"решта фонду"},{"n":8,"label":"№8","zone":"Дружба 2","rent":520,"area":57,"segment":"решта фонду"},{"n":8,"label":"№8","zone":"Дружба 2","rent":360,"area":58,"segment":"решта фонду"},{"n":8,"label":"№8","zone":"Дружба 2","rent":400,"area":58,"segment":"решта фонду"},{"n":8,"label":"№8","zone":"Дружба 2","rent":460,"area":59,"segment":"решта фонду"},{"n":8,"label":"№8","zone":"Дружба 2","rent":500,"area":60,"segment":"решта фонду"},{"n":8,"label":"№8","zone":"Дружба 2","rent":550,"area":60,"segment":"решта фонду"},{"n":8,"label":"№8","zone":"Дружба 2","rent":650,"area":60,"segment":"новобудова/люкс"},{"n":8,"label":"№8","zone":"Дружба 2","rent":700,"area":60,"segment":"новобудова/люкс"},{"n":8,"label":"№8","zone":"Дружба 2","rent":949,"area":60,"segment":"решта фонду"},{"n":8,"label":"№8","zone":"Дружба 2","rent":450,"area":63,"segment":"решта фонду"},{"n":8,"label":"№8","zone":"Дружба 2","rent":750,"area":63,"segment":"решта фонду"},{"n":8,"label":"№8","zone":"Дружба 2","rent":600,"area":65,"segment":"решта фонду"},{"n":8,"label":"№8","zone":"Дружба 2","rent":645,"area":65,"segment":"решта фонду"},{"n":8,"label":"№8","zone":"Дружба 2","rent":720,"area":65,"segment":"новобудова/люкс"},{"n":8,"label":"№8","zone":"Дружба 2","rent":375,"area":66,"segment":"новобудова/люкс"},{"n":8,"label":"№8","zone":"Дружба 2","rent":480,"area":67,"segment":"решта фонду"},{"n":8,"label":"№8","zone":"Дружба 2","rent":650,"area":70,"segment":"новобудова/люкс"},{"n":8,"label":"№8","zone":"Дружба 2","rent":900,"area":73,"segment":"новобудова/люкс"},{"n":8,"label":"№8","zone":"Дружба 2","rent":450,"area":75,"segment":"решта фонду"},{"n":8,"label":"№8","zone":"Дружба 2","rent":545,"area":75,"segment":"решта фонду"},{"n":8,"label":"№8","zone":"Дружба 2","rent":600,"area":75,"segment":"решта фонду"},{"n":8,"label":"№8","zone":"Дружба 2","rent":700,"area":75,"segment":"новобудова/люкс"},{"n":8,"label":"№8","zone":"Дружба 2","rent":750,"area":75,"segment":"новобудова/люкс"},{"n":8,"label":"№8","zone":"Дружба 2","rent":475,"area":77,"segment":"новобудова/люкс"},{"n":8,"label":"№8","zone":"Дружба 2","rent":649,"area":77,"segment":"новобудова/люкс"},{"n":9,"label":"№9","zone":"Надежда","rent":525,"area":73,"segment":"решта фонду"},{"n":9,"label":"№9","zone":"Надежда","rent":630,"area":75,"segment":"решта фонду"},{"n":9,"label":"№9","zone":"Надежда","rent":650,"area":75,"segment":"новобудова/люкс"},{"n":9,"label":"№9","zone":"Надежда","rent":610,"area":79,"segment":"решта фонду"},{"n":9,"label":"№9","zone":"Надежда","rent":450,"area":84,"segment":"решта фонду"},{"n":9,"label":"№9","zone":"Надежда","rent":799,"area":85,"segment":"новобудова/люкс"},{"n":9,"label":"№9","zone":"Надежда","rent":425,"area":75,"segment":"решта фонду"},{"n":9,"label":"№9","zone":"Надежда","rent":500,"area":78,"segment":"решта фонду"},{"n":9,"label":"№9","zone":"Надежда","rent":545,"area":103,"segment":"новобудова/люкс"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":460,"area":58,"segment":"новобудова/люкс"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":600,"area":58,"segment":"новобудова/люкс"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":400,"area":60,"segment":"новобудова/люкс"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":500,"area":60,"segment":"решта фонду"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":520,"area":60,"segment":"решта фонду"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":550,"area":60,"segment":"решта фонду"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":580,"area":60,"segment":"решта фонду"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":625,"area":60,"segment":"новобудова/люкс"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":669,"area":60,"segment":"новобудова/люкс"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":690,"area":60,"segment":"новобудова/люкс"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":720,"area":60,"segment":"решта фонду"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":799,"area":60,"segment":"новобудова/люкс"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":850,"area":60,"segment":"новобудова/люкс"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":900,"area":60,"segment":"новобудова/люкс"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":999,"area":60,"segment":"новобудова/люкс"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":480,"area":62,"segment":"новобудова/люкс"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":600,"area":62,"segment":"решта фонду"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":500,"area":63,"segment":"решта фонду"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":565,"area":64,"segment":"решта фонду"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":395,"area":65,"segment":"решта фонду"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":450,"area":65,"segment":"новобудова/люкс"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":470,"area":65,"segment":"решта фонду"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":640,"area":65,"segment":"решта фонду"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":685,"area":65,"segment":"решта фонду"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":749,"area":65,"segment":"новобудова/люкс"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":500,"area":66,"segment":"решта фонду"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":575,"area":67,"segment":"новобудова/люкс"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":600,"area":67,"segment":"новобудова/люкс"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":775,"area":67,"segment":"новобудова/люкс"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":900,"area":67,"segment":"решта фонду"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":1000,"area":67,"segment":"новобудова/люкс"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":670,"area":68,"segment":"новобудова/люкс"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":425,"area":70,"segment":"решта фонду"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":450,"area":70,"segment":"решта фонду"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":495,"area":70,"segment":"новобудова/люкс"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":550,"area":70,"segment":"новобудова/люкс"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":600,"area":70,"segment":"новобудова/люкс"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":699,"area":70,"segment":"новобудова/люкс"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":800,"area":70,"segment":"решта фонду"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":660,"area":72,"segment":"решта фонду"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":500,"area":73,"segment":"решта фонду"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":600,"area":73,"segment":"решта фонду"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":720,"area":73,"segment":"новобудова/люкс"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":800,"area":73,"segment":"решта фонду"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":560,"area":74,"segment":"решта фонду"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":750,"area":75,"segment":"решта фонду"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":850,"area":76,"segment":"новобудова/люкс"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":500,"area":77,"segment":"новобудова/люкс"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":550,"area":77,"segment":"решта фонду"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":500,"area":80,"segment":"решта фонду"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":649,"area":80,"segment":"новобудова/люкс"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":699,"area":80,"segment":"решта фонду"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":850,"area":80,"segment":"новобудова/люкс"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":1200,"area":83,"segment":"решта фонду"},{"n":10,"label":"№10","zone":"Манастирски ливади","rent":590,"area":86,"segment":"новобудова/люкс"},{"n":11,"label":"№11","zone":"Дианабад","rent":475,"area":53,"segment":"решта фонду"},{"n":11,"label":"№11","zone":"Дианабад","rent":680,"area":53,"segment":"новобудова/люкс"},{"n":11,"label":"№11","zone":"Дианабад","rent":400,"area":54,"segment":"решта фонду"},{"n":11,"label":"№11","zone":"Дианабад","rent":620,"area":55,"segment":"решта фонду"},{"n":11,"label":"№11","zone":"Дианабад","rent":530,"area":58,"segment":"решта фонду"},{"n":11,"label":"№11","zone":"Дианабад","rent":580,"area":60,"segment":"новобудова/люкс"},{"n":11,"label":"№11","zone":"Дианабад","rent":650,"area":60,"segment":"новобудова/люкс"},{"n":11,"label":"№11","zone":"Дианабад","rent":700,"area":60,"segment":"решта фонду"},{"n":11,"label":"№11","zone":"Дианабад","rent":500,"area":64,"segment":"решта фонду"},{"n":11,"label":"№11","zone":"Дианабад","rent":450,"area":65,"segment":"решта фонду"},{"n":11,"label":"№11","zone":"Дианабад","rent":720,"area":65,"segment":"решта фонду"},{"n":11,"label":"№11","zone":"Дианабад","rent":750,"area":65,"segment":"решта фонду"},{"n":11,"label":"№11","zone":"Дианабад","rent":799,"area":65,"segment":"решта фонду"},{"n":11,"label":"№11","zone":"Дианабад","rent":425,"area":70,"segment":"решта фонду"},{"n":11,"label":"№11","zone":"Дианабад","rent":800,"area":70,"segment":"решта фонду"},{"n":11,"label":"№11","zone":"Дианабад","rent":545,"area":75,"segment":"решта фонду"},{"n":11,"label":"№11","zone":"Дианабад","rent":500,"area":54,"segment":"решта фонду"},{"n":11,"label":"№11","zone":"Дианабад","rent":450,"area":55,"segment":"решта фонду"},{"n":11,"label":"№11","zone":"Дианабад","rent":520,"area":55,"segment":"решта фонду"},{"n":11,"label":"№11","zone":"Дианабад","rent":550,"area":55,"segment":"решта фонду"},{"n":11,"label":"№11","zone":"Дианабад","rent":630,"area":55,"segment":"новобудова/люкс"},{"n":11,"label":"№11","zone":"Дианабад","rent":680,"area":55,"segment":"новобудова/люкс"},{"n":11,"label":"№11","zone":"Дианабад","rent":500,"area":57,"segment":"решта фонду"},{"n":11,"label":"№11","zone":"Дианабад","rent":390,"area":60,"segment":"новобудова/люкс"},{"n":11,"label":"№11","zone":"Дианабад","rent":440,"area":60,"segment":"решта фонду"},{"n":11,"label":"№11","zone":"Дианабад","rent":480,"area":60,"segment":"решта фонду"},{"n":11,"label":"№11","zone":"Дианабад","rent":500,"area":60,"segment":"новобудова/люкс"},{"n":11,"label":"№11","zone":"Дианабад","rent":649,"area":60,"segment":"новобудова/люкс"},{"n":11,"label":"№11","zone":"Дианабад","rent":683,"area":60,"segment":"решта фонду"},{"n":11,"label":"№11","zone":"Дианабад","rent":749,"area":60,"segment":"решта фонду"},{"n":11,"label":"№11","zone":"Дианабад","rent":800,"area":60,"segment":"новобудова/люкс"},{"n":11,"label":"№11","zone":"Дианабад","rent":550,"area":61,"segment":"решта фонду"},{"n":11,"label":"№11","zone":"Дианабад","rent":450,"area":63,"segment":"новобудова/люкс"},{"n":11,"label":"№11","zone":"Дианабад","rent":620,"area":63,"segment":"решта фонду"},{"n":11,"label":"№11","zone":"Дианабад","rent":700,"area":63,"segment":"решта фонду"},{"n":11,"label":"№11","zone":"Дианабад","rent":400,"area":65,"segment":"решта фонду"},{"n":11,"label":"№11","zone":"Дианабад","rent":500,"area":65,"segment":"решта фонду"},{"n":11,"label":"№11","zone":"Дианабад","rent":569,"area":65,"segment":"решта фонду"},{"n":11,"label":"№11","zone":"Дианабад","rent":590,"area":65,"segment":"решта фонду"},{"n":11,"label":"№11","zone":"Дианабад","rent":649,"area":65,"segment":"решта фонду"},{"n":11,"label":"№11","zone":"Дианабад","rent":770,"area":65,"segment":"новобудова/люкс"},{"n":11,"label":"№11","zone":"Дианабад","rent":800,"area":65,"segment":"решта фонду"},{"n":11,"label":"№11","zone":"Дианабад","rent":1300,"area":65,"segment":"решта фонду"},{"n":11,"label":"№11","zone":"Дианабад","rent":1000,"area":66,"segment":"новобудова/люкс"},{"n":11,"label":"№11","zone":"Дианабад","rent":500,"area":70,"segment":"новобудова/люкс"},{"n":11,"label":"№11","zone":"Дианабад","rent":537,"area":70,"segment":"решта фонду"},{"n":11,"label":"№11","zone":"Дианабад","rent":600,"area":70,"segment":"новобудова/люкс"},{"n":11,"label":"№11","zone":"Дианабад","rent":649,"area":70,"segment":"новобудова/люкс"},{"n":11,"label":"№11","zone":"Дианабад","rent":675,"area":70,"segment":"новобудова/люкс"},{"n":11,"label":"№11","zone":"Дианабад","rent":740,"area":70,"segment":"новобудова/люкс"},{"n":11,"label":"№11","zone":"Дианабад","rent":819,"area":70,"segment":"новобудова/люкс"},{"n":11,"label":"№11","zone":"Дианабад","rent":700,"area":71,"segment":"новобудова/люкс"},{"n":11,"label":"№11","zone":"Дианабад","rent":900,"area":71,"segment":"решта фонду"},{"n":11,"label":"№11","zone":"Дианабад","rent":400,"area":74,"segment":"решта фонду"},{"n":11,"label":"№11","zone":"Дианабад","rent":650,"area":74,"segment":"решта фонду"},{"n":11,"label":"№11","zone":"Дианабад","rent":680,"area":74,"segment":"новобудова/люкс"},{"n":11,"label":"№11","zone":"Дианабад","rent":450,"area":75,"segment":"новобудова/люкс"},{"n":11,"label":"№11","zone":"Дианабад","rent":465,"area":75,"segment":"решта фонду"},{"n":11,"label":"№11","zone":"Дианабад","rent":600,"area":75,"segment":"решта фонду"},{"n":11,"label":"№11","zone":"Дианабад","rent":725,"area":75,"segment":"новобудова/люкс"},{"n":11,"label":"№11","zone":"Дианабад","rent":799,"area":75,"segment":"решта фонду"}],"districts":[{"district":"Студентски град","benchmark":false,"rent1_med":600,"rent1_n":63,"rent1_ppm":9.5,"sale1_med":206662,"sale1_n":20,"yield1":3.5,"rent2_med":800,"rent2_n":45,"sale2_med":230000,"sale2_n":5,"yield2":4.2,"supply":144,"uc_share":8,"ppm_all":2790,"zone":"Студентски град","note":""},{"district":"Малинова долина","benchmark":false,"rent1_med":700,"rent1_n":36,"rent1_ppm":10.9,"sale1_med":220000,"sale1_n":34,"yield1":3.8,"rent2_med":900,"rent2_n":19,"sale2_med":290000,"sale2_n":13,"yield2":3.7,"supply":1188,"uc_share":51,"ppm_all":2338,"zone":"Малинова долина","note":""},{"district":"Надежда 1–2","benchmark":false,"rent1_med":525,"rent1_n":31,"rent1_ppm":8.1,"sale1_med":175000,"sale1_n":5,"yield1":3.6,"rent2_med":749,"rent2_n":11,"sale2_med":228400,"sale2_n":4,"yield2":null,"supply":155,"uc_share":11,"ppm_all":2324,"zone":"Надежда","note":""},{"district":"Овча купел (все)","benchmark":false,"rent1_med":570,"rent1_n":86,"rent1_ppm":8.8,"sale1_med":190000,"sale1_n":19,"yield1":3.6,"rent2_med":650,"rent2_n":34,"sale2_med":296000,"sale2_n":15,"yield2":2.6,"supply":1148,"uc_share":37,"ppm_all":2195,"zone":"Овча купел","note":""},{"district":"Подуяне/Х.Димитър/Сухата р.","benchmark":false,"rent1_med":500,"rent1_n":44,"rent1_ppm":8.6,"sale1_med":173000,"sale1_n":9,"yield1":3.5,"rent2_med":650,"rent2_n":17,"sale2_med":218500,"sale2_n":6,"yield2":3.6,"supply":242,"uc_share":5,"ppm_all":2562,"zone":"Подуяне","note":""},{"district":"Дружба 2","benchmark":false,"rent1_med":600,"rent1_n":38,"rent1_ppm":9.2,"sale1_med":238000,"sale1_n":9,"yield1":3.0,"rent2_med":665,"rent2_n":14,"sale2_med":343000,"sale2_n":3,"yield2":null,"supply":220,"uc_share":0,"ppm_all":2318,"zone":"Дружба 2","note":""},{"district":"Дианабад","benchmark":false,"rent1_med":650,"rent1_n":20,"rent1_ppm":11.2,"sale1_med":239000,"sale1_n":5,"yield1":3.3,"rent2_med":1200,"rent2_n":20,"sale2_med":339000,"sale2_n":3,"yield2":null,"supply":106,"uc_share":8,"ppm_all":3248,"zone":"Дианабад","note":"змішаний ринок: близько половини оголошень — один преміальний комплекс"},{"district":"Гео Милев","benchmark":false,"rent1_med":594,"rent1_n":38,"rent1_ppm":8.9,"sale1_med":236000,"sale1_n":9,"yield1":3.0,"rent2_med":800,"rent2_n":30,"sale2_med":260000,"sale2_n":8,"yield2":3.7,"supply":46,"uc_share":0,"ppm_all":3285,"zone":"Гео Милев","note":""},{"district":"Манастирски ливади","benchmark":false,"rent1_med":644,"rent1_n":78,"rent1_ppm":9.9,"sale1_med":240000,"sale1_n":29,"yield1":3.2,"rent2_med":850,"rent2_n":52,"sale2_med":374400,"sale2_n":38,"yield2":2.7,"supply":446,"uc_share":0,"ppm_all":2693,"zone":"Манастирски ливади","note":""},{"district":"Красна поляна/Разсадника","benchmark":false,"rent1_med":500,"rent1_n":14,"rent1_ppm":9.0,"sale1_med":127500,"sale1_n":2,"yield1":null,"rent2_med":612,"rent2_n":8,"sale2_med":270500,"sale2_n":8,"yield2":2.7,"supply":94,"uc_share":1,"ppm_all":2460,"zone":"Красна поляна","note":""},{"district":"Кръстова вада","benchmark":true,"rent1_med":722,"rent1_n":46,"rent1_ppm":10.7,"sale1_med":280000,"sale1_n":21,"yield1":3.1,"rent2_med":1100,"rent2_n":37,"sale2_med":380000,"sale2_n":29,"yield2":3.5,"supply":441,"uc_share":27,"ppm_all":3182,"zone":"Кръстова вада","note":""},{"district":"Лозенец","benchmark":true,"rent1_med":670,"rent1_n":69,"rent1_ppm":9.5,"sale1_med":270000,"sale1_n":7,"yield1":3.0,"rent2_med":950,"rent2_n":70,"sale2_med":438000,"sale2_n":29,"yield2":2.6,"supply":217,"uc_share":18,"ppm_all":3797,"zone":"Лозенец","note":""},{"district":"Младост 4","benchmark":true,"rent1_med":638,"rent1_n":50,"rent1_ppm":9.6,"sale1_med":249900,"sale1_n":3,"yield1":null,"rent2_med":658,"rent2_n":14,"sale2_med":340000,"sale2_n":7,"yield2":2.3,"supply":355,"uc_share":6,"ppm_all":2500,"zone":"Младост 4","note":""},{"district":"Център","benchmark":true,"rent1_med":650,"rent1_n":115,"rent1_ppm":9.6,"sale1_med":266900,"sale1_n":64,"yield1":2.9,"rent2_med":910,"rent2_n":140,"sale2_med":367500,"sale2_n":88,"yield2":3.0,"supply":799,"uc_share":11,"ppm_all":3467,"zone":"Център","note":""}],"city":[{"key":"rent_listings","label":"Оголошень про оренду","value":6350,"unit":"шт.","period":"12.10.2026"},{"key":"rent_unique","label":"Оголошень про оренду після видалення повторів","value":4896,"unit":"шт.","period":"12.10.2026"},{"key":"sale_listings","label":"Оголошень про продаж","value":12139,"unit":"шт.","period":"12.10.2026"},{"key":"rent_studio","label":"Оренда студії з меблями (цегла), медіана","value":430,"unit":"€/міс.","period":"12.10.2026"},{"key":"rent_1br","label":"Оренда, 1 спальня з меблями (цегла), медіана","value":600,"unit":"€/міс.","period":"12.10.2026"},{"key":"rent_2br","label":"Оренда, 2 спальні з меблями (цегла), медіана","value":800,"unit":"€/міс.","period":"12.10.2026"},{"key":"furnished_share","label":"Частка мебльованих в оренді","value":88,"unit":"%","period":"12.10.2026"},{"key":"sale_ppm_all","label":"Продаж: медіана всіх квартир","value":2559,"unit":"€/м²","period":"12.10.2026"},{"key":"sale_ppm_rf","label":"Продаж: готові, з меблями, цегла","value":3219,"unit":"€/м²","period":"12.10.2026"},{"key":"uc_share","label":"Частка оголошень про продаж у будинках, що будуються (ознака — опалення «прокарва се»)","value":25,"unit":"%","period":"12.10.2026"},{"key":"sale_1br","label":"Ціна, 1 спальня (готові, з меблями, цегла), медіана","value":225500,"unit":"€","period":"12.10.2026"},{"key":"sale_2br","label":"Ціна, 2 спальні (готові, з меблями, цегла), медіана","value":335000,"unit":"€","period":"12.10.2026"},{"key":"yield_1br","label":"Валова дохідність, 1 спальня (медіани, з меблями, цегла)","value":3.2,"unit":"%","period":"12.10.2026"},{"key":"yield_2br","label":"Валова дохідність, 2 спальні (медіани, з меблями, цегла)","value":2.9,"unit":"%","period":"12.10.2026"},{"key":"newlux_share","label":"Частка новобудов/люксу серед аналогів","value":37,"unit":"%","period":"12.10.2026"},{"key":"detail_pages","label":"Прочитано карток аналогів","value":1317,"unit":"шт.","period":"12.10.2026"}],"crosscheck":[{"district":"Студентски град","zone":"Студентски град","benchmark":false,"our1":600,"alo1":600,"diff1":0,"our2":800,"alo2":800,"diff2":0},{"district":"Малинова долина","zone":"Малинова долина","benchmark":false,"our1":700,"alo1":700,"diff1":0,"our2":900,"alo2":950,"diff2":-5},{"district":"Надежда 1–2","zone":"Надежда","benchmark":false,"our1":525,"alo1":575,"diff1":-9,"our2":749,"alo2":780,"diff2":-4},{"district":"Овча купел (все)","zone":"Овча купел","benchmark":false,"our1":570,"alo1":600,"diff1":-5,"our2":650,"alo2":700,"diff2":-7},{"district":"Подуяне/Х.Димитър/Сухата р.","zone":"Подуяне","benchmark":false,"our1":500,"alo1":599,"diff1":-17,"our2":650,"alo2":650,"diff2":0},{"district":"Дружба 2","zone":"Дружба 2","benchmark":false,"our1":600,"alo1":700,"diff1":-14,"our2":665,"alo2":738,"diff2":-10},{"district":"Дианабад","zone":"Дианабад","benchmark":false,"our1":650,"alo1":650,"diff1":0,"our2":1200,"alo2":725,"diff2":66},{"district":"Гео Милев","zone":"Гео Милев","benchmark":false,"our1":594,"alo1":630,"diff1":-6,"our2":800,"alo2":790,"diff2":1},{"district":"Манастирски ливади","zone":"Манастирски ливади","benchmark":false,"our1":644,"alo1":650,"diff1":-1,"our2":850,"alo2":850,"diff2":0},{"district":"Красна поляна/Разсадника","zone":"Красна поляна","benchmark":false,"our1":500,"alo1":515,"diff1":-3,"our2":612,"alo2":680,"diff2":-10},{"district":"Кръстова вада","zone":"Кръстова вада","benchmark":true,"our1":722,"alo1":750,"diff1":-4,"our2":1100,"alo2":1225,"diff2":-10},{"district":"Лозенец","zone":"Лозенец","benchmark":true,"our1":670,"alo1":699,"diff1":-4,"our2":950,"alo2":990,"diff2":-4},{"district":"Младост 4","zone":"Младост 4","benchmark":true,"our1":638,"alo1":649,"diff1":-2,"our2":658,"alo2":850,"diff2":-23},{"district":"Център","zone":"Център","benchmark":true,"our1":650,"alo1":700,"diff1":-7,"our2":910,"alo2":900,"diff2":1}],"assumptions":[{"key":"growth_lo","label":"Зростання оренди за 12 міс., обережний сценарій","value":3,"unit":"%","status":"припущення: ринок сповільнюється, ціни продажу на плато"},{"key":"growth_hi","label":"Зростання оренди за 12 міс., базовий сценарій","value":5,"unit":"%","status":"прогноз Best Place на 2026 рік"},{"key":"purchase_costs","label":"Витрати на купівлю (податок, нотаріус, реєстрація)","value":4,"unit":"% від ціни","status":"оцінка, уточнити в юриста"},{"key":"vacancy","label":"Простій між орендарями","value":1,"unit":"міс. на рік","status":"припущення"},{"key":"rent_tax","label":"Податок на дохід від оренди (10% із вирахуванням 10% витрат)","value":9,"unit":"% від оренди","status":"ЗДДФЛ (болгарський податок на доходи фізосіб), ефективна ставка"},{"key":"upkeep","label":"Внески на утримання будинку та страхування","value":300,"unit":"€ на рік","status":"припущення"},{"key":"furn_5","label":"Докупівля меблів, №5","value":3000,"unit":"€","status":"оцінка"},{"key":"furn_7","label":"Кухня та меблі, №7","value":12000,"unit":"€","status":"оцінка"},{"key":"asking_gap","label":"Звичайна знижка в угоді від ціни оголошення","value":"5–10","unit":"%","status":"оцінка за ринковою практикою, не вимірювання"},{"key":"area_band","label":"Діапазон площі для аналогів","value":"±20","unit":"%","status":"метод"},{"key":"price_band","label":"Ціновий коридор для підрахунку конкурентів","value":"±15","unit":"%","status":"метод"}],"external":[{"key":"rent_growth_2025","label":"Зростання оренди в Софії за 2025 рік","value":"+20%","source":"Best Place, I кв. 2026","url":"https://bestplace.bg/pazarni-obzori/rental-market-q1-2026/"},{"key":"rent_fcst_2026","label":"Прогноз зростання оренди на 2026 рік","value":"близько +5%","source":"Best Place, I кв. 2026","url":"https://bestplace.bg/pazarni-obzori/rental-market-q1-2026/"},{"key":"yield_range","label":"Валова дохідність по Софії","value":"3,5–6,5%","source":"Best Place / Global Property Guide","url":"https://bestplace.bg/pazarni-obzori/rental-market-q1-2026/"},{"key":"price_vs_rent","label":"Зростання цін купівлі та оренди з 2020 року","value":"≈+150% / +65–70%","source":"Best Place, I кв. 2026","url":"https://bestplace.bg/pazarni-obzori/rental-market-q1-2026/"},{"key":"ovcha_growth","label":"Оренда, 1 спальня, Овча купел: IV кв. 2025 → квітень 2026","value":"565 → 601 € (+6%)","source":"Бизнес новините / Flatimo, 07.05.2026","url":"https://businessnovinite.bg/bg-biznes/naemi-v-sofija-2026-kade-600-evro-veche-sa-dostapna-cena.html"},{"key":"kv_growth","label":"Оренда, 1 спальня, Кръстова вада: IV кв. 2025 → квітень 2026","value":"720 → 802 € (+11%)","source":"Бизнес новините / Flatimo, 07.05.2026","url":"https://businessnovinite.bg/bg-biznes/naemi-v-sofija-2026-kade-600-evro-veche-sa-dostapna-cena.html"},{"key":"euro","label":"Перехід Болгарії на євро","value":"01.01.2026, курс 1,95583","source":"Global Property Guide","url":"https://www.globalpropertyguide.com/europe/bulgaria/price-history"}]};
+  const store = {}, calcs = [], subs = [];
+  Object.keys(DATA).forEach((k) => { store[k] = { status: 'ok', data: DATA[k] }; });
+  const q = new URLSearchParams(location.search);
+  let params = { zone: q.get('zone') || 'all' };
+  const run = () => {
+    calcs.forEach(([id, c]) => { store[id] = { status: 'ok', data: c.fn(...c.inputs.map((i) => store[i].data)) }; });
+    subs.forEach((f) => f());
+  };
+  const sync = () => {
+    const u = new URL(location.href);
+    if (params.zone && params.zone !== 'all') u.searchParams.set('zone', params.zone); else u.searchParams.delete('zone');
+    history.replaceState(null, '', u);
+  };
+  let ready = false;
+  window.dash = {
+    data: (id) => store[id] || { status: 'error', data: [] },
+    calc: (id, c) => { calcs.push([id, c]); },
+    params: () => params,
+    setParams: (p) => { params = Object.assign({}, params, p); sync(); run(); },
+    resetParams: () => { params = { zone: 'all' }; sync(); run(); },
+    onData: (f) => { subs.push(f); if (ready) f(); },
+  };
+  const start = () => { ready = true; run(); let w = innerWidth, t; addEventListener('resize', () => { if (innerWidth === w) return; w = innerWidth; clearTimeout(t); t = setTimeout(run, 150); }); };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else setTimeout(start);
+})();
+</script>
+<script>
+(function () {
+  const L = d3.formatLocale({ decimal: ',', thousands: ' ', grouping: [3], currency: ['', ' €'] });
+  const fInt = L.format(',.0f'), f1 = L.format(',.1f');
+  const fmt = (v, kind) => {
+    if (v === null || v === undefined || v === '') return '—';
+    if (typeof v !== 'number') return String(v);
+    if (kind === 'int') return fInt(v);
+    if (kind === '1') return f1(v);
+    if (kind === 'signed') return (v > 0 ? '+' : v < 0 ? '−' : '') + f1(Math.abs(v));
+    return Number.isInteger(v) ? fInt(v) : f1(v);
+  };
+  const css = getComputedStyle(document.getElementById('sf'));
+  const SER = [css.getPropertyValue('--sf-s1').trim(), css.getPropertyValue('--sf-s2').trim(), css.getPropertyValue('--sf-s3').trim()];
+  const st = (id) => dash.data(id).status;
+  const rowsOf = (id) => (st(id) === 'ok' ? dash.data(id).data : []);
+
+
+  dash.calc('forecast12', {
+    inputs: ['objects', 'assumptions'],
+        fn: (objects, assumptions) => {
+      const g = (k) => Number(assumptions.find((a) => a.key === k).value) / 100;
+      const r10 = (v) => Math.round(v / 10) * 10;
+      return objects.map((o) => {
+        const lo = r10(o.rent_lo * (1 + g('growth_lo'))), hi = r10(o.rent_hi * (1 + g('growth_hi')));
+        return { label: o.label, rent12_lo: lo, rent12_hi: hi, gross12_lo: Math.round(lo * 12000 / o.price) / 10, gross12_hi: Math.round(hi * 12000 / o.price) / 10 };
+      });
+    },
+  });
+
+  const zone = () => (dash.params().zone || 'all');
+  const inZone = (r) => zone() === 'all' || r.zone === zone();
+  const zsel = document.getElementById('sf-zone'), zreset = document.getElementById('sf-reset');
+  zsel.addEventListener('change', () => dash.setParams({ zone: zsel.value }));
+  zreset.addEventListener('click', () => dash.resetParams());
+  function drawFilter() {
+    const objs = rowsOf('objects');
+    const zones = [...new Set(objs.map((o) => o.zone))];
+    const cur = zone();
+    zsel.replaceChildren(new Option('Усі райони', 'all'), ...zones.map((z) => { const nums = objs.filter((o) => o.zone === z).map((o) => '№' + o.n).join(', '); return new Option(z + ' (' + nums + ')', z); }));
+    zsel.value = zones.includes(cur) ? cur : 'all';
+    zreset.hidden = zsel.value === 'all';
+  }
+
+  function fillMarks() {
+    document.querySelectorAll('#sf span[data-where][data-field]').forEach((el) => {
+      const d = dash.data(el.dataset.source);
+      if (d.status !== 'ok') { if (d.status === 'error') el.classList.remove('dash-skeleton'); return; }
+      const [k, raw] = el.dataset.where.split('=');
+      const val = decodeURIComponent(raw);
+      const row = (d.data || []).find((r) => String(r[k]) === val);
+      el.textContent = row ? fmt(row[el.dataset.field], el.dataset.fmt) : '—';
+      el.classList.remove('dash-skeleton');
+    });
+  }
+
+  function fillTable(id, opts) {
+    const t = document.getElementById(id);
+    const src = t.dataset.source;
+    const tb = t.querySelector('tbody');
+    const fields = [...t.querySelectorAll('thead th')].map((th) => ({ f: th.dataset.field, n: th.classList.contains('n'), s: th.dataset.source }));
+    tb.replaceChildren();
+    if (st(src) !== 'ok') return;
+    let rows = rowsOf(src);
+    if (opts && opts.filter) rows = rows.filter(opts.filter);
+    rows.forEach((r) => {
+      const tr = document.createElement('tr');
+      if (opts && opts.rowClass) { const c = opts.rowClass(r); if (c) tr.className = c; }
+      fields.forEach(({ f, n, s }) => {
+        const td = document.createElement('td');
+        let v = r[f];
+        if (s && s !== src) { const c = rowsOf(s).find((x) => x.label === r.label); v = c ? c[f] : null; }
+        if (n) td.className = 'n';
+        if (opts && opts.cell && opts.cell[f]) opts.cell[f](td, v, r);
+        else td.textContent = fmt(v, opts && opts.fmt && opts.fmt[f]);
+        tr.appendChild(td);
+      });
+      tb.appendChild(tr);
+    });
+  }
+
+  const objLink = (td, v, r) => { if (r.ad) { const a = document.createElement('a'); a.className = 'obj'; a.href = r.ad; a.target = '_blank'; a.rel = 'noopener'; a.textContent = v; td.appendChild(a); } else td.textContent = v; };
+  const chip = (td, v) => { const s = document.createElement('span'); s.className = 'chip'; s.dataset.l = v; s.textContent = v; td.appendChild(s); };
+  const link = (td, v) => { td.className = 'url'; if (!v) { td.textContent = '—'; return; } const a = document.createElement('a'); a.href = v; a.target = '_blank'; a.rel = 'noopener'; a.textContent = v; td.appendChild(a); };
+
+  function failLine(el, id) {
+    el.replaceChildren();
+    if (st(id) === 'error') { const f = document.createElement('div'); f.className = 'fail'; f.textContent = 'Не вдалося завантажити'; el.appendChild(f); }
+  }
+
+  function tipper(box) {
+    let tip = box.querySelector('.sf-tip');
+    if (!tip) { tip = document.createElement('div'); tip.className = 'sf-tip'; tip.hidden = true; box.appendChild(tip); }
+    return {
+      show(ev, lines) {
+        tip.replaceChildren(...lines.map((l, i) => { const d = document.createElement('div'); if (i === 0) d.className = 't'; d.textContent = l; return d; }));
+        tip.hidden = false;
+        const b = box.getBoundingClientRect();
+        let x = ev.clientX - b.left + 12, y = ev.clientY - b.top + 12;
+        const w = tip.offsetWidth, h = tip.offsetHeight;
+        if (x + w > b.width) x = ev.clientX - b.left - w - 12;
+        if (x < 0) x = 0;
+        if (y + h > b.height) y = ev.clientY - b.top - h - 12;
+        tip.style.left = x + 'px'; tip.style.top = y + 'px';
+      },
+      hide() { tip.hidden = true; },
+    };
+  }
+
+  function measure(svg, texts, cls) {
+    const g = svg.append('g').attr('opacity', 0);
+    let w = 0;
+    texts.forEach((t) => { const n = g.append('text').attr('class', cls || '').text(t).node(); w = Math.max(w, n.getComputedTextLength()); });
+    g.remove();
+    return w;
+  }
+
+  function drawComps() {
+    const box = document.getElementById('ch-comps');
+    if (st('comps') !== 'ok' || st('objects') !== 'ok') { failLine(box, st('comps') !== 'ok' ? 'comps' : 'objects'); return; }
+    box.replaceChildren();
+    const pts = rowsOf('comps').filter(inZone), objs = rowsOf('objects').filter(inZone);
+    const W = box.clientWidth || 600, bandH = objs.length > 3 ? 36 : 56, H = objs.length * bandH + 34;
+    box.style.minHeight = H + 'px';
+    const svg = d3.select(box).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', 'Оренда аналогів і прогноз для об’єктів');
+    const labels = objs.map((o) => o.label);
+    const left = Math.ceil(measure(svg, labels, 'lbl')) + 14;
+    const xmax = Math.min(1600, d3.max(pts, (p) => p.rent));
+    const x = d3.scaleLinear([300, xmax], [left, W - 14]).nice();
+    const y = d3.scaleBand(objs.map((o) => o.n), [8, H - 26]).paddingInner(0.2);
+    svg.append('g').selectAll('line').data(x.ticks(W < 500 ? 4 : 8)).join('line')
+      .attr('x1', (d) => x(d)).attr('x2', (d) => x(d)).attr('y1', 4).attr('y2', H - 24).attr('stroke', 'var(--cds-chart-grid)');
+    svg.append('g').selectAll('text').data(x.ticks(W < 500 ? 4 : 8)).join('text')
+      .attr('x', (d) => x(d)).attr('y', H - 8).attr('text-anchor', 'middle').text((d) => fInt(d) + ' €');
+    svg.append('g').selectAll('text').data(objs).join('text').attr('class', 'lbl')
+      .attr('x', left - 10).attr('y', (o) => y(o.n) + y.bandwidth() / 2).attr('dy', '0.35em').attr('text-anchor', 'end').text((o) => o.label);
+    svg.append('g').selectAll('rect').data(objs).join('rect')
+      .attr('x', (o) => x(o.rent_lo)).attr('width', (o) => Math.max(3, x(o.rent_hi) - x(o.rent_lo)))
+      .attr('y', (o) => y(o.n)).attr('height', y.bandwidth()).attr('rx', 4)
+      .attr('fill', SER[1]).attr('fill-opacity', 0.28).attr('stroke', SER[1]).attr('stroke-width', 1.5);
+    svg.append('g').selectAll('rect').data(objs.filter((o) => o.broker_lo !== null)).join('rect')
+      .attr('x', (o) => x(o.broker_lo) - 2).attr('width', (o) => Math.max(4, x(o.broker_hi ?? o.broker_lo) - x(o.broker_lo)) + 4)
+      .attr('y', (o) => y(o.n) - 2).attr('height', y.bandwidth() + 4).attr('rx', 5)
+      .attr('fill', 'none').attr('stroke', SER[2]).attr('stroke-width', 1.5).attr('stroke-dasharray', '4 3');
+    const tt = tipper(box);
+    const jitter = (i) => ((i * 7919) % 100) / 100 - 0.5;
+    const sorted = pts.slice().sort((a, b) => (a.segment === b.segment ? 0 : a.segment === 'решта фонду' ? -1 : 1));
+    svg.append('g').selectAll('circle').data(sorted).join('circle')
+      .attr('cx', (p) => x(Math.min(p.rent, x.domain()[1])))
+      .attr('cy', (p, i) => y(p.n) + y.bandwidth() / 2 + jitter(i) * y.bandwidth() * 0.7)
+      .attr('r', 3.2)
+      .attr('fill', (p) => (p.segment === 'решта фонду' ? 'var(--cds-chart-muted)' : SER[0]))
+      .attr('fill-opacity', (p) => (p.segment === 'решта фонду' ? 0.55 : 0.9))
+      .on('mousemove', (ev, p) => tt.show(ev, [p.label + ' · ' + p.segment, fInt(p.rent) + ' € на місяць', fInt(p.area) + ' м²']))
+      .on('mouseleave', () => tt.hide());
+    svg.append('g').selectAll('rect').data(objs).join('rect')
+      .attr('x', (o) => x(o.rent_lo)).attr('width', (o) => Math.max(6, x(o.rent_hi) - x(o.rent_lo)))
+      .attr('y', (o) => y(o.n)).attr('height', y.bandwidth()).attr('fill', 'transparent')
+      .on('mousemove', (ev, o) => tt.show(ev, [o.label + ' · прогноз', fInt(o.rent_lo) + '–' + fInt(o.rent_hi) + ' € на місяць', 'Медіана аналогів: ' + fmt(o.comps_med, 'int') + ' €', 'Новобудови/люкс: ' + fmt(o.prem_med, 'int') + ' €']))
+      .on('mouseleave', () => tt.hide());
+    document.getElementById('lg-prem').style.background = SER[0];
+    const lb = document.getElementById('lg-band'); lb.style.background = SER[1]; lb.style.opacity = 0.6;
+    const lgb = document.getElementById('lg-broker'); lgb.style.border = '1.5px dashed ' + SER[2];
+  }
+
+  function hbars(boxId, rows, valueOf, labelOf, opts) {
+    const box = document.getElementById(boxId);
+    box.replaceChildren();
+    const W = box.clientWidth || 500, barH = 22, gap = 8, H = rows.length * (barH + gap) + 26;
+    const svg = d3.select(box).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', opts.aria);
+    const left = Math.ceil(measure(svg, rows.map(labelOf), 'lbl')) + 12;
+    const valTexts = rows.map((r) => opts.valText(r));
+    const right = Math.ceil(measure(svg, valTexts)) + 10;
+    const vals = rows.map(valueOf);
+    const lo = Math.min(0, d3.min(vals)), hi = Math.max(0, d3.max(vals));
+    const x = d3.scaleLinear([lo, hi], [left + (lo < 0 ? right : 0), W - right]).nice();
+    const y = (i) => 4 + i * (barH + gap);
+    svg.append('line').attr('x1', x(0)).attr('x2', x(0)).attr('y1', 0).attr('y2', H - 22).attr('stroke', 'var(--cds-chart-axis)');
+    const g = svg.append('g').selectAll('g').data(rows).join('g');
+    g.append('text').attr('class', 'lbl').attr('x', left - 8).attr('y', (r, i) => y(i) + barH / 2).attr('dy', '0.35em').attr('text-anchor', 'end').text(labelOf);
+    g.append('rect').attr('x', (r) => Math.min(x(0), x(valueOf(r)))).attr('width', (r) => Math.max(1, Math.abs(x(valueOf(r)) - x(0))))
+      .attr('y', (r, i) => y(i)).attr('height', barH).attr('rx', 4).attr('fill', opts.color);
+    g.append('text').attr('x', (r) => (valueOf(r) >= 0 ? x(valueOf(r)) + 6 : x(valueOf(r)) - 6)).attr('y', (r, i) => y(i) + barH / 2).attr('dy', '0.35em')
+      .attr('text-anchor', (r) => (valueOf(r) >= 0 ? 'start' : 'end')).text((r, i) => valTexts[i]);
+    svg.append('g').selectAll('text').data(x.ticks(4)).join('text').attr('x', (d) => x(d)).attr('y', H - 4).attr('text-anchor', 'middle').text(opts.tick);
+  }
+
+  function drawDistricts() {
+    const a = document.getElementById('ch-yield'), b = document.getElementById('ch-supply');
+    if (st('districts') !== 'ok') { failLine(a, 'districts'); failLine(b, 'districts'); return; }
+    const rows = rowsOf('districts');
+    const y1 = rows.filter((r) => r.yield1 !== null && (inZone(r) || r.benchmark)).sort((p, q) => q.yield1 - p.yield1);
+    hbars('ch-yield', y1, (r) => r.yield1, (r) => r.district, {
+      aria: 'Валова дохідність апартаментів з 1 спальнею за районами',
+      color: (r) => (r.benchmark ? 'var(--cds-chart-muted)' : SER[0]),
+      valText: (r) => f1(r.yield1) + '%', tick: (d) => f1(d) + '%',
+    });
+    const sp = rows.filter((r) => !r.benchmark && inZone(r)).sort((p, q) => q.supply - p.supply);
+    hbars('ch-supply', sp, (r) => r.supply, (r) => r.district, {
+      aria: 'Пропозиція на продаж за районами',
+      color: (r) => (r.uc_share >= 30 ? SER[2] : 'var(--cds-chart-muted)'),
+      valText: (r) => fInt(r.supply) + ' · будівництво ' + fInt(r.uc_share) + '%', tick: (d) => fInt(d),
+    });
+  }
+
+  function drawObjects() {
+    const a = document.getElementById('ch-dev'), b = document.getElementById('ch-comp');
+    if (st('objects') !== 'ok') { failLine(a, 'objects'); failLine(b, 'objects'); return; }
+    const rows = rowsOf('objects').filter(inZone);
+    hbars('ch-dev', rows.filter((r) => r.dev_pct !== null), (r) => r.dev_pct, (r) => r.label, {
+      aria: 'Відхилення ціни за м² від медіани району',
+      color: (r) => (r.dev_pct > 5 ? 'var(--cds-chart-status-critical)' : r.dev_pct < -3 ? SER[0] : 'var(--cds-chart-muted)'),
+      valText: (r) => fmt(r.dev_pct, 'signed').replace(',0', '') + '%', tick: (d) => fInt(d) + '%',
+    });
+    hbars('ch-comp', rows, (r) => r.competitors, (r) => r.label, {
+      aria: 'Кількість конкурентів у ціновому коридорі',
+      color: (r) => (r.competitors >= 100 ? 'var(--cds-chart-status-critical)' : 'var(--cds-chart-muted)'),
+      valText: (r) => fInt(r.competitors), tick: (d) => fInt(d),
+    });
+  }
+
+  function mk(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; }
+  function mark(text, source, field, label, kind) {
+    const s = mk('span', null, fmt(text, kind)); s.dataset.source = source; s.dataset.field = field; s.dataset.where = 'label=' + String(label).replace(/%/g, '%25').replace(/&/g, '%26').replace(/=/g, '%3D'); if (kind) s.dataset.fmt = kind; return s;
+  }
+  function drawCards() {
+    const box = document.getElementById('sf-cards');
+    if (st('objects') !== 'ok' || st('forecast12') !== 'ok') { failLine(box, st('objects') !== 'ok' ? 'objects' : 'forecast12'); return; }
+    box.replaceChildren();
+    const f12 = rowsOf('forecast12');
+    rowsOf('objects').filter(inZone).forEach((o) => {
+      const f = f12.find((x) => x.label === o.label) || {};
+      const c = mk('article', 'sf-oc'); c.id = 'obj-' + o.n;
+      const h = mk('h3'); h.append(mark(o.label, 'objects', 'label', o.label)); c.append(h);
+      const lk = mk('div', 'links');
+      const ext = (href, text) => { const a = mk('a', null, text); a.href = href; a.target = '_blank'; a.rel = 'noopener'; return a; };
+      if (o.ad) lk.append(ext(o.ad, 'Оголошення на yavlena.com ↗')); else lk.append(mk('span', 'none', 'Оголошення від брокера, публічного посилання немає'));
+      lk.append(ext(o.map, 'Мапа ↗'));
+      c.append(lk);
+      const meta = mk('div', 'meta'); meta.append(mark(o.type, 'objects', 'type', o.label), ' · ', mark(o.area, 'objects', 'area', o.label, 'int'), ' м² · ', mark(o.price, 'objects', 'price', o.label, 'int'), ' €'); c.append(meta);
+      const now = mk('div'); now.append(mk('div', 'meta', 'Оренда зараз, € на місяць'));
+      const b1 = mk('div', 'big'); b1.append(mark(o.rent_lo, 'objects', 'rent_lo', o.label, 'int'), '–', mark(o.rent_hi, 'objects', 'rent_hi', o.label, 'int')); now.append(b1); c.append(now);
+      const nx = mk('div'); nx.append(mk('div', 'meta', 'Через 12 місяців, € на місяць'));
+      const b2 = mk('div', 'big'); b2.append(mark(f.rent12_lo, 'forecast12', 'rent12_lo', o.label, 'int'), '–', mark(f.rent12_hi, 'forecast12', 'rent12_hi', o.label, 'int')); nx.append(b2); c.append(nx);
+      if (o.broker_lo !== null && o.broker_lo !== undefined) {
+        const bk = mk('div', 'broker'); bk.append(mk('div', 'blabel', 'Оцінка брокера, € на місяць'));
+        const bb = mk('div', 'big'); bb.append(mark(o.broker_lo, 'objects', 'broker_lo', o.label, 'int')); if (o.broker_hi !== null) bb.append('–', mark(o.broker_hi, 'objects', 'broker_hi', o.label, 'int')); bk.append(bb);
+        const bm = mk('div', 'meta'); bm.append('Дохідність ', mark(o.broker_gross_lo, 'objects', 'broker_gross_lo', o.label, '1')); if (o.broker_gross_hi !== null) bm.append('–', mark(o.broker_gross_hi, 'objects', 'broker_gross_hi', o.label, '1')); bm.append('%; дешевше пропонують ', mark(o.broker_below_all, 'objects', 'broker_below_all', o.label, 'int'), '% аналогів');
+        bk.append(bm); c.append(bk);
+      }
+      const r = mk('div', 'row');
+      const g1 = mk('span'); g1.append(mark(o.gross_lo, 'objects', 'gross_lo', o.label, '1'), '–', mark(o.gross_hi, 'objects', 'gross_hi', o.label, '1'), '%');
+      const g2 = mk('span'); g2.append(mark(f.gross12_lo, 'forecast12', 'gross12_lo', o.label, '1'), '–', mark(f.gross12_hi, 'forecast12', 'gross12_hi', o.label, '1'), '%');
+      const g3 = mk('span'); g3.append(mark(o.net_mid, 'objects', 'net_mid', o.label, '1'), '%');
+      const g4 = mk('span'); g4.append(mark(o.comps_med, 'objects', 'comps_med', o.label, 'int'), ' € / ', mark(o.prem_med, 'objects', 'prem_med', o.label, 'int'), ' €');
+      r.append(mk('span', null, 'Валова дохідність зараз'), g1, mk('span', null, 'Через 12 місяців'), g2, mk('span', null, 'Чиста (середина прогнозу)'), g3, mk('span', null, 'Медіана аналогів / новобудов'), g4);
+      c.append(r);
+      const ch = mk('div', 'chips');
+      const a = mk('span', 'chip'); a.dataset.l = o.liq_rent; a.append('Оренда: ', mark(o.liq_rent, 'objects', 'liq_rent', o.label));
+      const b = mk('span', 'chip'); b.dataset.l = o.liq_resale; b.append('Перепродаж: ', mark(o.liq_resale, 'objects', 'liq_resale', o.label));
+      const cf = mk('span', 'chip conf'); cf.append('Впевненість: ', mark(o.confidence, 'objects', 'confidence', o.label));
+      ch.append(a, b, cf); c.append(ch);
+      const p = mk('p'); p.append(mark(o.why, 'objects', 'why', o.label)); c.append(p);
+      box.appendChild(c);
+    });
+  }
+
+  dash.onData(() => {
+    drawFilter();
+    drawCards();
+    fillMarks();
+    fillTable('t-ext', { cell: { source: (td, v, r) => { const a = document.createElement('a'); a.href = r.url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = v; a.style.color = 'inherit'; td.appendChild(a); } } });
+    fillTable('t-dist', { filter: (r) => inZone(r) || r.benchmark, rowClass: (r) => (r.benchmark ? 'bench' : ''), fmt: { rent1_ppm: '1', yield1: '1', yield2: '1' } });
+    fillTable('t-obj', { filter: inZone, cell: { label: objLink }, fmt: { gross_lo: '1', gross_hi: '1', net_mid: '1' } });
+    fillTable('t-liq', { filter: inZone, cell: { label: objLink, liq_rent: chip, liq_resale: chip, confidence: (td, v) => { td.className = 'conf'; td.textContent = v; }, why: (td, v) => { td.className = 'wrap'; td.textContent = v; }, dev_pct: (td, v) => { td.className = 'n'; td.textContent = fmt(v, 'signed').replace(',0', ''); } } });
+    fillTable('t-links', { filter: inZone, cell: { map: link, ad: link } });
+    fillTable('t-ass', {});
+    fillTable('t-broker', { filter: (r) => r.broker_lo !== null && inZone(r), cell: { label: objLink }, fmt: { broker_gross_lo: '1', broker_gross_hi: '1' } });
+    document.getElementById('c-broker').hidden = !rowsOf('objects').some((r) => r.broker_lo !== null && inZone(r));
+    fillTable('t-xc', { filter: (r) => inZone(r) || r.benchmark, rowClass: (r) => (r.benchmark ? 'bench' : ''), cell: { diff1: (td, v) => { td.className = 'n'; td.textContent = fmt(v, 'signed').replace(',0', ''); }, diff2: (td, v) => { td.className = 'n'; td.textContent = fmt(v, 'signed').replace(',0', ''); } } });
+    drawDistricts();
+    drawComps();
+    drawObjects();
+  });
+})();
+</script>
+</body>
+</html>
