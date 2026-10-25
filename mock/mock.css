@@ -890,3 +890,23 @@ html.menu-open, html.menu-open body { overflow: hidden; }
 /* ФБ29: вертикальні візуалізації й схеми — вище, інакше кадр виходить удвічі вужчим за рамку */
 [data-site='fb29'] .plans__stage img { width: auto; max-width: 100%; height: auto; max-height: min(60svh, 640px); }
 @media (max-width: 900px) { [data-site='fb29'] .plans__stage img { width: 100%; height: auto; max-height: none; } }
+
+/* =====================================================================
+   25.10.2026 — аудит: мобільний ритм, фокус з клавіатури, зони натискання
+   ===================================================================== */
+/* Мобільний ритм: усі відступи між блоками були у vh (10,7vh зверху + 10,7vh знизу = 180px на
+   iPhone 14, підвал 162px). На телефоні — фіксовані: ~80–88px між блоками, 72px над підвалом. */
+@media (max-width: 900px) {
+  :is([data-site='fb29b'], [data-site='fb29']) .air { padding-block: 2.75rem; }
+  :is([data-site='fb29b'], [data-site='fb29']) .perks { padding-block: 2.75rem 2.25rem; }
+  :is([data-site='fb29b'], [data-site='fb29']) .enquiry { padding-block: 2.75rem; }
+  .d-foot { padding-top: 4.5rem; }
+  .d-foot__mark { margin-top: 3.5rem; }
+  .legal { padding-block: 1.75rem; }
+}
+/* Видимий фокус для клавіатури на всіх посиланнях і кнопках (:where — нульова специфічність,
+   тож власні правила елементів, як-от .d-foot a або .perks__track, мають пріоритет). */
+:where(a, button, [tabindex], summary):focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; }
+:where(.d-adv__card, .hero, .d-intro, .pan, .award) :where(a, button):focus-visible { outline-color: #FFFFFF; }
+/* Перемикач «Візуалізація / Схема» на дотикових екранах — 44px заввишки (було 31px) */
+@media (pointer: coarse) { .plans__view { min-height: 44px; } }

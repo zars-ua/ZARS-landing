@@ -111,7 +111,11 @@
          схема «опускається» з повороту й збільшення, потім підписи по черзі виїжджають справа. */
   document.querySelectorAll('[data-loc]').forEach((schema) => {
     gsap.timeline({ scrollTrigger: { trigger: schema.closest('.loc') || schema, start: 'top center', once: true } })
-      .from(schema, { y: -100, autoAlpha: 0, scale: 1.4, rotation: 16, duration: 1.4, ease: 'power1.out' })
+      /* will-change лише на час «опускання»: без нього Chrome перерастрює складну SVG-схему
+         (140 КБ, кліп-шляхи) на кожному кадрі масштабу/повороту — замір на телефоні: кадри
+         100–317 мс. З ним шар растрюється один раз, після анімації знімаємо — схема знову чітка. */
+      .from(schema, { y: -100, autoAlpha: 0, scale: 1.4, rotation: 16, duration: 1.4, ease: 'power1.out',
+        onStart: () => { schema.style.willChange = 'transform'; }, onComplete: () => { schema.style.willChange = ''; } })
       .from(schema.querySelectorAll('.loc__label'), { autoAlpha: 0, x: 100, duration: 0.6, stagger: 0.2, ease: 'power1.out' });
   });
 

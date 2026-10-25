@@ -32,7 +32,7 @@ def loc_schema():
              ('airport', 'Аеропорт <br>9,4 км', 0)]
     labels = ''.join(f'<div class="loc__item loc__{k}"><span class="{"loc__street" if st else "loc__label"}">{t}</span></div>' for k, t, st in items)
     return f'''<div class="loc__schema" data-loc aria-label="Схема: відстані від будинку до значущих місць Одеси" role="img">
-    <div class="loc__item loc__bg"><img src="../assets/map/fr29b-map.svg" alt="" width="1556" height="1636" loading="lazy" decoding="async"></div>
+    <div class="loc__item loc__bg"><img src="../assets/map/fr29b-map-2000.webp" srcset="../assets/map/fr29b-map-1200.webp 1200w, ../assets/map/fr29b-map-2000.webp 2000w, ../assets/map/fr29b-map-3000.webp 3000w" sizes="(max-width: 576px) 250vw, (max-width: 992px) 152vw, 75vw" alt="" width="1556" height="1636" loading="lazy" decoding="async"></div>
     {labels}
   </div>'''
 
